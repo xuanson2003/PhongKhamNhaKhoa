@@ -15,6 +15,10 @@ html {
     background-size: cover;
 }
 
+input:focus {
+    border-color: #1572e8;
+}
+
 /* scroll bar */
 html ::-webkit-scrollbar {
     border-radius: 0px;

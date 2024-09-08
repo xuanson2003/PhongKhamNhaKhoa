@@ -13,13 +13,27 @@ import {
     faMagnifyingGlassPlus,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import cn from 'classnames';
 
 import getCroppedImg from '~/Utils/croppedImg';
-import './ImageCropper.css';
+import styles from './ImageCropper.module.css';
 
 Modal.setAppElement('#root');
 
-const ImageCropper = ({ defaultImage, aspectRatio = 1, initialCrop = { x: 0, y: 0 }, initialZoom = 1 }, ref) => {
+const ImageCropper = (
+    {
+        defaultImage,
+        aspectRatio = 1,
+        initialCrop = { x: 0, y: 0 },
+        initialZoom = 1,
+        onImageCropped,
+        isError,
+        displayStyle,
+        className,
+        style, // circle (default), square, rectangle
+    },
+    ref,
+) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [croppedImage, setCroppedImage] = useState(defaultImage); // url
     const [croppedImageBlob, setCroppedImageBlob] = useState(null); // image file
@@ -28,6 +42,7 @@ const ImageCropper = ({ defaultImage, aspectRatio = 1, initialCrop = { x: 0, y: 
     const [rotation, setRotation] = useState(0);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [imageType, setImageType] = useState('image/jpeg');
 
     const fileInputRef = useRef(null);
 
@@ -35,6 +50,8 @@ const ImageCropper = ({ defaultImage, aspectRatio = 1, initialCrop = { x: 0, y: 
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
+            const type = file.type; // Get the MIME type of the file
+            setImageType(type);
             reader.onloadend = () => {
                 setSelectedImage(reader.result);
                 setIsModalOpen(true);
@@ -50,15 +67,19 @@ const ImageCropper = ({ defaultImage, aspectRatio = 1, initialCrop = { x: 0, y: 
     const showCroppedImage = useCallback(async () => {
         try {
             const croppedBlob = await getCroppedImg(selectedImage, croppedAreaPixels, rotation);
-            setCroppedImageBlob(croppedBlob);
+            const fileName = 'cropped_image.jpeg';
+            const file = new File([croppedBlob], fileName, { type: imageType });
+            setCroppedImageBlob(file);
+            onImageCropped(file);
+
             const croppedImageUrl = URL.createObjectURL(croppedBlob);
             setCroppedImage(croppedImageUrl);
             setIsModalOpen(false);
-            fileInputRef.current.value = ''; // Reset giá trị của input file
+            fileInputRef.current.value = '';
         } catch (e) {
             console.error(e);
         }
-    }, [selectedImage, croppedAreaPixels, rotation]);
+    }, [selectedImage, croppedAreaPixels, rotation, onImageCropped]);
 
     const handleZoomIn = () => {
         setZoom((prevZoom) => Math.min(prevZoom + 0.5, 3));
@@ -99,50 +120,57 @@ const ImageCropper = ({ defaultImage, aspectRatio = 1, initialCrop = { x: 0, y: 
     useImperativeHandle(
         ref,
         () => ({
-            getCroppedImage: () => croppedImageBlob,
+            getCroppedImage: () => {
+                return croppedImageBlob ? croppedImageBlob : null;
+            },
         }),
         [croppedImageBlob],
     );
 
     return (
         <>
-            <div className="upload-container">
+            <div className={styles['upload-container']}>
                 <input
                     ref={fileInputRef}
                     type="file"
                     name="image"
                     id="file-upload"
-                    className="file-input"
+                    className={styles['file-input']}
                     onChange={handleImageChange}
                     accept="image/*"
                 />
-                <label htmlFor="file-upload" className="file-label">
-                    {!croppedImage && (
-                        <div className="upload-circle">
-                            <span className="upload-text">Chọn ảnh</span>
-                        </div>
-                    )}
-                    {croppedImage && (
-                        <div className="upload-circle">
-                            <img src={croppedImage} alt="Cropped" className="uploaded-image" />
-                        </div>
-                    )}
+                <label htmlFor="file-upload" className={styles['file-label']}>
+                    <div
+                        className={cn(
+                            styles['upload-circle'],
+                            { [styles['upload-error']]: isError },
+                            styles[displayStyle],
+                            className,
+                        )}
+                        style={style}
+                    >
+                        {croppedImage ? (
+                            <img src={croppedImage} alt="Cropped" className={styles['uploaded-image']} />
+                        ) : (
+                            <span className={styles['upload-text']}>Chọn ảnh</span>
+                        )}
+                    </div>
                 </label>
             </div>
 
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
-                className="crop-modal"
-                overlayClassName="crop-modal-overlay"
+                className={styles['crop-modal']}
+                overlayClassName={styles['crop-modal-overlay']}
             >
-                <div className="crop-title">
+                <div className={styles['crop-title']}>
                     <h2>Vui lòng chọn vùng hình ảnh mà bạn muốn hiển thị</h2>
-                    <button className="crop-btn-close" onClick={() => setIsModalOpen(false)}>
+                    <button className={styles['crop-btn-close']} onClick={() => setIsModalOpen(false)}>
                         <FontAwesomeIcon icon={faXmark} />
                     </button>
                 </div>
-                <div className="crop-container">
+                <div className={styles['crop-container']} style={{ zIndex: 100 }}>
                     <Cropper
                         image={selectedImage}
                         crop={crop}
@@ -154,7 +182,7 @@ const ImageCropper = ({ defaultImage, aspectRatio = 1, initialCrop = { x: 0, y: 
                         onCropComplete={onCropComplete}
                     />
                 </div>
-                <div className="crop-modal-controls">
+                <div className={styles['crop-modal-controls']}>
                     <button onClick={handleRotateLeft}>
                         <FontAwesomeIcon icon={faArrowRotateLeft} />
                     </button>
