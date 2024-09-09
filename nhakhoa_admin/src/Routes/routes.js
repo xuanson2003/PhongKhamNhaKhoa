@@ -1,4 +1,5 @@
 import config from '~/Config';
+import AccountLst from '~/Pages/AccountLst/AccountLst';
 import Dashbroad from '~/Pages/Dashbroad/Dashbroad';
 import Login from '~/Pages/Login/Login';
 import Profile from '~/Pages/Profile/Profile';
@@ -18,6 +19,7 @@ const privateRoutes = [
     { path: config.routes.service_list, component: <></> },
     { path: config.routes.add_service, component: <></> },
     { path: config.routes.profile, component: <Profile /> },
+    { path: config.routes.userLst, component: <AccountLst /> },
 ];
 
 export { publicRoutes, privateRoutes };

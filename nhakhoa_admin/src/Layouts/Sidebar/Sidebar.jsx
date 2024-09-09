@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { faAddressBook, faNotesMedical, faUserDoctor } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faNotesMedical, faUserDoctor, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '~/Assets/img/logo.png';
 import './Sidebar.css';
@@ -110,6 +110,28 @@ function Sidebar() {
                                     </li>
                                     <li className={getActiveClass(`${config.routes.service_list}`)}>
                                         <Link to={config.routes.service_list}>
+                                            <span className="sub-item">Danh sách</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="nav-section">
+                            <span className="sidebar-mini-icon">
+                                <i className="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 className="text-section">Hệ thống</h4>
+                        </li>
+                        <li className="nav-item">
+                            <a data-bs-toggle="collapse" href="#user-list">
+                                <FontAwesomeIcon icon={faUsers} />
+                                <p>Tài khoản</p>
+                                <span className="caret"></span>
+                            </a>
+                            <div className="collapse" id="user-list">
+                                <ul className="nav nav-collapse">
+                                    <li className={getActiveClass(`${config.routes.userLst}`)}>
+                                        <Link to={config.routes.userLst}>
                                             <span className="sub-item">Danh sách</span>
                                         </Link>
                                     </li>

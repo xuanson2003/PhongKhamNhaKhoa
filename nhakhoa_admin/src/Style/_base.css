@@ -19,6 +19,15 @@ input:focus {
     border-color: #1572e8;
 }
 
+table tr:nth-child(2n + 1) {
+    background-color: #f2f2f2 !important;
+}
+
+/* notification */
+.ant-notification-notice-wrapper .ant-notification-notice {
+    padding: 0 !important;
+}
+
 /* scroll bar */
 html ::-webkit-scrollbar {
     border-radius: 0px;

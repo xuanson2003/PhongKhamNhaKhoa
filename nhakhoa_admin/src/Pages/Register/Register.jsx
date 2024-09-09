@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Alert } from 'antd';
+import { Alert, Button } from 'antd';
 import cn from 'classnames';
+import { notification } from 'antd';
 
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,8 +19,9 @@ Modal.setAppElement('#root');
 function Register() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const cropperRef = useRef(null);
-    const [alert, setAlert] = useState('');
     const [profileImage, setProfileImage] = useState(null);
+    const [api, contextHolder] = notification.useNotification();
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const formik = useFormik({
         initialValues: {
@@ -36,7 +38,7 @@ function Register() {
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
-            first_name: Yup.string().required('Vui lòng nhập tên'),
+            name: Yup.string().required('Vui lòng nhập họ tên'),
             password: Yup.string()
                 .required('Mật khẩu là bắt buộc')
                 .min(8, 'Mật khẩu phải có ít nhất 8 ký tự')
@@ -53,6 +55,7 @@ function Register() {
         onSubmit: async (values, { setSubmitting, setErrors }) => {
             try {
                 // tiến hành upload ảnh
+                setIsSubmitting(true);
                 let responseFile;
                 if (values.profile_image) {
                     const formData = new FormData();
@@ -60,7 +63,8 @@ function Register() {
 
                     responseFile = await request.post('upload', formData);
                     if (!responseFile.data.success) {
-                        setAlert('error');
+                        setIsSubmitting(false);
+                        openNotification('topRight', 'Thất bại', 'Đăng ký thất bại, vui lòng thử lại sau', 'error');
                         return;
                     }
                 }
@@ -72,6 +76,7 @@ function Register() {
                 });
 
                 if (!responseUser.data.success && responseUser.data.errorField === 'email') {
+                    setIsSubmitting(false);
                     setErrors({ email: 'Email này đã được đăng ký' });
                     return;
                 }
@@ -83,44 +88,46 @@ function Register() {
                         user_id: responseUser.data.userId,
                     });
                     if (responseUpdalteFile.data.success) {
-                        setAlert('success');
+                        setIsSubmitting(false);
+                        openNotification(
+                            'topRight',
+                            'Thành công',
+                            'Đăng ký thành công, vui lòng chờ đến khi tài khoản được duyệt',
+                            'success',
+                        );
                     }
                 }
             } catch (error) {
-                setAlert('error');
+                setIsSubmitting(false);
+                openNotification('topRight', 'Thất bại', 'Đăng ký thất bại, vui lòng thử lại sau', 'error');
             } finally {
                 setSubmitting(false);
             }
         },
     });
 
+    const openNotification = (placement, title, desc, type) => {
+        api.open({
+            message: '',
+            description: (
+                <Alert
+                    message={title}
+                    description={desc}
+                    type={type}
+                    showIcon
+                    className="show"
+                    style={{ marginTop: -8 }}
+                />
+            ),
+            placement,
+            showProgress: true,
+            pauseOnHover: true,
+        });
+    };
+
     return (
         <div className={styles['signup']}>
-            <div
-                className="position-fixed d-flex flex-column"
-                style={{ top: 10, right: 10, zIndex: 100, gap: 10, width: 420 }}
-            >
-                {alert === 'success' && (
-                    <Alert
-                        message="Thành công"
-                        description="Đăng ký tài khoản thành công, vui lòng chờ đến khi tài khoản được duyệt"
-                        type="success"
-                        showIcon
-                        closable
-                        className="show"
-                    />
-                )}
-                {alert === 'error' && (
-                    <Alert
-                        message="Thất bại"
-                        description="Đăng ký tài khoản thất bại, vui lòng thử lại sau"
-                        type="error"
-                        showIcon
-                        closable
-                        className="show"
-                    />
-                )}
-            </div>
+            {contextHolder}
             <div className={styles['sign-container']}>
                 <form className={styles['login-form']} onSubmit={formik.handleSubmit}>
                     <div className="row">
@@ -134,7 +141,7 @@ function Register() {
                                         formik.values.profile_image = image;
                                         setProfileImage(image);
                                     }}
-                                    isError={!profileImage && formik.errors.profile_image}
+                                    isError={!profileImage && formik.touched.profile_image}
                                 />
                                 {!profileImage && formik.touched.profile_image ? (
                                     <p className={cn(styles['login-form-field-error'], 'text-center')}>
@@ -159,35 +166,20 @@ function Register() {
                                 ) : null}
                             </div>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-6">
                             <div className={styles['login-form-field']}>
                                 <input
-                                    className={
-                                        formik.touched.first_name && formik.errors.first_name ? styles.error : ''
-                                    }
+                                    className={formik.touched.name && formik.errors.name ? styles.error : ''}
                                     type="text"
-                                    name="first_name"
-                                    placeholder="Nhập tên"
+                                    name="name"
+                                    placeholder="Nhập họ tên"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    value={formik.values.first_name}
+                                    value={formik.values.name}
                                 />
-                                {formik.touched.first_name && formik.errors.first_name ? (
-                                    <p className={styles['login-form-field-error']}>{formik.errors.first_name}</p>
+                                {formik.touched.name && formik.errors.name ? (
+                                    <p className={styles['login-form-field-error']}>{formik.errors.name}</p>
                                 ) : null}
-                            </div>
-                        </div>
-                        <div className="col-md-3">
-                            <div className={styles['login-form-field']}>
-                                <input
-                                    type="text"
-                                    name="last_name"
-                                    placeholder="Nhập họ"
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    value={formik.values.last_name}
-                                />
-                                <p className={styles['login-form-field-error']}></p>
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -345,9 +337,20 @@ function Register() {
                         </div>
                     </div>
                     <div className="row w-100">
-                        <button type="submit" disabled={formik.isSubmitting} className={styles['login-form-button']}>
-                            Đăng ký
-                        </button>
+                        {isSubmitting ? (
+                            <Button type="primary" loading className={styles['login-form-button']}>
+                                Đăng ký
+                            </Button>
+                        ) : (
+                            <Button
+                                htmlType="submit"
+                                type="primary"
+                                disabled={formik.isSubmitting}
+                                className={styles['login-form-button']}
+                            >
+                                Đăng ký
+                            </Button>
+                        )}
                     </div>
                     <div className={styles['login-form-register-link']}>
                         Bạn đã có tài khoản? <Link to={config.routes.login}>Đăng nhập</Link>
