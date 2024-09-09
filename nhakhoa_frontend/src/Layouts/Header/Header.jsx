@@ -43,8 +43,10 @@ function Header() {
                                                     Trang chủ
                                                 </Link>
                                             </li>
-                                            <li>
-                                                <Link to="#">Bác sĩ</Link>
+                                            <li className={activeMenu === config.routes.doctor_list ? 'active' : ''}>
+                                                <Link to={config.routes.doctor_list} onClick={() => {
+                                                        setActiveMenu(config.routes.doctor_list);
+                                                    }}>Bác sĩ</Link>
                                             </li>
                                             <li>
                                                 <Link to="#">

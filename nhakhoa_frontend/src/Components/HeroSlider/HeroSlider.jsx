@@ -4,6 +4,7 @@ import slider2 from '~/Assets/img/slider2.jpg';
 import slider3 from '~/Assets/img/slider3.jpg';
 
 function HeroSlider() {
+    
     return (
         <section className="slider">
             <div className="hero-slider">
