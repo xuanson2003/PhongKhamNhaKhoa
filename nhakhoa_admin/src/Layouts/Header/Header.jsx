@@ -131,7 +131,7 @@ function Header() {
                                     </div>
                                 </li>
                                 <li>
-                                    <a className="see-all" href="javascript:void(0);">
+                                    <a className="see-all" href="#">
                                         See all messages<i className="fa fa-angle-right"></i>
                                     </a>
                                 </li>
@@ -197,7 +197,7 @@ function Header() {
                                     </div>
                                 </li>
                                 <li>
-                                    <a className="see-all" href="javascript:void(0);">
+                                    <a className="see-all" href="#">
                                         See all notifications<i className="fa fa-angle-right"></i>
                                     </a>
                                 </li>
@@ -280,9 +280,7 @@ function Header() {
                                     <img src={user.image} alt="..." className="avatar-img rounded-circle" />
                                 </div>
                                 <span className="profile-username">
-                                    <span className="fw-bold">
-                                        {user.last_name} {user.first_name}
-                                    </span>
+                                    <span className="fw-bold">{user.name}</span>
                                 </span>
                             </a>
                             <ul className="dropdown-menu dropdown-user animated fadeIn">
@@ -292,14 +290,12 @@ function Header() {
                                             <div className="avatar-lg">
                                                 <img
                                                     src={user.image}
-                                                    alt="image profile"
+                                                    alt="ảnh đại diện"
                                                     className="avatar-img rounded"
                                                 />
                                             </div>
                                             <div className="u-text">
-                                                <h4>
-                                                    {user.last_name} {user.first_name}
-                                                </h4>
+                                                <h4>{user.name}</h4>
                                                 <p className="text-muted">{user.email}</p>
                                                 <Link
                                                     to={config.routes.profile}

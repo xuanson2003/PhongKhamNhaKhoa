@@ -24,6 +24,18 @@
     overflow: hidden;
     position: relative;
 }
+.upload-circle.upload-error {
+    border-color: red;
+    background-color: #ffe7e8;
+}
+.upload-circle.square {
+    border-radius: 2px;
+}
+.upload-circle.rectangle {
+    width: auto;
+    border-radius: 2px;
+    aspect-ratio: 3 / 4;
+}
 
 .upload-text {
     font-size: 16px;
@@ -51,6 +63,7 @@
     background-color: white;
     border-radius: 4px;
     width: 500px;
+    z-index: 101;
 }
 
 .crop-modal-overlay {

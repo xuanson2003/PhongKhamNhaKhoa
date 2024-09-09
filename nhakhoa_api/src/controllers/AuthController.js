@@ -19,7 +19,7 @@ class AuthController {
 
             // Câu lệnh SQL kiểm tra người dùng
             const userQuery = `
-                SELECT id, email, first_name, last_name, password, salt, image, is_active
+                SELECT id, email, name, password, salt, image, is_active
                 FROM sm_user
                 WHERE email = :email
                 LIMIT 1;
@@ -57,8 +57,7 @@ class AuthController {
                 token,
                 image_url: fullImageUrl,
                 email: user.email,
-                first_name: user.first_name,
-                last_name: user.last_name,
+                name: user.name,
             });
         } catch (error) {
             console.error(error);
@@ -70,8 +69,7 @@ class AuthController {
     async signup(req, res) {
         try {
             const {
-                first_name,
-                last_name,
+                name,
                 email = null,
                 password = null,
                 phone = null,
@@ -82,9 +80,22 @@ class AuthController {
                 image_url = null,
             } = req.body;
 
-            // Kiểm tra các trường bắt buộc
-            if (!first_name || !last_name) {
-                return res.status(400).json({ success: false, message: 'First name and last name are required' });
+            // Câu lệnh SQL kiểm tra người dùng
+            const userQuery = `
+                SELECT id, email
+                FROM sm_user
+                WHERE email = :email
+                LIMIT 1;
+            `;
+
+            const users = await sequelize.query(userQuery, {
+                replacements: { email },
+                type: sequelize.QueryTypes.SELECT,
+            });
+
+            // Kiểm tra nếu người dùng đã tồn tại
+            if (users.length > 0) {
+                return res.json({ success: false, errorField: 'email' });
             }
 
             // Tạo salt và mã hóa mật khẩu nếu có mật khẩu
@@ -101,16 +112,15 @@ class AuthController {
 
             // Câu lệnh SQL thêm mới người dùng vào bảng sm_user
             const insertQuery = `
-                INSERT INTO sm_user (id, first_name, last_name, email, password, phone, position_id, role_id, gender, address, image, salt, is_active)
-                VALUES (:id, :first_name, :last_name, :email, :password, :phone, :position_id, :role_id, :gender, :address, :image, :salt, :is_active)
+                INSERT INTO sm_user (id, name, email, password, phone, position_id, role_id, gender, address, image, salt)
+                VALUES (:id, :name, :email, :password, :phone, :position_id, :role_id, :gender, :address, :image, :salt)
             `;
 
             // Thực thi câu lệnh SQL
             await sequelize.query(insertQuery, {
                 replacements: {
                     id: userId,
-                    first_name,
-                    last_name,
+                    name,
                     email,
                     password: hashedPassword,
                     phone,
@@ -120,7 +130,6 @@ class AuthController {
                     address,
                     image: image_url,
                     salt: salt,
-                    is_active: true,
                 },
                 type: sequelize.QueryTypes.INSERT,
             });
@@ -135,6 +144,7 @@ class AuthController {
                 token,
                 userId,
                 image_url: fullImageUrl,
+                name,
             });
         } catch (error) {
             console.error(error);

@@ -102,7 +102,10 @@ const Login = () => {
                     </button>
                     <div className={styles['login-form-register-link']}>
                         <span>
-                            Bạn chưa có tài khoản? <Link to={config.routes.register}>Đăng ký</Link>
+                            Bạn chưa có tài khoản?{' '}
+                            <Link to={config.routes.register} style={{ color: '#1572e8' }}>
+                                Đăng ký
+                            </Link>
                         </span>
                     </div>
                 </form>

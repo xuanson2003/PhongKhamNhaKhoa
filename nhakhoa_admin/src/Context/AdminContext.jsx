@@ -18,8 +18,7 @@ function AdminContextProvider({ children }) {
                 setUser({
                     image: responseData.image_url,
                     email: responseData.email,
-                    first_name: responseData.first_name,
-                    last_name: responseData.last_name,
+                    name: responseData.name,
                 });
                 return { success: true };
             } else {
