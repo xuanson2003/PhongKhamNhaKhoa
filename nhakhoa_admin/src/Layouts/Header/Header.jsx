@@ -290,7 +290,7 @@ function Header() {
                                             <div className="avatar-lg">
                                                 <img
                                                     src={user.image}
-                                                    alt="image profile"
+                                                    alt="ảnh đại diện"
                                                     className="avatar-img rounded"
                                                 />
                                             </div>

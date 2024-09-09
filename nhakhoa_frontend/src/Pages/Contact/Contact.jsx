@@ -1,22 +1,18 @@
 import React from 'react';
 import BreadScrum from '~/Components/BreadScrumb/BreadScrum';
 import bgContact from '~/Assets/img/bg_contact.webp';
+import config from '~/Config';
 
 function Contact() {
     return (
         <>
-            <div className="breadcrumbs overlay">
-                <div className="container">
-                    <div className="bread-inner">
-                        <div className="row">
-                            <div className="col-12">
-                                <h2>Liên Hệ Với Chúng Tôi</h2>
-                                <BreadScrum data={['Trang chủ', 'Liên hệ']} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <BreadScrum
+                title="Liên hệ với cúng tôi"
+                links={[
+                    { title: 'trang chủ', href: config.routes.home_1 },
+                    { title: 'liên hệ', href: config.routes.contact },
+                ]}
+            />
 
             <section className="contact-us section">
                 <div className="container">
