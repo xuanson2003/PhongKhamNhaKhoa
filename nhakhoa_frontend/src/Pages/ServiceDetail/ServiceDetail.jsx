@@ -2,7 +2,7 @@ import React from 'react';
 import BreadScrum from '~/Components/BreadScrumb/BreadScrum';
 import config from '~/Config';
 
-function Services() {
+function ServiceDetail() {
     return (
         <>
             <BreadScrum
@@ -159,4 +159,4 @@ function Services() {
     );
 }
 
-export default Services;
+export default ServiceDetail;

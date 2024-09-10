@@ -5,6 +5,7 @@ import DoctorList from '~/Pages/DoctorList/DoctorList';
 import DoctorDetail from '~/Pages/DoctorDetail/DoctorDetail';
 import Services from '~/Pages/Services/Services';
 import ServiceDetail from '~/Pages/ServiceDetail/ServiceDetail';
+import Price from '~/Pages/Price/Price';
  
 
 const publicRoutes = [
@@ -15,6 +16,8 @@ const publicRoutes = [
     { path: config.routes.doctor_detail, component: <DoctorDetail /> },
     { path: config.routes.services, component: <Services /> },
     { path: config.routes.service_detail, component: <ServiceDetail /> },
+    { path: config.routes.price, component: <Price /> },
+
 
 ];
 

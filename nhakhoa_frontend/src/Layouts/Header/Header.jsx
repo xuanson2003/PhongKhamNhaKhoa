@@ -73,7 +73,9 @@ function Header() {
                                                 </ul>
                                             </li>
                                             <li>
-                                                <Link to="#">Bảng giá</Link>
+                                                <Link to={config.routes.price} onClick={() => {
+                                                        setActiveMenu(config.routes.price);
+                                                    }}>Bảng giá</Link>
                                             </li>
                                             <li>
                                                 <Link to="#">
