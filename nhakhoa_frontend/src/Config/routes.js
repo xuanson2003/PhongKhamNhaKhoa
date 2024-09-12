@@ -7,6 +7,8 @@ const routes = {
     services: '/danh-sach-dich-vu',
     service_detail:'/chi-tiet-dich-vu',
     price:'/bang-gia',
+    book:'/dat-lich-kham',
+
 
 };
 
