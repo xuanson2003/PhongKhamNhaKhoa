@@ -6,6 +6,7 @@ import DoctorDetail from '~/Pages/DoctorDetail/DoctorDetail';
 import Services from '~/Pages/Services/Services';
 import ServiceDetail from '~/Pages/ServiceDetail/ServiceDetail';
 import Price from '~/Pages/Price/Price';
+import Book from '~/Pages/Book/Book';
  
 
 const publicRoutes = [
@@ -17,6 +18,7 @@ const publicRoutes = [
     { path: config.routes.services, component: <Services /> },
     { path: config.routes.service_detail, component: <ServiceDetail /> },
     { path: config.routes.price, component: <Price /> },
+    { path: config.routes.book, component: <Book /> },
 
 
 ];

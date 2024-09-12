@@ -103,7 +103,9 @@ function Header() {
                             </div>
                             <div className="col-lg-2 col-12">
                                 <div className="get-quote">
-                                    <Link to="appointment.html" className="btn">
+                                    <Link to={config.routes.book}
+                                                    onClick={() => {
+                                                        setActiveMenu(config.routes.book)}} className="btn">
                                         Đặt lịch khám
                                     </Link>
                                 </div>
