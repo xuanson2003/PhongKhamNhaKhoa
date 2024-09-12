@@ -46,7 +46,7 @@ class UploadController {
             next();
         }
     }
-    // [PATCH]/updateFile
+    // [PATCH]/update-file
     async updateFile(req, res) {
         try {
             const { file_id, user_id } = req.body;
