@@ -72,7 +72,7 @@ function Header() {
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li>
+                                            <li className={activeMenu === config.routes.price ? 'active' : ''}>
                                                 <Link to={config.routes.price} onClick={() => {
                                                         setActiveMenu(config.routes.price);
                                                     }}>Bảng giá</Link>
