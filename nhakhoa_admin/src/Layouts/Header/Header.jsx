@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AdminContext } from '~/Context/AdminContext';
 import { Link } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import storage from '~/Utils/storage';
 
 function Header() {
-    const { user, setUser } = useContext(AdminContext);
+    const { user, setUser, GetUserInfo } = useContext(AdminContext);
     const navigate = useNavigate();
 
     function handlerLogout() {
@@ -17,6 +17,10 @@ function Header() {
         setUser({});
         navigate(config.routes.login_2);
     }
+
+    useEffect(() => {
+        GetUserInfo()
+    }, [])
 
     return (
         <div className="main-header">

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import request from '~/Utils/httpRequest';
 import storage from '~/Utils/storage';
 
@@ -29,7 +29,31 @@ function AdminContextProvider({ children }) {
         }
     };
 
-    const contextValue = { user, setUser, HandleLogin };
+    const GetUserInfo = async () => {
+        try {
+            const response = await request.post('get-user',{},
+                {
+                    headers: {
+                        authorization: storage.get(), 
+                    },
+                });
+            const responseData = response.data;
+            if (responseData.success) {
+                setUser({
+                    image: responseData.image_url,
+                    email: responseData.email,
+                    name: responseData.name,
+                });
+                return { success: true };
+            } else {
+                return { success: false, error_field: responseData.error };
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const contextValue = { user, setUser, HandleLogin, GetUserInfo };
 
     return <AdminContext.Provider value={contextValue}>{children}</AdminContext.Provider>;
 }

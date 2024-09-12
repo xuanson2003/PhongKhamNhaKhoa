@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '~/Assets/img/logo.png';
 import './Sidebar.css';
 import config from '~/Config';
+import bg from '~/Assets/img/dental_clinic_bg.jpg';
 
 function Sidebar() {
     const location = useLocation();
@@ -13,8 +14,8 @@ function Sidebar() {
     };
     return (
         <div className="sidebar" data-background-color="dark">
-            {/* <img src={bg} alt="" className="sidebar-bg"/>
-            <div className="sidebar-layer"></div> */}
+            <img src={bg} alt="" className="sidebar-bg" />
+            <div className="sidebar-layer"></div>
             <div className="sidebar-logo">
                 <div className="logo-header bg-transparent">
                     <Link to={config.routes.dashbroad} className="logo">

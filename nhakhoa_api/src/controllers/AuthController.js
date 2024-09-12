@@ -151,6 +151,40 @@ class AuthController {
             res.status(500).json({ success: false, message: 'Registration failed', error: error.message });
         }
     }
+
+    // [POST] /get-user
+    async getUser(req, res) {
+        try {
+            const userId = await req.user.id; 
+            
+            if (!userId) {
+                return res.status(404).json({success: false, error: 'User not found' });
+            }
+
+            const userQuery = `
+                SELECT id, email, name, image, is_active
+                FROM sm_user
+                WHERE id = :id
+                LIMIT 1;
+            `;
+
+            const users = await sequelize.query(userQuery, {
+                replacements: { id: userId },
+                type: sequelize.QueryTypes.SELECT,
+            });
+
+            const fullImageUrl = users[0].image ? `${req.protocol}://${req.get('host')}/${users[0].image}` : null;
+    
+            return res.json({
+                success: true,
+                name: users[0].name,
+                email: users[0].email,
+                image_url: fullImageUrl
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
 }
 
 module.exports = new AuthController();

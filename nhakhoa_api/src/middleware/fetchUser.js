@@ -6,15 +6,15 @@ const SECRET_KEY = process.env.SECRET_KEY;
 const fetchUser = async (req, res, next) => {
     // Lấy token từ header Authorization
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Lấy phần token từ "Bearer <token>"
+    const token = authHeader && (authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader);
 
     if (!token) {
         return res.status(401).json({ error: 'Token is required for authentication' });
     }
 
     try {
-        const decoded = jwt.verify(token, SECRET_KEY);
-        req.user = decoded.user;
+        const user = jwt.verify(token, SECRET_KEY);
+        req.user = user;
         next();
     } catch (error) {
         if (error.name === 'TokenExpiredError') {

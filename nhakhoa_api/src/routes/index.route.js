@@ -15,9 +15,10 @@ function route(app) {
     });
     app.patch('/update-file', uploadController.updateFile);
 
-    // login - signup
+    // login - signup - get-user
     app.post('/signup', AuthController.signup);
     app.post('/login', AuthController.login);
+    app.post('/get-user', fetchUser, AuthController.getUser);
 
     // demo
     app.get('/', async (req, res) => {
