@@ -48,8 +48,10 @@ function Header() {
                                                         setActiveMenu(config.routes.doctor_list);
                                                     }}>Bác sĩ</Link>
                                             </li>
-                                            <li>
-                                                <Link to="#">
+                                            <li className={activeMenu === config.routes.services ? 'active' : ''}>
+                                                <Link to={config.routes.services} onClick={() => {
+                                                        setActiveMenu(config.routes.services);
+                                                    }}>
                                                     Dịch vụ <i className="icofont-rounded-down"></i>
                                                 </Link>
                                                 <ul className="dropdown">
@@ -70,8 +72,10 @@ function Header() {
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li>
-                                                <Link to="#">Bảng giá</Link>
+                                            <li className={activeMenu === config.routes.price ? 'active' : ''}>
+                                                <Link to={config.routes.price} onClick={() => {
+                                                        setActiveMenu(config.routes.price);
+                                                    }}>Bảng giá</Link>
                                             </li>
                                             <li>
                                                 <Link to="#">
