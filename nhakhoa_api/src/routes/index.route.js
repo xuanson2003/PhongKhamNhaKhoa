@@ -19,6 +19,7 @@ function route(app) {
     app.post('/signup', AuthController.signup);
     app.post('/login', AuthController.login);
     app.post('/get-user', fetchUser, AuthController.getUser);
+    app.get('/search-user', AuthController.searchUser);
 
     // demo
     app.get('/', async (req, res) => {
