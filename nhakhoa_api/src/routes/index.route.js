@@ -7,6 +7,8 @@ const upload = require('../middleware/upload');
 const fetchUser = require('../middleware/fetchUser');
 const deleteFile = require('../middleware/deleteFile');
 const ServicesController = require('../controllers/ServicesController');
+const NewsController = require('../controllers/NewsController');
+const DoctorController = require('../controllers/DoctorController');
 
 function route(app) {
     // image
@@ -23,6 +25,14 @@ function route(app) {
     
     //services
     app.get('/get-all-services', ServicesController.getServices);
+
+    //news
+    app.get('/get-all-news', NewsController.getNews);
+    app.get('/get-top-news', NewsController.getTopNews);
+    app.get('/get-news-by-id/:id', NewsController.getNewsById);
+
+    //doctor
+    app.get('/get-all-doctor', DoctorController.getDoctor);
 
 
 
