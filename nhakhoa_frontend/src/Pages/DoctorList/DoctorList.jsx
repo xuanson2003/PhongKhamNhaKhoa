@@ -17,16 +17,22 @@ function DoctorList() {
 
             <section className="blog section" id="blog">
                 <div className="container ">
-                    <div className="input-group mb-5">
-                        <input type="text" className="form-control " placeholder="  Tìm kiếm tên bác sĩ"></input>
-                        <div className="input-group-append">
-                            <button className="btn btn-outline-secondary" type="button" id="button-addon2">
-                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <div className="single-news ">
+                    <div className="news-body d-flex" style={{padding:'15px 20px'}}>
+                    <select className="form-control w-25 " style={{height:'40px',borderColor:'white',borderBottomColor:'#2072C3',borderRadius:'0px'}} type="text" name="gt" placeholder="Giới tinh" required="">
+                                                        <option value="o">Tất cả</option>
+                                                        <option value="o">Theo tên</option>
+                                                    </select>
+                        <input style={{borderColor:'white',borderBottomColor:'#2072C3',borderRadius:'0px',height:'40px',marginLeft:'25px'}} type="text" className="form-control " placeholder="  Tìm kiếm tên bác sĩ"></input>
+                        <div className="input-group-append " style={{marginLeft:'25px'}}>
+                            <button className="btn btn-outline-secondary" style={{height:'40px'}} type="button" id="button-addon2">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} style={{marginBottom:'5px'}} />
                             </button>
                         </div>
                     </div>
+                    </div>
 
-                    <div className="row">
+                    <div className="row mt-4" >
                         <div className="col-xl-6 col-12 mb-4">
                             {/* Single Blog */}
                             <div className="single-news">
