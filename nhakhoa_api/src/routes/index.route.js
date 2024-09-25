@@ -21,8 +21,9 @@ function route(app) {
     app.post('/login', AuthController.login);
     app.post('/get-user', fetchUser, AuthController.getUser);
     
-    //services
+    //services - serviceDetail
     app.get('/get-all-services', ServicesController.getServices);
+    app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
 
 
 
