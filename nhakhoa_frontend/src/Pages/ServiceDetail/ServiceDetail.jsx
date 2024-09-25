@@ -71,7 +71,8 @@ function ServiceDetail() {
                                                     </a>
                                                 </span>
                                                 <span class="date">
-                                                    <i class="fa fa-clock-o"></i>{serviceDetail.created_at}
+                                                    <i class="fa fa-clock-o"></i>
+                                                    {serviceDetail.created_at}
                                                 </span>
                                             </div>
                                             <div class="meta-right">
@@ -82,18 +83,11 @@ function ServiceDetail() {
                                             </div>
                                         </div>
                                         <div class="news-text">
-                                            <p>
-                                                {serviceDetail.content}
-                                            </p>
-                                            
-                                            
-                                            
+                                            <p>{serviceDetail.content}</p>
+
                                             <blockquote class="overlay">
-                                                <p>
-                                                    {serviceDetail.description}
-                                                </p>
+                                                <p>{serviceDetail.description}</p>
                                             </blockquote>
-                                            
                                         </div>
                                         <div class="blog-bottom">
                                             <ul class="social-share">

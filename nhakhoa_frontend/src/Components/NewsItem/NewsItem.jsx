@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { faCalendarDays, faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import config from "~/Config";
 
 function NewsItem({ data, isSm }) {
     return (
@@ -37,14 +38,14 @@ function NewsItem({ data, isSm }) {
                         <div className="col-md-8">
                             {isSm ? (
                                 <Link
-                                    to={`/chi-tiet-tin-tuc/${data.id}`} // Dynamic route for details
+                                    to={`${config.routes.news_detail.replace(':id', data.id)}`} // Dynamic route for details
                                     style={{ color: 'black', fontSize: '14px' }}
                                 >
                                     {data.name}
                                 </Link>
                             ) : (
                                 <Link
-                                    to={`/chi-tiet-tin-tuc/${data.id}`} // Dynamic route for details
+                                    to={`${config.routes.news_detail.replace(':id', data.id)}`} // Dynamic route for details
                                     style={{ color: '#1C77D1', fontSize: '17px' }}
                                 >
                                     {data.name}

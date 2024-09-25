@@ -5,7 +5,7 @@ import config from '~/Config';
 import request from '~/Utils/httpRequest';
 
 function ServiceDetail() {
-    const { id } = useParams(); // Get the ID from the URL
+    const { id } = useParams();
     const [newsDetail, setNewsDetail] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
