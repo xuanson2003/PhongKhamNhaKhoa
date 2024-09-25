@@ -7,6 +7,7 @@ const upload = require('../middleware/upload');
 const fetchUser = require('../middleware/fetchUser');
 const deleteFile = require('../middleware/deleteFile');
 const PositionController = require('../controllers/PositionController');
+const ServicesController = require('../controllers/ServicesController');
 
 function route(app) {
     // image
@@ -27,6 +28,9 @@ function route(app) {
     app.post('/insert-position', PositionController.insertPosition)
     app.put('/update-position', PositionController.updatePosition)
     app.delete('/delete-position/:id', PositionController.deletePosition)
+    
+    //services
+    app.get('/get-all-services', ServicesController.getServices);
 
     // demo
     app.get('/', async (req, res) => {
