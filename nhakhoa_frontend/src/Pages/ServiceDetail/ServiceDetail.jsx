@@ -13,6 +13,7 @@ function ServiceDetail() {
                 ]}
             />
             <section class="news-single section">
+				
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-8 col-12">

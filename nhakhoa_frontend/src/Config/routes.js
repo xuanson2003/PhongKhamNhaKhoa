@@ -9,7 +9,7 @@ const routes = {
     price:'/bang-gia',
     book:'/dat-lich-kham',
     news:'/danh-sach-tin-tuc',
-    news_detail:'/chi-tiet-tin-tuc',
+    news_detail:'/chi-tiet-tin-tuc/:id',
 
 
 };

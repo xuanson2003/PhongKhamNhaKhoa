@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('postgres://postgres:Ucvn%402024@localhost:5432/DentalClinic');
+const sequelize = new Sequelize('postgres://postgres:Ucvn@2024@localhost:5432/DentalClinic');
 
 async function connectDb() {
     try {
