@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Schedule() {
     return (
@@ -19,9 +20,9 @@ function Schedule() {
                                             Cung cấp dịch vụ khẩn cấp nhanh chóng và chuyên nghiệp để bảo vệ sức khỏe
                                             của bạn và gia đình.
                                         </p>
-                                        <a href="#">
+                                        <Link>
                                             TÌM HIỂU THÊM<i className="fa fa-long-arrow-right"></i>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -39,9 +40,9 @@ function Schedule() {
                                             Xem lịch làm việc của bác sĩ để sắp xếp thời gian khám hợp lý. Theo dõi giờ
                                             làm việc để không bỏ lỡ cuộc hẹn quan trọng.
                                         </p>
-                                        <a href="#">
+                                        <Link href="#">
                                             TÌM HIỂU THÊM<i className="fa fa-long-arrow-right"></i>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
@@ -66,9 +67,9 @@ function Schedule() {
                                                 Thứ Hai - Thứ Năm <span>9.00-15.00</span>
                                             </li>
                                         </ul>
-                                        <a href="#">
+                                        <Link href="#">
                                             TÌM HIỂU THÊM<i className="fa fa-long-arrow-right"></i>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

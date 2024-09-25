@@ -22,8 +22,6 @@ function DoctorDetail() {
                     { title: 'chi tiết bác sĩ ', href: config.routes.doctor_detail },
                 ]}
             />
-            
-
             <section className=" section" id="blog" style={{ backgroundColor: '#FFFFFF' }}>
                 <div className="container">
                     <div className="row">
