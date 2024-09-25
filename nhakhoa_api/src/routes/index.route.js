@@ -31,8 +31,9 @@ function route(app) {
     app.put('/update-position', PositionController.updatePosition)
     app.delete('/delete-position/:id', PositionController.deletePosition)
     
-    //services
+    //services - serviceDetail
     app.get('/get-all-services', ServicesController.getServices);
+    app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
 
     //news
     app.get('/get-all-news', NewsController.getNews);
