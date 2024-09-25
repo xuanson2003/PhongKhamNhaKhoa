@@ -8,6 +8,8 @@ const routes = {
     service_detail:'/chi-tiet-dich-vu',
     price:'/bang-gia',
     book:'/dat-lich-kham',
+    news:'/danh-sach-tin-tuc',
+    news_detail:'/chi-tiet-tin-tuc/:id',
 
 
 };
