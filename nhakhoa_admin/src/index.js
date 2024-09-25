@@ -19,14 +19,17 @@ import '~/Assets/css/kaiadmin.min.css';
 
 // base css
 import '~/Style/_base.css';
+import { BrowserRouter } from 'react-router-dom';
+import ScrollToTop from './hoc/CrollToTop/ScrollToTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <AdminContextProvider>
-        <React.StrictMode>
+    <BrowserRouter>
+        <ScrollToTop />
+        <AdminContextProvider>
             <App />
-        </React.StrictMode>
-    </AdminContextProvider>,
+        </AdminContextProvider>
+    </BrowserRouter>,
 );
 
 reportWebVitals();

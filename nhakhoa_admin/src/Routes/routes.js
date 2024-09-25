@@ -2,24 +2,26 @@ import config from '~/Config';
 import AccountLst from '~/Pages/AccountLst/AccountLst';
 import Dashbroad from '~/Pages/Dashbroad/Dashbroad';
 import Login from '~/Pages/Login/Login';
+import PositionLst from '~/Pages/PositionLst/PositionLst';
 import Profile from '~/Pages/Profile/Profile';
 import Register from '~/Pages/Register/Register';
 
 const publicRoutes = [
-    { path: config.routes.login, component: <Login />, layout: null },
-    { path: config.routes.login_2, component: <Login />, layout: null },
-    { path: config.routes.register, component: <Register />, layout: null },
+    { path: config.routes.login, component: <Login />, layout: null, title: "đăng nhập" },
+    { path: config.routes.login_2, component: <Login />, layout: null, title: "đăng nhập" },
+    { path: config.routes.register, component: <Register />, layout: null, title: "đăng ký" },
 ];
 
 const privateRoutes = [
-    { path: config.routes.dashbroad, component: <Dashbroad /> },
-    { path: config.routes.patient_list, component: <></> },
-    { path: config.routes.doctor_list, component: <></> },
-    { path: config.routes.add_doctor, component: <></> },
-    { path: config.routes.service_list, component: <></> },
-    { path: config.routes.add_service, component: <></> },
-    { path: config.routes.profile, component: <Profile /> },
-    { path: config.routes.userLst, component: <AccountLst /> },
+    { path: config.routes.dashbroad, component: <Dashbroad />, title: "trang chủ" },
+    { path: config.routes.patient_list, component: <></>, title: "danh sách bệnh nhân" },
+    { path: config.routes.doctor_list, component: <></>, title: "danh sách bác sĩ" },
+    { path: config.routes.add_doctor, component: <></>, title: "thêm mới bác sĩ" },
+    { path: config.routes.service_list, component: <></>, title: "danh sách dịch vụ" },
+    { path: config.routes.add_service, component: <></>, title: "thêm mới dịch vụ" },
+    { path: config.routes.profile, component: <Profile />, title: "hồ sơ cá nhân" },
+    { path: config.routes.user_list, component: <AccountLst />, title: "danh sách tài khoản" },
+    { path: config.routes.position_list, component: <PositionLst/>, title: "danh sách chức vụ" },
 ];
 
 export { publicRoutes, privateRoutes };

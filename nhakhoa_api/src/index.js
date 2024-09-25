@@ -4,7 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT;
+const {PORT} = require('./config/const')
 const db = require('./config');
 const route = require('./routes/index.route');
 
@@ -18,6 +18,6 @@ app.use(morgan('combined'));
 db.connectDb();
 route(app);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Example app listening on port http://localhost:${PORT}`);
 });
