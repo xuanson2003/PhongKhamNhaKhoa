@@ -1,11 +1,29 @@
-import React from 'react';
 import sectionImg from '~/Assets/img/section-img.png';
-import pf1 from '~/Assets/img/pf1.jpg';
-import pf2 from '~/Assets/img/pf2.jpg';
-import pf3 from '~/Assets/img/pf3.jpg';
-import pf4 from '~/Assets/img/pf4.jpg';
+import { faCalendarDays, faEye } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from 'react';import NewsItem from '~/Components/NewsItem/NewsItem';
+import request from '~/Utils/httpRequest';
+import NewsHome from '../NewsItem/NewsHome';
+import DoctorHome from '../DoctorItem/DoctorHome';
 
 function Doctor() {
+    const [newsData, setNewsData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch the news data from the API
+    useEffect(() => {
+        request.get('get-top-4-doctor')
+            .then(response => {
+                if (response.data.success) {
+                    setNewsData(response.data.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching news data:', error);
+                setLoading(false);
+            });
+    }, []);
     return (
         <section className="portfolio section">
             <div className="container">
@@ -25,55 +43,26 @@ function Doctor() {
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-12 col-12">
-                        <div className="owl-carousel portfolio-slider">
-                            <div className="single-pf">
-                                <img src={pf1} alt="Dự án 1" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf2} alt="Dự án 2" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf3} alt="Dự án 3" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf4} alt="Dự án 4" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf1} alt="Dự án 5" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf2} alt="Dự án 6" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf3} alt="Dự án 7" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
-                            <div className="single-pf">
-                                <img src={pf4} alt="Dự án 8" />
-                                <a href="portfolio-details.html" className="btn">
-                                    Xem Chi Tiết
-                                </a>
-                            </div>
+                        <div className="owl-carousel ">
+                           
+                           
+                        {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    {newsData.map((newsItem) => (
+                        <React.Fragment key={newsItem.id}>
+                            <DoctorHome
+                                data={{
+                                    id:newsItem.id,
+                                    image: newsItem.image,
+                                     }}
+                            />
+                        </React.Fragment>
+                    ))}
+                </>
+            )}
+                        
                         </div>
                     </div>
                 </div>

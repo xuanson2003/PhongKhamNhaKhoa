@@ -12,17 +12,17 @@ const ITEMS_PER_PAGE = 8;
 function ServiceDetail() {
     const [newsData, setNewsData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1); // Pagination state
-    const [searchQuery, setSearchQuery] = useState(''); // State for search input
-    const [filteredNews, setFilteredNews] = useState([]); // State for filtered news
-    const [filterOption, setFilterOption] = useState('all'); // State for filter option
+    const [currentPage, setCurrentPage] = useState(1); 
+    const [searchQuery, setSearchQuery] = useState(''); 
+    const [filteredNews, setFilteredNews] = useState([]); 
+    const [filterOption, setFilterOption] = useState('all'); 
 
     useEffect(() => {
         request.get('get-all-news')
             .then(response => {
                 if (response.data.success) {
                     setNewsData(response.data.data);
-                    setFilteredNews(response.data.data); // Initialize filtered news
+                    setFilteredNews(response.data.data); 
                 }
                 setLoading(false);
             })

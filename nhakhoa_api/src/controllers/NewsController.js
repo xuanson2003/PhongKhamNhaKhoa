@@ -48,6 +48,26 @@ class NewsController {
         }
     } 
 
+    // [GET] /get-top-3-news
+    async getTop3News(req, res) {
+        try {
+            const userQuery = `
+                SELECT * FROM dc_news ORDER BY created_at DESC LIMIT 3;
+            `;
+
+            const news = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data:news
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
+
     // [GET] /get-news-by-id
     async getNewsById(req, res) {
         try {
