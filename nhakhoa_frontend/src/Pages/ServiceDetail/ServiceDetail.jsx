@@ -8,8 +8,7 @@ const useQuery = () => {
 };
 
 function ServiceDetail() {
-    const query = useQuery();
-    const id = query.get('id');
+    const { id } = useParams();
 
     const [serviceDetail, setServiceDetail] = useState(null);
     const [loading, setLoading] = useState(true);
