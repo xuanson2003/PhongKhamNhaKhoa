@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BreadScrum from '~/Components/BreadScrumb/BreadScrum';
 import config from '~/Config';
 import { Link } from 'react-router-dom';
 
-
 function Price() {
+    const [prices, setPrices] = useState([]); // Manage the list of services
+    const [loading, setLoading] = useState(true); // Manage loading state
+    const [error, setError] = useState(null); // Manage error state
+    
+    // Function to fetch the service prices from the API
+    const fetchPrices = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/get-price');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setPrices(data.data); // Save the list of services to state
+            setLoading(false); // End loading state
+        } catch (err) {
+            setError(err.message); // Save error message if any
+            setLoading(false); // End loading state
+        }
+    };
+
+    // Fetch prices when the component mounts
+    useEffect(() => {
+        fetchPrices();
+    }, []);
+
+    if (loading) {
+        return <p>Loading services...</p>; // Show loading message
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>; // Show error message if any
+    }
+
     return (
         <>
             <BreadScrum
@@ -14,63 +46,45 @@ function Price() {
                     { title: 'bảng giá', href: config.routes.price },
                 ]}
             />
-            <section class="pricing-table section">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="section-title">
-								<h2>Bảng giá dịch vụ tại nha khoa Mediplus</h2>
-								<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAYBAMAAABO02PvAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///8adtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtENTI36AAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAACkSURBVCiRY2AYNKBHALs44/sGLKLMDAys/y9ikbBPYGD/9hWLxPqDDDwX7mAx6e8TBv0J+QoYEtyfVzPEJ8hPgAuwuLg4MZi4uMQviFfoV+B6AuKquLg4MPD9//+L4f7///8U5BrOMDD/////B0P///8PGPihEt8ZOC//YACxwBIfGJihRjkwMP/+wgAyBWyUAbL9+7F5DwTqF+CQkEnAIUF3AACwtT7DE233HgAAAABJRU5ErkJggg==" alt="#"/>
-								<p>Chúng tôi luôn mang đến sự hài lòng và tin tưởng cho khách hàng</p>
-							</div>
-						</div>
-					</div>
-					<div className='row'>
-						<div class="col-lg-12">
-							<div class="card">	
-								<div class="card-body">
-									<div class="table-responsive">
-										<table class="table table-striped mb-0">
-											<thead>
-												<tr>
-													<th className='text-center' style={{color:'#1a76d1'}}>Tên dịch vụ</th>
-													<th className='text-center' style={{color:'#1a76d1'}}>Giá/ Chi phí</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
-													<td>Niềng răng thẩm mỹ</td>
-													<td className='text-right'>199 999 000đ</td>
-												</tr>
-												<tr>
-													<td>Chụp phim X-Quang(tại chỗ, Panaroma, Cephalo, 3D CBCT)	</td>
-													<td className='text-right'>199 999 000đ - 499 999 000đ</td>
-												</tr>
-												<tr>
-													<td>Chỉnh nha mắc bằng khay trong suốt Invisalisn</td>
-													<td className='text-right'>1 999 999 000đ</td>
-												</tr>
-												<tr>
-													<td>Nâng khớp cắn điều chỉnh mặt phẳng nhai bằng kỹ thuật số</td>
-													<td className='text-right'>29 999 000đ - 199 999 000đ</td>
-												</tr>
-												<tr>
-													<td>Bộ mắc cài kim loại/mắc cài sứ (gắn lại)</td>
-													<td className='text-right'>599 999 000đ</td>
-												</tr>
-												
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</div>
-				</div>	
-				
-		    </section>
-			
+            <section className="pricing-table section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="section-title">
+                                <h2>Bảng giá dịch vụ tại nha khoa Mediplus</h2>
+                                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAYBAMAAABO02PvAAAAA3NCSVQICAjb4U/gAAAAMFBMVEX///8adtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtEadtENTI36AAAAEHRSTlMAESIzRFVmd4iZqrvM3e7/dpUBFQAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAACkSURBVCiRY2AYNKBHALs44/sGLKLMDAys/y9ikbBPYGD/9hWLxPqDDDwX7mAx6e8TBv0J+QoYEtyfVzPEJ8hPgAuwuLg4MZi4uMQviFfoV+B6AuKquLg4MPD9//+L4f7///8U5BrOMDD/////B0P///8PGPihEt8ZOC//YACxwBIfGJihRjkwMP/+wgAyBWyUAbL9+7F5DwTqF+CQkEnAIUF3AACwtT7DE233HgAAAABJRU5ErkJggg==" alt="#" />
+                                <p>Chúng tôi luôn mang đến sự hài lòng và tin tưởng cho khách hàng</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='row'>
+                        <div className="col-lg-12">
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="table-responsive">
+                                        <table className="table table-striped mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th className='text-center' style={{ color: '#1a76d1' }}>Tên dịch vụ</th>
+                                                    <th className='text-center' style={{ color: '#1a76d1' }}>Giá/ Chi phí (VNĐ)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {prices.map((price) => (
+                                                    <tr key={price.id}>
+                                                        <td>{price.name}</td>
+                                                        <td className='text-right'>{price.price}đ</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </>
     );
 }

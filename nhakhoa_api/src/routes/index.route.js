@@ -7,6 +7,7 @@ const upload = require('../middleware/upload');
 const fetchUser = require('../middleware/fetchUser');
 const deleteFile = require('../middleware/deleteFile');
 const ServicesController = require('../controllers/ServicesController');
+const PriceController = require('../controllers/PriceController');
 
 function route(app) {
     // image
@@ -25,7 +26,9 @@ function route(app) {
     app.get('/get-all-services', ServicesController.getServices);
     app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
 
-
+    //price
+    app.get('/get-price', PriceController.getPrice);
+    
 
     // demo
     app.get('/', async (req, res) => {

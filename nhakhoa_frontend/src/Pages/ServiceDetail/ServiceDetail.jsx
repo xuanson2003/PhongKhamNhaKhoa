@@ -61,7 +61,7 @@ function ServiceDetail() {
                                         </h1>
                                         <div class="meta">
                                             <div class="meta-left">
-                                                <span class="author img-fluid">
+                                                {/* <span class="author img-fluid">
                                                     <a href="#">
                                                         <img
                                                             src="https://watermark.lovepik.com/photo/20211210/large/lovepik-male-doctor-holding-teeth-model-picture_501789567.jpg"
@@ -69,7 +69,7 @@ function ServiceDetail() {
                                                         />
                                                         Nguyễn Ngọc Cương
                                                     </a>
-                                                </span>
+                                                </span> */}
                                                 <span class="date">
                                                     <i class="fa fa-clock-o"></i>{serviceDetail.created_at}
                                                 </span>
