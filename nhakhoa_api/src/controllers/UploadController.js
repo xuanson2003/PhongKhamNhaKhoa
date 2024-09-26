@@ -1,4 +1,3 @@
-const port = process.env.PORT || 4000;
 const { v4: uuidv4 } = require('uuid');
 const { sequelize } = require('../config');
 

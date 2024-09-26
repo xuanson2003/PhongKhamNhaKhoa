@@ -7,6 +7,8 @@ import Services from '~/Pages/Services/Services';
 import ServiceDetail from '~/Pages/ServiceDetail/ServiceDetail';
 import Price from '~/Pages/Price/Price';
 import Book from '~/Pages/Book/Book';
+import News from '~/Pages/News/News';
+import NewDetail from '~/Pages/NewsDetail/NewDetail';
  
 
 const publicRoutes = [
@@ -19,6 +21,8 @@ const publicRoutes = [
     { path: config.routes.service_detail, component: <ServiceDetail /> },
     { path: config.routes.price, component: <Price /> },
     { path: config.routes.book, component: <Book /> },
+    { path: config.routes.news, component: <News /> },
+    { path: config.routes.news_detail, component: <NewDetail /> },
 
 
 ];

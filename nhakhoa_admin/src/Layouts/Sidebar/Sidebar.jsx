@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { faAddressBook, faNotesMedical, faUserDoctor, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faNotesMedical, faRankingStar, faUserDoctor, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '~/Assets/img/logo.png';
 import './Sidebar.css';
@@ -131,8 +131,24 @@ function Sidebar() {
                             </a>
                             <div className="collapse" id="user-list">
                                 <ul className="nav nav-collapse">
-                                    <li className={getActiveClass(`${config.routes.userLst}`)}>
-                                        <Link to={config.routes.userLst}>
+                                    <li className={getActiveClass(`${config.routes.user_list}`)}>
+                                        <Link to={config.routes.user_list}>
+                                            <span className="sub-item">Danh sách</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="nav-item">
+                            <a data-bs-toggle="collapse" href="#position-list">
+                                <FontAwesomeIcon icon={faRankingStar} />
+                                <p>Chức vụ</p>
+                                <span className="caret"></span>
+                            </a>
+                            <div className="collapse" id="position-list">
+                                <ul className="nav nav-collapse">
+                                    <li className={getActiveClass(`${config.routes.position_list}`)}>
+                                        <Link to={config.routes.position_list}>
                                             <span className="sub-item">Danh sách</span>
                                         </Link>
                                     </li>

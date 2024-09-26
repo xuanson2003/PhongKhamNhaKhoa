@@ -24,7 +24,7 @@ function HeroSlider() {
                                     </p>
                                     <div className="button">
                                         <a href="#" className="btn">
-                                            Đặt Lịch Hẹn
+                                            Đặt Lịch Khám
                                         </a>
                                         <a href="#" className="btn primary">
                                             Tìm Hiểu Thêm
@@ -52,7 +52,7 @@ function HeroSlider() {
                                     </p>
                                     <div className="button">
                                         <a href="#" className="btn">
-                                            Đặt Lịch Hẹn
+                                        Đặt Lịch Khám
                                         </a>
                                         <a href="#" className="btn primary">
                                             Về Chúng Tôi
@@ -80,7 +80,7 @@ function HeroSlider() {
                                     </p>
                                     <div className="button">
                                         <a href="#" className="btn">
-                                            Đặt Lịch Hẹn
+                                        Đặt Lịch Khám
                                         </a>
                                         <a href="#" className="btn primary">
                                             Liên Hệ Ngay
