@@ -10,8 +10,6 @@ const routes = {
     book:'/dat-lich-kham',
     news:'/danh-sach-tin-tuc',
     news_detail:'/chi-tiet-tin-tuc/:id',
-
-
 };
 
 export default routes;

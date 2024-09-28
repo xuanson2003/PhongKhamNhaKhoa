@@ -21,6 +21,26 @@ class PositionController {
         }
     }
 
+    // [POST] /get-position-by-id
+    async getPositionById(req, res) {
+        try {
+            const { id } = req.body;
+            const query = `select * from dc_position where id = :id`;
+
+            const position = await sequelize.query(query, {
+                replacements: { id },
+                type: sequelize.QueryTypes.SELECT,
+            });
+
+            return res.json({
+                success: true,
+                data: position[0],
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+
     // [POST] /insert-position
     async insertPosition(req, res) {
         try {

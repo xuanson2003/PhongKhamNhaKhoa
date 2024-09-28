@@ -10,6 +10,7 @@ const PositionController = require('../controllers/PositionController');
 const ServicesController = require('../controllers/ServicesController');
 const NewsController = require('../controllers/NewsController');
 const DoctorController = require('../controllers/DoctorController');
+const ContactController = require('../controllers/ContactController');
 const PriceController = require('../controllers/PriceController');
 
 function route(app) {
@@ -28,6 +29,7 @@ function route(app) {
 
     // position
     app.get('/get-list-position', PositionController.getPositionLst)
+    app.post('/get-position-by-id', PositionController.getPositionById)
     app.post('/insert-position', PositionController.insertPosition)
     app.put('/update-position', PositionController.updatePosition)
     app.delete('/delete-position/:id', PositionController.deletePosition)
@@ -41,10 +43,15 @@ function route(app) {
     //news
     app.get('/get-all-news', NewsController.getNews);
     app.get('/get-top-news', NewsController.getTopNews);
+    app.get('/get-top-3-news', NewsController.getTop3News);
     app.get('/get-news-by-id/:id', NewsController.getNewsById);
 
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
+    app.get('/get-top-4-doctor', DoctorController.getTop4Doctor);
+
+    //conatct
+    app.post('/add-contact', ContactController.addContact);
     //price
     app.get('/get-price', PriceController.getPrice);
     

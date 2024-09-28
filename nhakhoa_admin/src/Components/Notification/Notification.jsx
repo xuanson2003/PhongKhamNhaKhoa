@@ -4,6 +4,7 @@ const openNotification = (placement, message, description, type = 'success') => 
     notification.open({
         description: (
             <Alert
+                style={{marginTop: -8}}
                 message={message}
                 description={description}
                 type={type}

@@ -27,6 +27,26 @@ class DoctorController {
         }
     } 
 
+     // [GET] /get-top-4-doctor
+     async getTop4Doctor(req, res) {
+        try {
+            const userQuery = `
+                SELECT image FROM sm_user ORDER BY created_at DESC LIMIT 4;
+            `;
+
+            const news = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data:news
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
+
 }
 
 module.exports = new DoctorController();

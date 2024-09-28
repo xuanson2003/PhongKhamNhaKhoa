@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Footer(props) {
     return (
@@ -8,33 +9,30 @@ function Footer(props) {
                     <ul className="nav">
                         <li className="nav-item">
                             <a className="nav-link" href="http://www.themekita.com">
-                                ThemeKita
+                                MediPlus
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <Link className="nav-link" href="#">
                                 {' '}
-                                Help{' '}
-                            </a>
+                                Trợ giúp{' '}
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <Link className="nav-link" href="#">
                                 {' '}
-                                Licenses{' '}
-                            </a>
+                                Giấy phép{' '}
+                            </Link>
                         </li>
                     </ul>
                 </nav>
                 <div className="copyright">
-                    2024, made with <i className="fa fa-heart heart text-danger"></i> by
-                    <a href="http://www.themekita.com">ThemeKita</a>
+                    2024, làm với <i className="fa fa-heart heart text-danger"></i> bởi
+                    <a href="http://www.themekita.com"> Nhóm 8</a>
                 </div>
                 <div>
-                    Distributed by
-                    <a target="_blank" href="https://themewagon.com/">
-                        ThemeWagon
-                    </a>
-                    .
+                    Truy cập
+                    <Link target="_blank" href="https://themewagon.com/"> Mediplus</Link>
                 </div>
             </div>
         </footer>

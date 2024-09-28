@@ -7,6 +7,7 @@ import Header from './Layouts/Header/Header';
 import Footer from './Layouts/Footer/Footer';
 import PrivateRoute from './hoc/PrivateRoute/PrivateRoute';
 import usePageTitle from './hoc/usePageTitle/usePageTitle';
+import '~/Config/FontAwesome';
 
 function App() {
     usePageTitle([...publicRoutes, ...privateRoutes]);
