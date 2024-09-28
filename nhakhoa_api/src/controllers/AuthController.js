@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
-const SECRET_KEY = process.env.SECRET_KEY;
+const {SECRET_KEY} = require('../config/const')
 const { sequelize } = require('../config');
 
 class AuthController {
@@ -136,7 +136,7 @@ class AuthController {
 
             const fullImageUrl = image_url ? `${req.protocol}://${req.get('host')}/${image_url}` : null;
             // Tạo JWT token
-            const token = jwt.sign({ id: userId, email }, process.env.SECRET_KEY, { expiresIn: '1h' });
+            const token = jwt.sign({ id: userId, email }, SECRET_KEY, { expiresIn: '1h' });
 
             res.json({
                 success: true,

@@ -11,6 +11,7 @@ const ServicesController = require('../controllers/ServicesController');
 const NewsController = require('../controllers/NewsController');
 const DoctorController = require('../controllers/DoctorController');
 const ContactController = require('../controllers/ContactController');
+const PriceController = require('../controllers/PriceController');
 
 function route(app) {
     // image
@@ -36,6 +37,8 @@ function route(app) {
     //services - serviceDetail
     app.get('/get-all-services', ServicesController.getServices);
     app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
+    app.get('/get-top-latest-service', ServicesController.getTopLatestServices);
+
 
     //news
     app.get('/get-all-news', NewsController.getNews);
@@ -49,6 +52,9 @@ function route(app) {
 
     //conatct
     app.post('/add-contact', ContactController.addContact);
+    //price
+    app.get('/get-price', PriceController.getPrice);
+    
 
     // demo
     app.get('/', async (req, res) => {
