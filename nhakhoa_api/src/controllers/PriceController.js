@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
-const SECRET_KEY = process.env.SECRET_KEY;
 const { sequelize } = require('../config');
 
 class PriceController {

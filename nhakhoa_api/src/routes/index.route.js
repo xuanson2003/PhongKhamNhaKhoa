@@ -35,6 +35,8 @@ function route(app) {
     //services - serviceDetail
     app.get('/get-all-services', ServicesController.getServices);
     app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
+    app.get('/get-top-latest-service', ServicesController.getTopLatestServices);
+
 
     //news
     app.get('/get-all-news', NewsController.getNews);

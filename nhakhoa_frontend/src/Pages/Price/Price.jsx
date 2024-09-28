@@ -4,6 +4,11 @@ import config from '~/Config';
 import { Link } from 'react-router-dom';
 
 function Price() {
+
+    const formatCurrency = (amount) => {
+        return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' VNĐ';
+    };
+    
     const [prices, setPrices] = useState([]); // Manage the list of services
     const [loading, setLoading] = useState(true); // Manage loading state
     const [error, setError] = useState(null); // Manage error state
@@ -61,7 +66,7 @@ function Price() {
                         <div className="col-lg-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="table-responsive">
+                                    <div className="table-responsive" style={{ padding: '50px',  }}>
                                         <table className="table table-striped mb-0">
                                             <thead>
                                                 <tr>
@@ -73,7 +78,7 @@ function Price() {
                                                 {prices.map((price) => (
                                                     <tr key={price.id}>
                                                         <td>{price.name}</td>
-                                                        <td className='text-right'>{price.price}đ</td>
+                                                        <td className='text-right'>{formatCurrency(price.price)}</td>
                                                     </tr>
                                                 ))}
                                             </tbody>
