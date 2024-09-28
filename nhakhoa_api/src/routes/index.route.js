@@ -28,6 +28,7 @@ function route(app) {
 
     // position
     app.get('/get-list-position', PositionController.getPositionLst)
+    app.post('/get-position-by-id', PositionController.getPositionById)
     app.post('/insert-position', PositionController.insertPosition)
     app.put('/update-position', PositionController.updatePosition)
     app.delete('/delete-position/:id', PositionController.deletePosition)

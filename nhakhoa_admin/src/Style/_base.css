@@ -27,6 +27,10 @@ table tr:nth-child(2n + 1) {
     background-color: #f2f2f2 !important;
 }
 
+p {
+    margin: 0;
+}
+
 /* notification */
 .ant-notification-notice-wrapper .ant-notification-notice {
     padding: 0 !important;

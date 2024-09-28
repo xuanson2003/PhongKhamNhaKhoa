@@ -1,6 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { faAddressBook, faNotesMedical, faRankingStar, faUserDoctor, faUsers } from '@fortawesome/free-solid-svg-icons';
+import {
+    faAddressBook,
+    faNotesMedical,
+    faPhoneVolume,
+    faRankingStar,
+    faUserDoctor,
+    faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '~/Assets/img/logo.png';
 import './Sidebar.css';
@@ -111,6 +118,22 @@ function Sidebar() {
                                     </li>
                                     <li className={getActiveClass(`${config.routes.service_list}`)}>
                                         <Link to={config.routes.service_list}>
+                                            <span className="sub-item">Danh sách</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="nav-item">
+                            <a data-bs-toggle="collapse" href="#contact">
+                                <FontAwesomeIcon icon={faPhoneVolume} />
+                                <p>Liên hệ</p>
+                                <span className="caret"></span>
+                            </a>
+                            <div className="collapse" id="contact">
+                                <ul className="nav nav-collapse">
+                                    <li className={getActiveClass(`${config.routes.contact_list}`)}>
+                                        <Link to={config.routes.contact_list}>
                                             <span className="sub-item">Danh sách</span>
                                         </Link>
                                     </li>

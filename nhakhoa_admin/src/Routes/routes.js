@@ -1,5 +1,6 @@
 import config from '~/Config';
 import AccountLst from '~/Pages/AccountLst/AccountLst';
+import Contact from '~/Pages/Contact/Contact';
 import Dashbroad from '~/Pages/Dashbroad/Dashbroad';
 import Login from '~/Pages/Login/Login';
 import PositionLst from '~/Pages/PositionLst/PositionLst';
@@ -22,6 +23,7 @@ const privateRoutes = [
     { path: config.routes.profile, component: <Profile />, title: "hồ sơ cá nhân" },
     { path: config.routes.user_list, component: <AccountLst />, title: "danh sách tài khoản" },
     { path: config.routes.position_list, component: <PositionLst/>, title: "danh sách chức vụ" },
+    { path: config.routes.contact_list, component: <Contact/>, title: "danh sách liên hệ" },
 ];
 
 export { publicRoutes, privateRoutes };
