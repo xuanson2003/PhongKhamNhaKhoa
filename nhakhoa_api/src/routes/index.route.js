@@ -38,6 +38,11 @@ function route(app) {
     app.get('/get-all-services', ServicesController.getServices);
     app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
     app.get('/get-top-latest-service', ServicesController.getTopLatestServices);
+    app.get('/get-all-services-admin', ServicesController.getServicesAdmin);
+    app.post('/insert-service', ServicesController.insertService);
+    app.put('/update-service', ServicesController.updateService);
+    app.delete('/delete-service/:id', ServicesController.deleteService)
+
 
 
     //news
@@ -45,6 +50,10 @@ function route(app) {
     app.get('/get-top-news', NewsController.getTopNews);
     app.get('/get-top-3-news', NewsController.getTop3News);
     app.get('/get-news-by-id/:id', NewsController.getNewsById);
+    app.get('/get-all-news-admin', NewsController.getNewsAdmin);
+    app.post('/insert-news', NewsController.insertNews);
+    app.put('/update-news', NewsController.updateNews);
+    app.delete('/delete-news/:id', NewsController.deleteNews)
 
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
