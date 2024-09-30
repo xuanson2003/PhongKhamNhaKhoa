@@ -36,6 +36,25 @@ p {
     padding: 0 !important;
 }
 
+/* text editor */
+.ql-editor {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; 
+}
+
+.ql-size-small {
+    font-size: 12px;
+}
+.ql-size-normal {
+    font-size: 14px;
+}
+.ql-size-large {
+    font-size: 16px;
+}
+.ql-size-huge {
+    font-size: 20px;
+}
+
 /* scroll bar */
 html ::-webkit-scrollbar {
     border-radius: 0px;

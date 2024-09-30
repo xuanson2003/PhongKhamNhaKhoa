@@ -1,8 +1,9 @@
-import React, { useImperativeHandle, forwardRef, memo } from 'react';
+import React, { useImperativeHandle, forwardRef, memo, useRef } from 'react';
 import { Button, Form, Input, InputNumber, Select } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Option } from 'antd/es/mentions';
+import TextEditor from '../TextEditor/TextEditor';
 
 const formItemLayout = {
     labelCol: {
@@ -17,13 +18,17 @@ const formItemLayout = {
 
 const ConfigForm = forwardRef(({ config, onFinish, style, className, formLayout = formItemLayout }, ref) => {
     const [form] = Form.useForm();
+    const editorRef = useRef(null);
 
-    const handleGetFormData = () => {
+    const getFormData = () => {
         const values = form.getFieldsValue();
         return values;
     };
 
     const handleSubmit = (values) => {
+        if (editorRef.current) {
+            values[editorRef.current.name] = editorRef.current.getContent();
+        }
         if (onFinish) {
             onFinish(values);
         }
@@ -40,17 +45,16 @@ const ConfigForm = forwardRef(({ config, onFinish, style, className, formLayout 
     };
 
     useImperativeHandle(ref, () => ({
-        getFormData: handleGetFormData,
+        getFormData: getFormData,
         resetForm: () => form.resetFields(),
         submit: () => form.submit(),
-        setFormValues
+        setFormValues,
     }));
 
     return (
         <div>
             <Form
                 {...formLayout}
-                style={style}
                 className={className}
                 form={form}
                 name={config.name}
@@ -60,7 +64,7 @@ const ConfigForm = forwardRef(({ config, onFinish, style, className, formLayout 
                 labelWrap
                 colon={false}
             >
-                <div className="row" style={{ maxHeight: 320, overflowY: 'auto', marginTop: 16 }}>
+                <div className="row" style={{ ...style }}>
                     {config.fields.map((field, index) => (
                         <div key={index} className={`col-${field.col ? field.col : '12'}`}>
                             <Form.Item
@@ -91,6 +95,18 @@ const ConfigForm = forwardRef(({ config, onFinish, style, className, formLayout 
                                             </Option>
                                         ))}
                                     </Select>
+                                ) : field.type === 'editor' ? (
+                                    <TextEditor
+                                        ref={editorRef}
+                                        name={field.name}
+                                        size={field.size}
+                                        className={field.className}
+                                        style={field.style}
+                                        height={field.height}
+                                        onChange={(content, name) => {
+                                            form.setFieldsValue({ [name]: content });
+                                        }}
+                                    />
                                 ) : (
                                     <Input type={field.type} className={field.className} style={field.style} />
                                 )}
