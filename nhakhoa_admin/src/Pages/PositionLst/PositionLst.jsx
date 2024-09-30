@@ -210,7 +210,7 @@ const PositionLst = () => {
                     </Button>,
                 ]}
             >
-                <ConfigForm config={addPostion} ref={formRefAdd} onFinish={handleAddPosition} />
+                <ConfigForm config={addPostion} ref={formRefAdd} onFinish={handleAddPosition} style={{ maxHeight: 320, overflowY: 'auto', marginTop: 16,}}/>
             </Modal>
 
             <Modal
@@ -228,7 +228,7 @@ const PositionLst = () => {
                     </Button>
                 ]}
             >
-                <ConfigForm config={addPostion} ref={formRefEdit} onFinish={handleEditPosition} />
+                <ConfigForm config={addPostion} ref={formRefEdit} onFinish={handleEditPosition} style={{ maxHeight: 320, overflowY: 'auto', marginTop: 16,}}/>
             </Modal>
 
             <Loading isLoading={isLoading} />
