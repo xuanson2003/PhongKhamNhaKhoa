@@ -65,22 +65,52 @@ const serviceForm = {
             type: 'textarea',
             size: 'large',
             labelCol: { xs: { span: 4 } },
+            rules: [
+                {
+                    required: true,
+                    message: 'Mô tả ngắn là bắt buộc',
+                },
+            ],
         },
         {
             title: 'Nội dung',
             name: 'content',
-            type: 'textarea',
-            size: 'large',
+            type: 'editor',
+            style: '',
+            className: '',
+            height: 400,
             rules: [
                 {
                     required: true,
                     message: 'Nội dung là bắt buộc',
                 },
             ],
-            labelCol: { xs: { span: 4 } },
+            size: 'adv'//basic - adv
+        }
+    ],
+    actions: [
+        
+        {
+            title: 'Làm mới',
+            type: 'reset',
+            className: '',
+            style: '',
+            property: {
+                type: 'default',
+                icon: "fa-solid fa-arrow-rotate-right"
+            }
+        },
+        {
+            title: 'Thêm',
+            type: 'submit',
+            className: '',
+            style: '',
+            property: {
+                type: 'primary',
+                icon: "fa-plus",
+            }
         },
     ],
-    actions: [],
 };
 
 export default serviceForm;

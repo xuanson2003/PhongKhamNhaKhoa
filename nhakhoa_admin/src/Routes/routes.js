@@ -1,5 +1,6 @@
 import config from '~/Config';
 import AccountLst from '~/Pages/AccountLst/AccountLst';
+import AddService from '~/Pages/AddService/AddService';
 import Contact from '~/Pages/Contact/Contact';
 import Dashbroad from '~/Pages/Dashbroad/Dashbroad';
 import Login from '~/Pages/Login/Login';
@@ -22,7 +23,7 @@ const privateRoutes = [
     { path: config.routes.add_doctor, component: <></>, title: "thêm mới bác sĩ" },
     { path: config.routes.service_list, component: <ServiceLst/> , title: "danh sách dịch vụ" },
     { path: config.routes.news_list, component: <NewsLst/> , title: "danh sách tin tức" },
-    { path: config.routes.add_service, component: <></>, title: "thêm mới dịch vụ" },
+    { path: config.routes.add_service, component: <AddService/>, title: "thêm mới dịch vụ" },
     { path: config.routes.profile, component: <Profile />, title: "hồ sơ cá nhân" },
     { path: config.routes.user_list, component: <AccountLst />, title: "danh sách tài khoản" },
     { path: config.routes.position_list, component: <PositionLst/>, title: "danh sách chức vụ" },

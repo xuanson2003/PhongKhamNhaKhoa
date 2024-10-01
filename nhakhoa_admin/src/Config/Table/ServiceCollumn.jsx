@@ -28,9 +28,9 @@ const ServiceColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             align: 'center', // căn giữa ảnh
             render: (avatarUrl) => (
                 <img
-                    src={avatarUrl}
+                    src={'http://localhost:4000/'+ avatarUrl}
                     alt="Avatar"
-                    style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                    style={{ width: '40px', height: '40px', borderRadius: '50%' }}
                 />
             ),
             sorter: false, // không sắp xếp ảnh

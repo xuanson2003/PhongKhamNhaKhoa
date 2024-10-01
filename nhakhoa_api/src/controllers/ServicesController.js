@@ -116,20 +116,20 @@ class ServicesController {
     // [POST] /insert-service
     async insertService(req, res) {
         try {
-            const { name, description, price, icon } = req.body; // Lấy thông tin từ req.body
+            const { name,content, description, price, icon, avatar } = req.body; // Lấy thông tin từ req.body
             const id = uuidv4();
 
-            const query = `INSERT INTO dc_service (id, name, description, price, icon) 
-                       VALUES (:id, :name, :description, :price, :icon)`;
+            const query = `INSERT INTO dc_service (id, name,content, description, price, icon, avatar) 
+                       VALUES (:id, :name,:content, :description, :price, :icon, :avatar)`;
 
             await sequelize.query(query, {
-                replacements: { id, name, description, price, icon },
+                replacements: { id, name,content, avatar, description, price, icon},
                 type: sequelize.QueryTypes.INSERT,
             });
 
             return res.json({
                 success: true,
-                data: { id, name, description, price, icon },
+                data: { id, name,content, description, price, icon, avatar },
             });
         } catch (error) {
             return res.status(500).json({ success: false, error: 'Server error' });

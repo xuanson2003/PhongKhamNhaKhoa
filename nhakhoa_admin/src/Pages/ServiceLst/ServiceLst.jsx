@@ -208,7 +208,7 @@ export default function ServiceLst() {
                     </Button>,
                 ]}
             >
-                <ConfigForm config={serviceForm} ref={formRefAdd} onFinish={handleAddService} />
+                <ConfigForm config={serviceForm} ref={formRefAdd} onFinish={handleAddService} style={{ maxHeight: 320, overflowY: 'auto', marginTop: 16,}} />
             </Modal>
 
             <Modal
@@ -226,7 +226,7 @@ export default function ServiceLst() {
                     </Button>
                 ]}
             >
-                <ConfigForm config={serviceForm} ref={formRefEdit} onFinish={handleEditService} />
+                <ConfigForm config={serviceForm} ref={formRefEdit} onFinish={handleEditService} style={{ maxHeight: 320, overflowY: 'auto', marginTop: 16,}} />
             </Modal>
 
             <Loading isLoading={isLoading} />
