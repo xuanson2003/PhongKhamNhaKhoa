@@ -19,13 +19,40 @@ input:focus {
     border-color: #1572e8;
 }
 
+table th {
+    text-align: center !important;
+}
+
 table tr:nth-child(2n + 1) {
     background-color: #f2f2f2 !important;
+}
+
+p {
+    margin: 0;
 }
 
 /* notification */
 .ant-notification-notice-wrapper .ant-notification-notice {
     padding: 0 !important;
+}
+
+/* text editor */
+.ql-editor {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; 
+}
+
+.ql-size-small {
+    font-size: 12px;
+}
+.ql-size-normal {
+    font-size: 14px;
+}
+.ql-size-large {
+    font-size: 16px;
+}
+.ql-size-huge {
+    font-size: 20px;
 }
 
 /* scroll bar */

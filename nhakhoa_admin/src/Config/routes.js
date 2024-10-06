@@ -11,7 +11,9 @@ const routes = {
     service_list: '/danh-sach-dich-vu',
     add_service: '/them-moi-dich-vu',
     profile: '/thong-tin-tai-khoan',
-    userLst: '/danh-sach-tai-khoan',
+    user_list: '/danh-sach-tai-khoan',
+    position_list: '/danh-sach-chuc-vu',
+    contact_list: '/danh-sach-lien-he',
 };
 
 export default routes;

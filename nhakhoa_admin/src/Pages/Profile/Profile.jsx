@@ -1,62 +1,41 @@
-import React from 'react';
-import { Button, Divider, notification, Space, Alert } from 'antd';
-import {
-    RadiusBottomleftOutlined,
-    RadiusBottomrightOutlined,
-    RadiusUpleftOutlined,
-    RadiusUprightOutlined,
-} from '@ant-design/icons';
+import React, { useRef, useState } from 'react';
+import { Form, Button, Card } from 'antd';
+import TextEditor from '~/Components/TextEditor/TextEditor';
+import testForm from '~/Config/Form/test'
+import ConfigForm from '~/Components/ConfigForm/ConfigForm';
 
 const Profile = () => {
-    const [api, contextHolder] = notification.useNotification();
+    const [editorHtml, setEditorHtml] = useState('');
+    const editorRef = useRef()
 
-    const openNotification = (placement) => {
-        api.open({
-            message: '',
-            description: (
-                <Alert
-                    message="Thành công"
-                    description="Đăng ký tài khoản thành công, vui lòng chờ đến khi tài khoản được duyệt"
-                    type="success"
-                    showIcon
-                    className="show"
-                    style={{ marginTop: -8 }}
-                />
-            ),
-            placement,
-            showProgress: true,
-            pauseOnHover: true,
-        });
+
+    const handleSubmit = () => {
+        if (editorRef.current) {
+            console.log(editorRef.current.getContent())
+        }
     };
+
+    const submitForm = (values) => {
+        console.log(values)
+    }
 
     return (
         <div>
-            {contextHolder}
-            <Space>
-                <Button type="primary" onClick={() => openNotification('topLeft')} icon={<RadiusUpleftOutlined />}>
-                    topLeft
-                </Button>
-                <Button type="primary" onClick={() => openNotification('topRight')} icon={<RadiusUprightOutlined />}>
-                    topRight
-                </Button>
-            </Space>
-            <Divider />
-            <Space>
-                <Button
-                    type="primary"
-                    onClick={() => openNotification('bottomLeft')}
-                    icon={<RadiusBottomleftOutlined />}
-                >
-                    bottomLeft
-                </Button>
-                <Button
-                    type="primary"
-                    onClick={() => openNotification('bottomRight')}
-                    icon={<RadiusBottomrightOutlined />}
-                >
-                    bottomRight
-                </Button>
-            </Space>
+            <Card theme="snow" title={'Trình soạn thảo văn bản'} bordered={true}>
+                <Form onFinish={handleSubmit}>
+                    <Form.Item>
+                       <TextEditor ref={editorRef}/>
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Gửi
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Card>
+            <Card title="Thử form soạn thảo" className='mt-4'>
+                <ConfigForm config={testForm} onFinish={submitForm}/>
+            </Card>
         </div>
     );
 };
