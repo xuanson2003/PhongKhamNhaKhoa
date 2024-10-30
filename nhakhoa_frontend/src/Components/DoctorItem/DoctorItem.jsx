@@ -1,40 +1,53 @@
 import { Link } from "react-router-dom";
-import { faCalendarDays, faCircleInfo, faEye, faLocationDot, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDays, faCircleInfo, faEye, faLocationDot, faPhone, faUserGraduate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import config from "~/Config";
 
-function NewsItem({ data}) {
+function NewsItem({data}) {
     return (
-            <div className="col-xl-6 col-12 mb-4">
-                            {/* Single Blog */}
-                            <div className="single-news">
-                                <div className="news-body news-content">
-                                    <div className=" row">
-                                        <div className=" col-md-4 ">
-                                            <img
-                                                style={{ width: '100%', height: '175px', objectFit: 'cover' ,borderRadius:'8px'}}
-                                                src={data.image}
-                                                alt="#"
-                                            />
-                                          
-                                        </div>
-                                        <div className=" col-md-8">
-                                            <h2>
-                                                <a href="blog-single.html" style={{ color: '#1C77D1' }}>
-                                                {data.name}
-                                                </a>
-                                            </h2>
-                                            <p className="text">
-                                                <FontAwesomeIcon icon={faLocationDot} /> {data.address}
-                                            </p>
-                                            <p className="text">
-                                                <FontAwesomeIcon icon={faCircleInfo} /> {data.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+            <div className="col-xl-3 col-12 mb-4">
+                  <div className="card">
+                  <img
+                        style={{
+                            width: '100px',  // Ensure width and height are equal for circular shape
+                            height: '100px',
+                            objectFit: 'cover',
+                            borderRadius: '50%',  // Make the image circular
+                            display: 'block',  // Ensures the image behaves as a block element
+                            margin: '0 auto'  // Centers the image horizontally
+                        }}
+                        src={data.image}
+                        alt="#"
+                    />
+
+
+                        <h2 style={{height:'40px'}} className="mt-3">
+                        <Link
+                                to={`${config.routes.doctor_detail.replace(':id', data.id)}`} 
+                                style={{ color: 'black', fontSize: '18px' }}
+                            >
+                                {data.name}
+                            </Link>
+                            </h2>
+                            <div className="location" style={{textAlign:'start',fontSize:'12px'}}>
+                                <p style={{fontSize:'12px'}}>
+                                <i className="fas fa-map-marker-alt">
+                                </i>
+                                <FontAwesomeIcon icon={faLocationDot} /> {data.address}
+                                </p>
+                                <p style={{fontSize:'12px'}}>
+                                <i className="fas fa-map-marker-alt">
+                                </i>
+                                <FontAwesomeIcon icon={faPhone} /> {data.phone}
+                                </p>
+                               
+                                <a style={{textAlign:'center'}} className="button w-100 mt-3" href="#">
+                                Đặt lịch khám 
+                            </a>
                             </div>
-                            {/* End Single Blog */}
+                           
+                            </div>
                         </div>
     );
 }
