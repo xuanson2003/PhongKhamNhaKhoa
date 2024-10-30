@@ -212,7 +212,7 @@ export default function ServiceLst() {
             </Modal>
 
             <Modal
-                title="Chỉnh sửa chức vụ"
+                title="Chỉnh sửa dịch vụ"
                 centered
                 open={openModal === 'edit'}
                 onCancel={() => setOpenModal('0')}

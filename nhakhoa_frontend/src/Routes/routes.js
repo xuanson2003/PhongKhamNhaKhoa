@@ -17,7 +17,7 @@ const publicRoutes = [
     { path: config.routes.contact, component: <Contact /> },
     { path: config.routes.doctor_list, component: <DoctorList /> },
     { path: config.routes.doctor_detail, component: <DoctorDetail /> },
-    { path: config.routes.services, component: <Services /> },
+    { path: config.routes.services, component: <Services /> }, 
     { path: config.routes.service_detail, component: <ServiceDetail /> },
     { path: config.routes.price, component: <Price /> },
     { path: config.routes.book, component: <Book /> },

@@ -55,6 +55,7 @@ const ServiceColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             dataIndex: 'icon',
             key: 'icon',
             align: 'right',
+            //render: (text) => Intl.NumberFormat('vi-VN').format(text),
             ...getColumnSearchProps('name', 'Nhập tên icon'),
             sorter: (a, b) => a.name.localeCompare(b.name),
         },
