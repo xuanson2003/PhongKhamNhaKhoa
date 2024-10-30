@@ -46,6 +46,8 @@ function route(app) {
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
     app.get('/get-top-4-doctor', DoctorController.getTop4Doctor);
+    app.get('/get-doctor-by-id/:id', DoctorController.getDoctorById);
+    app.post('/get-doctor-by-time/:id', DoctorController.getDoctorByTime);
 
     //conatct
     app.post('/add-contact', ContactController.addContact);
