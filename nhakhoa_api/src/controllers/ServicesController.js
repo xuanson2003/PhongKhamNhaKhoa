@@ -23,6 +23,30 @@ class ServicesController {
         }
     }
 
+
+    async getServicesTop4(req, res) {
+        try {
+            const userQuery = `
+                SELECT name,avatar
+                FROM dc_service
+                ORDER BY id DESC
+                LIMIT 4
+            `;
+    
+            const users = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data: users,
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+    
+
     async getServiceDetail(req, res){
         try{
             const { id } = req.params; // Lấy id từ tham số URL

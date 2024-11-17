@@ -35,17 +35,20 @@ function route(app) {
     
     //services - serviceDetail
     app.get('/get-all-services', ServicesController.getServices);
+    app.get('/get-all-services-top', ServicesController.getServicesTop4);
     app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
 
     //news
     app.get('/get-all-news', NewsController.getNews);
     app.get('/get-top-news', NewsController.getTopNews);
     app.get('/get-top-3-news', NewsController.getTop3News);
+    app.get('/get-top-6-news', NewsController.getTop6News);
     app.get('/get-news-by-id/:id', NewsController.getNewsById);
 
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
     app.get('/get-top-4-doctor', DoctorController.getTop4Doctor);
+    app.get('/get-top-6-doctor', DoctorController.getTop6Doctor);
     app.get('/get-doctor-by-id/:id', DoctorController.getDoctorById);
     app.post('/get-doctor-by-time/:id', DoctorController.getDoctorByTime);
 
