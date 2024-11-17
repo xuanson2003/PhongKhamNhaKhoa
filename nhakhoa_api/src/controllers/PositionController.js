@@ -44,7 +44,13 @@ class PositionController {
     // [POST] /insert-position
     async insertPosition(req, res) {
         try {
-            const { name, description, base_salary, overtime_rate, allowances } = req.body;
+            const { 
+                name = null, 
+                description = null, 
+                base_salary = null, 
+                overtime_rate = null, 
+                allowances = null 
+            } = req.body;
             const id = uuidv4();
 
             const query = `insert into dc_position (id, name, description, base_salary, overtime_rate, allowances) 

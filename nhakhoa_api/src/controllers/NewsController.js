@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
-const SECRET_KEY = process.env.SECRET_KEY;
 const { sequelize } = require('../config');
 
 class NewsController {
@@ -93,13 +92,6 @@ class NewsController {
         try {
             const id = req.params.id;
 
-            if (!id || isNaN(id)) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Invalid news ID',
-                });
-            }
-
             const newsQuery = `
                 SELECT * FROM dc_news 
                 WHERE id = :id
@@ -132,6 +124,201 @@ class NewsController {
     }
     
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //CRUD- Admin
+    //[GET] get-all-services-admin
+    async getNewsAdmin(req, res) {
+        try {
+            const newsQuery = `
+                select *
+                from dc_news ds 
+            `;
+
+            const news = await sequelize.query(newsQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+
+            return res.json({
+                success: true,
+                data: news,
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+
+    // [POST] /insert-news
+    async insertNews(req, res) {
+        try {
+            const { name, description } = req.body; // Lấy thông tin từ req.body
+            const id = uuidv4();
+    
+            const query = `INSERT INTO dc_news (id, name, description) 
+                           VALUES (:id, :name, :description)`;
+    
+            await sequelize.query(query, {
+                replacements: { id, name, description },
+                type: sequelize.QueryTypes.INSERT,
+            });
+    
+            return res.json({
+                success: true,
+                data: { id, name, description },
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+    
+
+    // [PUT] /update-newws
+    
+    async updateNews(req, res) {
+        try {
+            const { id, name, description } = req.body; // Lấy thông tin từ req.body
+    
+            const query = `UPDATE dc_news
+                           SET name = :name,
+                               description = :description
+                           WHERE id = :id;`;
+    
+            await sequelize.query(query, {
+                replacements: { id, name, description },
+                type: sequelize.QueryTypes.UPDATE,
+            });
+    
+            return res.json({
+                success: true,
+                data: { id, name, description },
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+    
+    // [DELETE] /delete-news
+    async deleteNews(req, res) {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                return res.status(404).json({ success: false, error: 'User not found' });
+            }
+
+            const query = `delete from dc_news where id = :id`;
+
+            await sequelize.query(query, {
+                replacements: { id: id },
+                type: sequelize.QueryTypes.DELETE,
+            });
+
+            return res.json({
+                success: true,
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
 }
 
 module.exports = new NewsController();

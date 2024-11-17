@@ -1,31 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import BreadScrum from '~/Components/BreadScrumb/BreadScrum';
 import config from '~/Config';
 
-const useQuery = () => {
-    return new URLSearchParams(useLocation().search);
-};
-
 function ServiceDetail() {
-    const { id } = useParams();
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        return new Date(dateString).toLocaleDateString('vi-VN', options);
+    }
+
+    const { id } = useParams(); 
     const [serviceDetail, setServiceDetail] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    
+    const [topService, setTopService] = useState([]);
+    const [loadingTop, setLoadingTop] = useState(true);
+    const [errorTop, setTopError] = useState(null);
 
     useEffect(() => {
         const fetchServiceDetail = async () => {
             try {
                 const response = await fetch(`http://localhost:4000/get-service-detail/${id}`);
                 if (!response.ok) {
-                    throw new Error('Lỗi khi lấy dữ liệu');
+                    throw new Error('Lỗi khi lấy dữ liệu dịch vụ');
                 }
                 const data = await response.json();
                 setServiceDetail(data.data);
-                setLoading(false);
             } catch (err) {
                 setError(err.message);
+            } finally {
                 setLoading(false);
             }
         };
@@ -33,100 +38,110 @@ function ServiceDetail() {
         fetchServiceDetail();
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
+    useEffect(() => {
+        const fetchTopServices = async () => {
+            try {
+                const response = await fetch('http://localhost:4000/get-top-latest-service');
+                if (!response.ok) {
+                    throw new Error('Lỗi khi lấy danh sách dịch vụ mới nhất');
+                }
+                const data = await response.json();
+                setTopService(data.data);
+            } catch (err) {
+                setTopError(err.message);
+            } finally {
+                setLoadingTop(false);
+            }
+        };
+
+        fetchTopServices();
+    }, []);
+
+    if (loading) return <p>Loading service details...</p>;
     if (error) return <p>Error: {error}</p>;
+
+    if (loadingTop) return <p>Loading top services...</p>;
+    if (errorTop) return <p>Error: {errorTop}</p>;
 
     return (
         <>
             <BreadScrum
-                title="chi tiết dịch vụ"
+                title="Chi tiết dịch vụ"
                 links={[
-                    { title: 'danh sách dịch vụ', href: config.routes.services },
-                    { title: 'chi tiết dịch vụ', href: config.routes.service_detail },
+                    { title: 'Danh sách dịch vụ', href: config.routes.services },
+                    { title: 'Chi tiết dịch vụ', href: config.routes.service_detail },
                 ]}
             />
-            <section class="news-single section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8 col-12">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="single-main">
-                                        <div class="news-head">
-                                            <img className="" src="{serviceDetail.avatar}" alt="#" />
+            <section className="news-single section">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8 col-12">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="single-main">
+                                        <div className="news-head">
+                                            <img src={serviceDetail.avatar} alt={serviceDetail.name} />
                                         </div>
-                                        <h1 class="news-title">
+                                        <h1 className="news-title">
                                             <a href="news-single.html">{serviceDetail.name}</a>
                                         </h1>
-                                        <div class="meta">
-                                            <div class="meta-left">
-                                                <span class="author img-fluid">
-                                                    <a href="#">
-                                                        <img
-                                                            src="https://watermark.lovepik.com/photo/20211210/large/lovepik-male-doctor-holding-teeth-model-picture_501789567.jpg"
-                                                            alt="#"
-                                                        />
-                                                        Nguyễn Ngọc Cương
-                                                    </a>
-                                                </span>
-                                                <span class="date">
-                                                    <i class="fa fa-clock-o"></i>
-                                                    {serviceDetail.created_at}
+                                        <div className="meta">
+                                            <div className="meta-left">
+                                                <span className="date">
+                                                    <i className="fa fa-clock-o"></i>{formatDate(serviceDetail.created_at)}
                                                 </span>
                                             </div>
-                                            <div class="meta-right">
-                                                {/* <span class="comments"><a href="#"><i class="fa fa-comments"></i>05 Comments</a></span> */}
-                                                <span class="views">
-                                                    <i class="fa fa-eye"></i>33 000 Lượt xem
+                                            <div className="meta-right">
+                                                <span className="views">
+                                                    <i className="fa fa-eye"></i>33,000 Lượt xem
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="news-text">
+                                        <div className="news-text">
                                             <p>{serviceDetail.content}</p>
-
-                                            <blockquote class="overlay">
+                                            <blockquote className="overlay">
                                                 <p>{serviceDetail.description}</p>
                                             </blockquote>
                                         </div>
-                                        <div class="blog-bottom">
-                                            <ul class="social-share">
-                                                <li class="facebook">
+                                        <div className="blog-bottom">
+                                            <ul className="social-share">
+                                                <li className="facebook">
                                                     <a href="#">
-                                                        <i class="fa fa-facebook"></i>
+                                                        <i className="fa fa-facebook"></i>
                                                         <span>Facebook</span>
                                                     </a>
                                                 </li>
-                                                <li class="twitter">
+                                                <li className="twitter">
                                                     <a href="#">
-                                                        <i class="fa fa-twitter"></i>
+                                                        <i className="fa fa-twitter"></i>
                                                         <span>Twitter</span>
                                                     </a>
                                                 </li>
-                                                <li class="google-plus">
+                                                <li className="google-plus">
                                                     <a href="#">
-                                                        <i class="fa fa-google-plus"></i>
+                                                        <i className="fa fa-google-plus"></i>
                                                     </a>
                                                 </li>
-                                                <li class="linkedin">
+                                                <li className="linkedin">
                                                     <a href="#">
-                                                        <i class="fa fa-linkedin"></i>
+                                                        <i className="fa fa-linkedin"></i>
                                                     </a>
                                                 </li>
-                                                <li class="pinterest">
+                                                <li className="pinterest">
                                                     <a href="#">
-                                                        <i class="fa fa-pinterest"></i>
+                                                        <i className="fa fa-pinterest"></i>
                                                     </a>
                                                 </li>
                                             </ul>
-                                            <ul class="prev-next">
-                                                <li class="prev">
+                                            <ul className="prev-next">
+                                                <li className="prev">
                                                     <a href="#">
-                                                        <i class="fa fa-angle-double-left"></i>
+                                                        <i className="fa fa-angle-double-left"></i>
                                                     </a>
                                                 </li>
-                                                <li class="next">
+                                                <li className="next">
                                                     <a href="#">
-                                                        <i class="fa fa-angle-double-right"></i>
+                                                        <i className="fa fa-angle-double-right"></i>
                                                     </a>
                                                 </li>
                                             </ul>
@@ -135,136 +150,66 @@ function ServiceDetail() {
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-12">
-                            <div class="main-sidebar">
-                                <div class="single-widget search">
-                                    <div class="form">
-                                        <input type="email" placeholder="Tìm kiếm nhanh" />
-                                        <a class="button" href="#">
-                                            <i class="fa fa-search"></i>
+                        <div className="col-lg-4 col-12">
+                            <div className="main-sidebar">
+                                <div className="single-widget search">
+                                    <div className="form">
+                                        <input type="text" placeholder="Tìm kiếm nhanh" />
+                                        <a className="button" href="#">
+                                            <i className="fa fa-search"></i>
                                         </a>
                                     </div>
                                 </div>
 
-                                <div class="single-widget category">
-                                    <h3 class="title">Danh mục dịch vụ</h3>
-                                    <ul class="categor-list">
-                                        <li>
-                                            <a href="#">Chăm sóc răng miệng tổng quát</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Niềng răng và chỉnh nha</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Nha khoa thẩm mỹ</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Cấy ghép Implant</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Điều trị tủy và phục hình răng</a>
-                                        </li>
+                                <div className="single-widget category">
+                                    <h3 className="title">Danh mục dịch vụ</h3>
+                                    <ul className="categor-list">
+                                        <li><a href="#">Chăm sóc răng miệng tổng quát</a></li>
+                                        <li><a href="#">Niềng răng và chỉnh nha</a></li>
+                                        <li><a href="#">Nha khoa thẩm mỹ</a></li>
+                                        <li><a href="#">Cấy ghép Implant</a></li>
+                                        <li><a href="#">Điều trị tủy và phục hình răng</a></li>
                                     </ul>
                                 </div>
 
-                                <div class="single-widget recent-post">
-                                    <h3 class="title">Dịch vụ nổi bật</h3>
-                                    <div class="single-post">
-                                        <div class="image">
-                                            <img
-                                                src="https://img.freepik.com/free-photo/male-professional-dentist-with-gloves-mask-discuss-what-treatment-will-look-like-patient-s-teeth_158595-7630.jpg"
-                                                alt="#"
-                                            />
-                                        </div>
-                                        <div class="content">
-                                            <h5>
-                                                <a href="#">Bọc răng sứ thẩm mỹ làm đẹp thời đại mới</a>
-                                            </h5>
-                                            <ul class="comment">
-                                                <li>
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>12/11/2020
-                                                </li>
-                                                <li>
-                                                    <i class="fa fa-commenting-o" aria-hidden="true"></i>35
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-post">
-                                        <div class="image">
-                                            <img
-                                                src="https://drhelen.com.au/wp-content/uploads/2018/12/Depositphotos_310525048_L.jpg.webp"
-                                                alt="#"
-                                            />
-                                        </div>
-                                        <div class="content">
-                                            <h5>
-                                                <a href="#">
-                                                    Top 5 địa điểm nên tới để niềng răng trong suốt Invisalign
-                                                </a>
-                                            </h5>
-                                            <ul class="comment">
-                                                <li>
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>05/11/2019
-                                                </li>
-                                                <li>
-                                                    <i class="fa fa-commenting-o" aria-hidden="true"></i>59
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="single-post">
-                                        <div class="image">
-                                            <img
-                                                src="https://img.freepik.com/free-photo/young-female-patient-visiting-dentist-office_496169-930.jpg"
-                                                alt="#"
-                                            />
-                                        </div>
-                                        <div class="content">
-                                            <h5>
-                                                <a href="#">
-                                                    Nha khoa thẩm mỹ giúp cải thiện vẻ ngoài của răng, từ tẩy trắng răng
-                                                    đến bọc răng sứ, mang lại nụ cười hoàn hảo.
-                                                </a>
-                                            </h5>
-                                            <ul class="comment">
-                                                <li>
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>08/09/2019
-                                                </li>
-                                                <li>
-                                                    <i class="fa fa-commenting-o" aria-hidden="true"></i>44
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                <div className="single-widget recent-post">
+                                    <h3 className="title">Dịch vụ mới nhất</h3>
+                                    {topService.length > 0 ? (
+                                        topService.map((service) => (
+                                            <div className="single-post" key={service.id}>
+                                                <div className="image">
+                                                    <img src={service.avatar} alt={service.name} />
+                                                </div>
+                                                <div className="content">
+                                                    <h5>
+                                                        <a href="#">{service.name}</a>
+                                                    </h5>
+                                                    <ul className="comment">
+                                                        <li>
+                                                            <i className="fa fa-calendar" aria-hidden="true"></i>{formatDate(service.created_at)}
+                                                        </li>
+                                                        <li>
+                                                            <i className="fa fa-commenting-o" aria-hidden="true"></i>35
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p>Không có dịch vụ mới nào.</p>
+                                    )}
                                 </div>
 
-                                <div class="single-widget side-tags">
-                                    <h3 class="title">Từ khóa tìm kiếm</h3>
-                                    <ul class="tag">
-                                        <li>
-                                            <a href="#">rang</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">thammirang</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">ganimplant</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">maccaitrongsuot</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">phhuchoirang</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">taytrangrangcaptoc</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">tramrang</a>
-                                        </li>
+                                <div className="single-widget side-tags">
+                                    <h3 className="title">Từ khóa tìm kiếm</h3>
+                                    <ul className="tag">
+                                        <li><a href="#">rang</a></li>
+                                        <li><a href="#">thammirang</a></li>
+                                        <li><a href="#">ganimplant</a></li>
+                                        <li><a href="#">maccaitrongsuot</a></li>
+                                        <li><a href="#">phhuchoirang</a></li>
+                                        <li><a href="#">taytrangrangcaptoc</a></li>
+                                        <li><a href="#">tramrang</a></li>
                                     </ul>
                                 </div>
                             </div>

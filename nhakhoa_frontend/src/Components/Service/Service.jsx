@@ -1,7 +1,54 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import sectionImg from '~/Assets/img/section-img.png';
+import ServiceItem from '../ServiceItem/ServiceItem';
 
 function Service() {
+    const [services, setServices] = useState([]); // Quản lý danh sách dịch vụ
+    const [loading, setLoading] = useState(true); // Quản lý trạng thái tải dữ liệu
+    const [error, setError] = useState(null); // Quản lý trạng thái lỗi
+    const [visibleServices, setVisibleServices] = useState(6); // Quản lý số lượng dịch vụ hiển thị
+
+    // Gọi API để lấy danh sách dịch vụ
+    const fetchServices = async () => {
+        try {
+            const response = await fetch('http://localhost:4000/get-all-services');
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log("API trả về dữ liệu: ", data.data); // In ra dữ liệu dịch vụ từ API
+            setServices(data.data); // Lưu danh sách dịch vụ vào state
+            setLoading(false); // Kết thúc trạng thái tải dữ liệu
+        } catch (err) {
+            setError(err.message); // Lưu thông báo lỗi nếu có
+            setLoading(false); // Kết thúc trạng thái tải dữ liệu
+        }
+    };
+
+    // Gọi API khi component được render lần đầu
+    useEffect(() => {
+        fetchServices();
+    }, []);
+
+    useEffect(() => {
+        console.log(`Hiển thị ${visibleServices} dịch vụ`); // In ra số lượng dịch vụ đang hiển thị
+        console.log("Danh sách dịch vụ hiện tại: ", services.slice(0, visibleServices)); // In ra các dịch vụ đang được hiển thị
+    }, [visibleServices, services]);
+
+    if (loading) {
+        return <p>Loading services...</p>; // Hiển thị thông báo trong lúc tải dữ liệu
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>; // Hiển thị thông báo lỗi nếu có
+    }
+
+    // Hàm xử lý khi người dùng nhấn nút "Xem thêm"
+    const handleShowMore = () => {
+        console.log("Bấm nút Xem thêm"); // Thông báo khi nút Xem thêm được bấm
+        setVisibleServices(services.length); // Hiển thị tất cả dịch vụ
+    };
+
     return (
         <section className="services section">
             <div className="container">
@@ -18,81 +65,19 @@ function Service() {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-12">
-                        {/* Start Single Service */}
-                        <div className="single-service">
-                            <i className="icofont icofont-prescription"></i>
-                            <h4>
-                                <a href="service-details.html">Nha khoa tổng quát</a>
-                            </h4>
-                            <p>Sức khỏe răng miệng là tiền đề cho một cơ thể khỏe mạnh</p>
-                        </div>
-                        {/* End Single Service */}
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        {/* Start Single Service */}
-                        <div className="single-service">
-                            <i className="icofont-screw-driver"></i>
-                            <h4>
-                                <a href="service-details.html">Cấy ghép Implant</a>
-                            </h4>
-                            <p>
-                                Giải pháp phục hình chức năng thẩm mỹ và chức năng ăn nhai tối ưu cho người bị mất răng
-                            </p>
-                        </div>
-                        {/* End Single Service */}
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        {/* Start Single Service */}
-                        <div className="single-service">
-                            <i className="icofont-simple-smile"></i>
-                            <h4>
-                                <a href="service-details.html">Nha khoa thẩm mỹ</a>
-                            </h4>
-                            <p>
-                                Mang đến cho bạn những nụ cười bạn mà luôn luôn mơ ước và tặng bạn sự tự tin mà bạn mong
-                                muốn
-                            </p>
-                        </div>
-                        {/* End Single Service */}
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        {/* Start Single Service */}
-                        <div className="single-service">
-                            <i className="icofont-first-aid-alt"></i>
-                            <h4>
-                                <a href="service-details.html">Chỉnh nha không mắc cài Invisalign</a>
-                            </h4>
-                            <p>Giải pháp chỉnh nha thẩm mỹ cao cho một hàm răng đẹp và khỏe mạnh</p>
-                        </div>
-                        {/* End Single Service */}
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        {/* Start Single Service */}
-                        <div className="single-service">
-                            <i className="icofont icofont-tooth"></i>
-                            <h4>
-                                <a href="service-details.html">Nhổ răng khôn</a>
-                            </h4>
-                            <p>
-                                Tiểu phẫu an toàn, nhẹ nhàng với hệ thống máy móc hiện đại và đội ngũ bác sĩ tay nghề
-                                cao
-                            </p>
-                        </div>
-                        {/* End Single Service */}
-                    </div>
-                    <div className="col-lg-4 col-md-6 col-12">
-                        {/* Start Single Service */}
-                        <div className="single-service">
-                            <i className="icofont-users-alt-3"></i>
-                            <h4>
-                                <a href="service-details.html">Nha khoa trẻ em</a>
-                            </h4>
-                            <p>Mang đến cho trẻ một hàm răng khỏe mạnh để nụ cười luôn rạng rỡ</p>
-                        </div>
-                        {/* End Single Service */}
-                    </div>
+                    {/* Hiển thị các dịch vụ, ban đầu chỉ hiển thị 6 dịch vụ */}
+                    {services.slice(0, visibleServices).map((service) => (
+                        <ServiceItem key={service.id} data={service} />
+                    ))}
                 </div>
+                {/* Nếu số lượng dịch vụ hiện tại nhỏ hơn tổng số dịch vụ, hiển thị nút "Xem thêm" */}
+                {visibleServices < services.length && (
+                    <div className="text-center mt-4">
+                        <button className="btn btn-primary" onClick={handleShowMore}>
+                            Xem thêm
+                        </button>
+                    </div>
+                )}
             </div>
         </section>
     );
