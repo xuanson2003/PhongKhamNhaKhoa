@@ -658,7 +658,7 @@ body {
     -moz-transition: all 0.4s ease;
     transition: all 0.4s ease;
     padding: 0;
-    border-radius: 50%;
+    borderRadius: 50;
 }
 .slider .owl-carousel .owl-nav div:hover {
     background: #2c2d3f;
@@ -927,7 +927,7 @@ body {
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
     transition: all 0.4s ease;
-    border-radius: 50%;
+    borderRadius: 50;
 }
 .fun-facts .single-fun:hover i {
     color: #1a76d1;
@@ -1296,7 +1296,7 @@ body {
     border: 1px solid #c8c8c8;
     color: #757575;
     display: block;
-    border-radius: 50%;
+    borderRadius: 50;
 }
 .pf-details .body-text .share ul li a:hover {
     color: #fff;
@@ -3665,7 +3665,7 @@ body {
     color: #1a76d1;
     width: 65px;
     height: 65px;
-    border-radius: 50%;
+    borderRadius: 50;
     line-height: 65px;
     -webkit-transition: 0.5s;
     transition: 0.5s;
@@ -3835,7 +3835,7 @@ body {
     border: 10px solid #ffffff;
     left: -80px;
     bottom: -80px;
-    border-radius: 50%;
+    borderRadius: 50;
     z-index: -1;
     opacity: 0.15;
     -webkit-transition: 0.5s;
@@ -3936,7 +3936,7 @@ body {
     height: 50px;
     line-height: 50px;
     text-align: center;
-    border-radius: 50%;
+    borderRadius: 50;
     color: #1a76d1;
     font-size: 20px;
     -webkit-transition: 0.5s;
