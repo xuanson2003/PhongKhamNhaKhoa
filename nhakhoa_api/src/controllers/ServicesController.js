@@ -100,6 +100,7 @@ class ServicesController {
             const serviceQuery = `
                 select *
                 from dc_service ds 
+                order by created_at desc
             `;
 
             const service = await sequelize.query(serviceQuery, {

@@ -28,7 +28,7 @@ export default function AddService() {
     },  [])
     return (
         <div>
-            <Card title={`Danh sách dịch vụ`} bordered={true} className="mt-3">
+            <Card title={`Thêm mới dịch vụ`} bordered={true} className="mt-3">
                 <ConfigForm
                     config={serviceForm}
                     ref={formRefAdd}
