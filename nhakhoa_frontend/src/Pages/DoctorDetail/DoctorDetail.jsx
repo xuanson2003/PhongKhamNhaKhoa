@@ -111,7 +111,7 @@ function DoctorDetail() {
                                                 style={{
                                                     width: '150px',
                                                     height: '150px',
-                                                    borderRadius: 50,
+                                                    border-radius: 50%,
                                                     objectFit: 'cover',
                                                   
                                                 }}
@@ -265,7 +265,7 @@ function DoctorDetail() {
                             width: '100px',  // Ensure width and height are equal for circular shape
                             height: '100px',
                             objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
+                            border-radius: 50%,  // Make the image circular
                             display: 'block',  // Ensures the image behaves as a block element
                             margin: '0 auto'  // Centers the image horizontally
                         }}
@@ -299,7 +299,7 @@ function DoctorDetail() {
                             width: '100px',  // Ensure width and height are equal for circular shape
                             height: '100px',
                             objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
+                            border-radius: 50%,  // Make the image circular
                             display: 'block',  // Ensures the image behaves as a block element
                             margin: '0 auto'  // Centers the image horizontally
                         }}
@@ -333,7 +333,7 @@ function DoctorDetail() {
                             width: '100px',  // Ensure width and height are equal for circular shape
                             height: '100px',
                             objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
+                            border-radius: 50%,  // Make the image circular
                             display: 'block',  // Ensures the image behaves as a block element
                             margin: '0 auto'  // Centers the image horizontally
                         }}
@@ -367,7 +367,7 @@ function DoctorDetail() {
                             width: '100px',  // Ensure width and height are equal for circular shape
                             height: '100px',
                             objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
+                            border-radius: 50%,  // Make the image circular
                             display: 'block',  // Ensures the image behaves as a block element
                             margin: '0 auto'  // Centers the image horizontally
                         }}

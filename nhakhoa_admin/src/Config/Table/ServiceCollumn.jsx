@@ -30,7 +30,7 @@ const ServiceColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
                 <img
                     src={'http://localhost:4000/'+ avatarUrl}
                     alt="Avatar"
-                    style={{ width: '40px', height: '40px', borderRadius: 50 }}
+                    style={{ width: '40px', height: '40px', border-radius: 50% }}
                 />
             ),
             sorter: false, // không sắp xếp ảnh

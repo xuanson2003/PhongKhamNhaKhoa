@@ -3555,7 +3555,7 @@ tbody.collapse.show {
 }
 
 .custom-radio .custom-control-indicator {
-    borderRadius: 50;
+    border-radius: 50%;
 }
 
 .custom-radio .custom-control-input:checked ~ .custom-control-indicator {
@@ -6101,7 +6101,7 @@ a.bg-dark:hover {
 }
 
 .rounded-circle {
-    borderRadius: 50 !important;
+    border-radius: 50% !important;
 }
 
 .rounded-0 {
