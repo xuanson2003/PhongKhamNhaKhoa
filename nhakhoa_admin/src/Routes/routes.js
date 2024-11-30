@@ -9,6 +9,7 @@ import PositionLst from '~/Pages/PositionLst/PositionLst';
 import Profile from '~/Pages/Profile/Profile';
 import Register from '~/Pages/Register/Register';
 import ServiceLst from '~/Pages/ServiceLst/ServiceLst';
+import EditService from '~/Pages/EditService/EditService';
 
 const publicRoutes = [
     { path: config.routes.login, component: <Login />, layout: null, title: "đăng nhập" },
@@ -28,6 +29,8 @@ const privateRoutes = [
     { path: config.routes.user_list, component: <AccountLst />, title: "danh sách tài khoản" },
     { path: config.routes.position_list, component: <PositionLst/>, title: "danh sách chức vụ" },
     { path: config.routes.contact_list, component: <Contact/>, title: "danh sách liên hệ" },
+    { path: config.routes.edit_service, component: <EditService/>, title: "cập nhật dịch vụ" },
+
 ];
 
 export { publicRoutes, privateRoutes };

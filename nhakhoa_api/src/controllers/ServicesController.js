@@ -7,8 +7,10 @@ class ServicesController {
     async getServices(req, res) {
         try {
             const userQuery = `
-                select name, icon, description,id
-                from dc_service ds 
+                SELECT name, icon, description, id
+                FROM dc_service ds
+                ORDER BY created_at DESC;
+
             `;
 
             const users = await sequelize.query(userQuery, {
@@ -98,6 +100,7 @@ class ServicesController {
             const serviceQuery = `
                 select *
                 from dc_service ds 
+                order by created_at desc
             `;
 
             const service = await sequelize.query(serviceQuery, {
@@ -116,20 +119,20 @@ class ServicesController {
     // [POST] /insert-service
     async insertService(req, res) {
         try {
-            const { name,content, description, price, icon, avatar } = req.body; // Lấy thông tin từ req.body
+            const { name, content, description, price, icon, avatar } = req.body; // Lấy thông tin từ req.body
             const id = uuidv4();
 
             const query = `INSERT INTO dc_service (id, name,content, description, price, icon, avatar) 
                        VALUES (:id, :name,:content, :description, :price, :icon, :avatar)`;
 
             await sequelize.query(query, {
-                replacements: { id, name,content, avatar, description, price, icon},
+                replacements: { id, name, content, avatar, description, price, icon },
                 type: sequelize.QueryTypes.INSERT,
             });
 
             return res.json({
                 success: true,
-                data: { id, name,content, description, price, icon, avatar },
+                data: { id, name, content, description, price, icon, avatar },
             });
         } catch (error) {
             return res.status(500).json({ success: false, error: 'Server error' });
@@ -137,7 +140,7 @@ class ServicesController {
     }
 
     // [PUT] /update-service
-    
+
     async updateService(req, res) {
         try {
             const { id, name, description, price, icon } = req.body;

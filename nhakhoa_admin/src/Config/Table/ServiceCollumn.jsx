@@ -21,20 +21,20 @@ const ServiceColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             key: '',
             hidden: true
         },
-        {
-            title: 'Ảnh bìa',
-            dataIndex: 'avatar', // dữ liệu sẽ lấy từ trường 'avatar'
-            key: 'avatar',
-            align: 'center', // căn giữa ảnh
-            render: (avatarUrl) => (
-                <img
-                    src={'http://localhost:4000/'+ avatarUrl}
-                    alt="Avatar"
-                    style={{ width: '40px', height: '40px', border-radius: 50% }}
-                />
-            ),
-            sorter: false, // không sắp xếp ảnh
-        },        
+        // {
+        //     title: 'Ảnh bìa',
+        //     dataIndex: 'avatar', // dữ liệu sẽ lấy từ trường 'avatar'
+        //     key: 'avatar',
+        //     align: 'center', // căn giữa ảnh
+        //     render: (avatarUrl) => (
+        //         <img
+        //             src={'http://localhost:4000/'+ avatarUrl}
+        //             alt="Avatar"
+        //             style={{ width: '40px', height: '40px', borderRadius: '50%' }}
+        //         />
+        //     ),
+        //     sorter: false, // không sắp xếp ảnh
+        // },        
         {
             title: 'Tên dịch vụ',
             dataIndex: 'name',
@@ -50,14 +50,15 @@ const ServiceColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             render: (text) => Intl.NumberFormat('vi-VN').format(text),
             sorter: (a, b) => (Number(a.price) - (Number(b.price))),
         },
-        {
-            title: 'Icon',
-            dataIndex: 'icon',
-            key: 'icon',
-            align: 'right',
-            ...getColumnSearchProps('name', 'Nhập tên icon'),
-            sorter: (a, b) => a.name.localeCompare(b.name),
-        },
+        // {
+        //     title: 'Icon',
+        //     dataIndex: 'icon',
+        //     key: 'icon',
+        //     align: 'right',
+        //     //render: (text) => Intl.NumberFormat('vi-VN').format(text),
+        //     ...getColumnSearchProps('name', 'Nhập tên icon'),
+        //     sorter: (a, b) => a.name.localeCompare(b.name),
+        // },
         {
             title: 'Ngày tạo',
             dataIndex: 'created_at',

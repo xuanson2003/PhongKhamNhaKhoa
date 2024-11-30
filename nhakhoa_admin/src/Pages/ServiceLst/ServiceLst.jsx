@@ -10,6 +10,7 @@ import request from '~/Utils/httpRequest';
 import serviceForm from '~/Config/Form/service/service'
 import ConfigForm from '~/Components/ConfigForm/ConfigForm';
 import openNotification from '../../Components/Notification/Notification';
+import { useNavigate } from 'react-router-dom';
 
 export default function ServiceLst() {
     const [searchText, setSearchText] = useState('');
@@ -20,6 +21,7 @@ export default function ServiceLst() {
     const formRefAdd = useRef();
     const formRefEdit = useRef();
     const [currentId, setCurrentId] = useState(false);
+    const navigate = useNavigate(); 
 
     const fetchData = useCallback(async () => {
         setIsLoading(true);
@@ -131,7 +133,7 @@ export default function ServiceLst() {
     const actions = useCallback(
         (record) => [
             {
-                onClick: () => openModalEdit(record),
+                onClick: () => navigate(`/danh-sach-dich-vu/cap-nhat-dich-vu/${record.id}`), // Thay 'record.id' bằng giá trị ID phù hợp nếu cần
                 label: (
                     <p className="d-flex align-items-center mb-0 pe-2 ps-2">
                         <FontAwesomeIcon className="text-primary me-2" icon={faPencil} />
@@ -175,24 +177,14 @@ export default function ServiceLst() {
                         },
                     ]}
                 />
-                <div className="ms-auto">
-                    <Button
-                        primary
-                        type="primary"
-                        icon={<FontAwesomeIcon icon={faPlus} />}
-                        onClick={() => setOpenModal('add')}
-                        size="media"
-                    >
-                        Thêm mới
-                    </Button>
-                </div>
+                 
             </div>
 
             <Card title={`Danh sách dịch vụ (${data.length})`} bordered={true} className="mt-3">
                 <Table dataSource={data} columns={columns} rowKey="id" />
             </Card>
 
-            <Modal
+            {/* <Modal
                 title="Thêm mới chức vụ"
                 centered
                 open={openModal === 'add'}
@@ -212,7 +204,7 @@ export default function ServiceLst() {
             </Modal>
 
             <Modal
-                title="Chỉnh sửa chức vụ"
+                title="Chỉnh sửa dịch vụ"
                 centered
                 open={openModal === 'edit'}
                 onCancel={() => setOpenModal('0')}
@@ -227,7 +219,7 @@ export default function ServiceLst() {
                 ]}
             >
                 <ConfigForm config={serviceForm} ref={formRefEdit} onFinish={handleEditService} style={{ maxHeight: 320, overflowY: 'auto', marginTop: 16,}} />
-            </Modal>
+            </Modal> */}
 
             <Loading isLoading={isLoading} />
         </div>
