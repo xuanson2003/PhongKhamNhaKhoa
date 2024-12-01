@@ -14,6 +14,9 @@ const routes = {
     user_list: '/danh-sach-tai-khoan',
     position_list: '/danh-sach-chuc-vu',
     contact_list: '/danh-sach-lien-he',
+    news_list:'/danh-sach-tin-tuc',
+    edit_service:'/danh-sach-dich-vu/cap-nhat-dich-vu/:id',
+
 };
 
 export default routes;

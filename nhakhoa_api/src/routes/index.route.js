@@ -11,6 +11,7 @@ const ServicesController = require('../controllers/ServicesController');
 const NewsController = require('../controllers/NewsController');
 const DoctorController = require('../controllers/DoctorController');
 const ContactController = require('../controllers/ContactController');
+const PriceController = require('../controllers/PriceController');
 
 function route(app) {
     // image
@@ -36,12 +37,23 @@ function route(app) {
     //services - serviceDetail
     app.get('/get-all-services', ServicesController.getServices);
     app.get('/get-service-detail/:id', ServicesController.getServiceDetail);
+    app.get('/get-top-latest-service', ServicesController.getTopLatestServices);
+    app.get('/get-all-services-admin', ServicesController.getServicesAdmin);
+    app.post('/insert-service', ServicesController.insertService);
+    app.put('/update-service', ServicesController.updateService);
+    app.delete('/delete-service/:id', ServicesController.deleteService)
+
+
 
     //news
     app.get('/get-all-news', NewsController.getNews);
     app.get('/get-top-news', NewsController.getTopNews);
     app.get('/get-top-3-news', NewsController.getTop3News);
     app.get('/get-news-by-id/:id', NewsController.getNewsById);
+    app.get('/get-all-news-admin', NewsController.getNewsAdmin);
+    app.post('/insert-news', NewsController.insertNews);
+    app.put('/update-news', NewsController.updateNews);
+    app.delete('/delete-news/:id', NewsController.deleteNews)
 
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
@@ -49,6 +61,9 @@ function route(app) {
 
     //conatct
     app.post('/add-contact', ContactController.addContact);
+    //price
+    app.get('/get-price', PriceController.getPrice);
+    
 
     // demo
     app.get('/', async (req, res) => {

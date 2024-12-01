@@ -125,6 +125,27 @@ function Sidebar() {
                             </div>
                         </li>
                         <li className="nav-item">
+                            <a data-bs-toggle="collapse" href="#news">
+                                <FontAwesomeIcon icon={faNotesMedical} />
+                                <p>Tin tức</p>
+                                <span className="caret"></span>
+                            </a>
+                            <div className="collapse" id="news">
+                                <ul className="nav nav-collapse">
+                                    <li className={getActiveClass(`${config.routes.add_news}`)}>
+                                        <Link to={config.routes.add_news}>
+                                            <span className="sub-item">Thêm mới</span>
+                                        </Link>
+                                    </li>
+                                    <li className={getActiveClass(`${config.routes.news_list}`)}>
+                                        <Link to={config.routes.news_list}>
+                                            <span className="sub-item">Danh sách</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="nav-item">
                             <a data-bs-toggle="collapse" href="#contact">
                                 <FontAwesomeIcon icon={faPhoneVolume} />
                                 <p>Liên hệ</p>
