@@ -26,7 +26,7 @@ function route(app) {
     // login - signup - get-user
     app.post('/signup', AuthController.signup);
     app.post('/login', AuthController.login);
-    app.post('/get-user', fetchUser, AuthController.getUser);
+    app.get('/get-user', fetchUser, AuthController.getUser);
     app.get('/search-user', AuthController.searchUser);
 
     // position

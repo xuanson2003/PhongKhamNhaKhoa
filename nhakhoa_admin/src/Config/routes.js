@@ -12,6 +12,7 @@ const routes = {
     add_service: '/them-moi-dich-vu',
     profile: '/thong-tin-tai-khoan',
     user_list: '/danh-sach-tai-khoan',
+    user_add: '/them-moi-tai-khoan',
     position_list: '/danh-sach-chuc-vu',
     contact_list: '/danh-sach-lien-he',
     news_list:'/danh-sach-tin-tuc',

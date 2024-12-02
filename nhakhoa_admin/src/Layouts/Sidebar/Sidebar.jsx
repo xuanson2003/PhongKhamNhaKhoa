@@ -175,6 +175,11 @@ function Sidebar() {
                             </a>
                             <div className="collapse" id="user-list">
                                 <ul className="nav nav-collapse">
+                                    <li className={getActiveClass(`${config.routes.user_add}`)}>
+                                        <Link to={config.routes.user_add}>
+                                            <span className="sub-item">Thêm mới</span>
+                                        </Link>
+                                    </li>
                                     <li className={getActiveClass(`${config.routes.user_list}`)}>
                                         <Link to={config.routes.user_list}>
                                             <span className="sub-item">Danh sách</span>
