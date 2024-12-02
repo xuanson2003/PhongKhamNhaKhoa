@@ -60,10 +60,12 @@ const serviceForm = {
         {
             title: 'Nội dung',
             name: 'content',
-            type: 'editor',
+            //type: 'editor',
+            type: 'textarea',
+
             style: '',
             className: '',
-            height: 400,
+            height: 800,
             rules: [
                 {
                     required: true,
