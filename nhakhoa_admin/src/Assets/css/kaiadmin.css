@@ -3319,7 +3319,7 @@ label.error {
   .nav-search .input-group:hover, .nav-search .input-group:focus {
     border: 1px solid #ddd; }
 .nav-search.nav-search-round .input-group {
-  border-radius: 50px; }
+  border-radius: 50%px; }
 .nav-search .form-control {
   border: 0;
   background: transparent !important;
@@ -4119,7 +4119,7 @@ label.error {
     background: #ffffff !important; }
 
 .btn-round .toggle-handle {
-  border-radius: 50px; }
+  border-radius: 50%px; }
 
 .btn-rounded {
   border-radius: 60px !important; }
@@ -4155,10 +4155,10 @@ label.error {
   margin-left: 15px !important; }
   .nav-pills.nav-pills-no-bd li .nav-link {
     border: 0px !important;
-    border-radius: 50px !important;
+    border-radius: 50%px !important;
     background: rgba(222, 222, 222, 0.4); }
     .nav-pills.nav-pills-no-bd li .nav-link.active {
-      border-radius: 50px !important; }
+      border-radius: 50%px !important; }
   .nav-pills.nav-pills-no-bd li:first-child {
     margin-left: 0px !important; }
 .nav-pills.nav-pills-no-bd.nav-pills-icons .nav-link, .nav-pills.nav-pills-no-bd.nav-pills-icons .nav-link.active {
@@ -4181,12 +4181,12 @@ label.error {
     border-radius: 0 0 4px 4px !important; }
 .nav-pills.flex-column.nav-pills-no-bd .nav-link {
   border: 0px !important;
-  border-radius: 50px !important;
+  border-radius: 50%px !important;
   background: rgba(222, 222, 222, 0.4);
   margin-top: 5px;
   margin-bottom: 5px; }
   .nav-pills.flex-column.nav-pills-no-bd .nav-link.active {
-    border-radius: 50px !important; }
+    border-radius: 50%px !important; }
 .nav-pills.flex-column.nav-pills-icons .nav-link, .nav-pills.flex-column.nav-pills-icons .nav-link.active {
   border-radius: 5px !important; }
 .nav-pills.nav-pills-icons .nav-link, .nav-pills.nav-pills-icons .nav-link.active {
@@ -4899,7 +4899,7 @@ label.error {
     -ms-flex-positive: 0;
     flex-grow: 0; }
   .selectgroup-pills .selectgroup-button {
-    border-radius: 50px !important; }
+    border-radius: 50%px !important; }
 
 .selectgroup.selectgroup-primary .selectgroup-input:checked + .selectgroup-button {
   border-color: #1572E8;
@@ -6900,7 +6900,7 @@ body {
         font-weight: 600;
         font-size: 30px; }
     .page-not-found .wrapper.not-found .btn-back-home {
-      border-radius: 50px;
+      border-radius: 50%px;
       padding: 13px 25px;
       animation-delay: 2.5s; }
 

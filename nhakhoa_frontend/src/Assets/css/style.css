@@ -4166,6 +4166,216 @@ body {
     display: inline-block;
     margin-left: 4px;
 }
+
 /*=========================
 	End Footer CSS
 ===========================*/
+/* From Uiverse.io by joe-watson-sbf */ 
+.card {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.card img {
+    width: 80px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.card .location {
+    background-color: #F8FAFC;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.card .location p {
+    margin: 5px 0;
+    color: #681717;
+}
+
+.card .location i {
+    color: #007bff;
+    margin-right: 5px;
+}
+
+.card .button {
+    background-color: #ffffff;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid #bebebe;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+/* Hover effect for the button */
+.card .button:hover {
+    background-color: #007bff; /* Change to blue on hover */
+    color: white; /* Change text to white */
+}
+
+/* Hover effect for the card border when the button is hovered */
+.card:hover {
+    border-color: #007bff; /* Change border color to blue */
+}
+
+.card .location:hover {
+    background-color: #e0efff;  /* Change border color to blue */
+}
+  
+
+
+
+.container-dt {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    padding: 20px;
+}
+.header-dt {
+    background-color: #e6f0ff;
+    padding: 10px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+.header-dt h1 {
+    font-size: 18px;
+    margin: 0;
+}
+.header-dt p {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0 0;
+}
+.content-dt {
+    padding: 20px;
+}
+.content-dt h2 {
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+.content-dt select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.date-picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.date-picker span {
+    font-size: 14px;
+    color: #007bff;
+    cursor: pointer;
+}
+.date-picker .dates {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.date-picker .dates div {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 5px;
+    flex: 1;
+}
+.date-picker .dates .active {
+    border-color: #007bff;
+    color: #007bff;
+}
+.time-slots {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.time-slots div {
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 5px;
+    flex: 1;
+}
+.time-slots .active {
+    border-color: #007bff;
+    color: #007bff;
+}
+.price {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.price i {
+    margin-right: 5px;
+}
+.price span {
+    font-size: 16px;
+    color: #28a745;
+}
+.button-dt {
+    text-align: center;
+}
+.button-dt button {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.tab-content {
+    padding: 20px 0;
+}
+.tab-content h2 {
+    font-size: 18px;
+    color: #333;
+    border-left: 3px solid #007bff;
+    padding-left: 10px;
+}
+.tab-content p {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+.tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #007bff;
+}
+.tab.active {
+    border-bottom: 2px solid #007bff;
+    font-weight: bold;
+}

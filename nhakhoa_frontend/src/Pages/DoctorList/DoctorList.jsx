@@ -9,7 +9,7 @@ import request from '~/Utils/httpRequest';
 function DoctorList() {
     const [doctorData, setDoctorData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [visibleDoctors, setVisibleDoctors] = useState(6); // Start by showing 4 doctors
+    const [visibleDoctors, setVisibleDoctors] = useState(8); // Start by showing 4 doctors
     const [searchQuery, setSearchQuery] = useState(''); // State for search input
     const [filteredDoctors, setFilteredDoctors] = useState([]); // State for filtered doctors
     const [filterOption, setFilterOption] = useState('all'); // Filter option state
@@ -126,6 +126,7 @@ function DoctorList() {
                                                 name: doctorItem.name,
                                                 description: doctorItem.description,
                                                 address: doctorItem.address,
+                                                phone:doctorItem.phone
                                             }}
                                         />
                                     </React.Fragment>

@@ -4746,7 +4746,7 @@ label.error {
     border: 1px solid #ddd;
 }
 .nav-search.nav-search-round .input-group {
-    border-radius: 50px;
+    border-radius: 50%px;
 }
 .nav-search .form-control {
     border: 0;
@@ -5743,7 +5743,7 @@ label.error {
     background: #fff !important;
 }
 .btn-round .toggle-handle {
-    border-radius: 50px;
+    border-radius: 50%px;
 }
 .btn-rounded {
     border-radius: 60px !important;
@@ -5784,11 +5784,11 @@ label.error {
 }
 .nav-pills.nav-pills-no-bd li .nav-link {
     border: 0 !important;
-    border-radius: 50px !important;
+    border-radius: 50%px !important;
     background: rgba(222, 222, 222, 0.4);
 }
 .nav-pills.nav-pills-no-bd li .nav-link.active {
-    border-radius: 50px !important;
+    border-radius: 50%px !important;
 }
 .nav-pills.nav-pills-no-bd li:first-child {
     margin-left: 0 !important;
@@ -5820,13 +5820,13 @@ label.error {
 }
 .nav-pills.flex-column.nav-pills-no-bd .nav-link {
     border: 0 !important;
-    border-radius: 50px !important;
+    border-radius: 50%px !important;
     background: rgba(222, 222, 222, 0.4);
     margin-top: 5px;
     margin-bottom: 5px;
 }
 .nav-pills.flex-column.nav-pills-no-bd .nav-link.active {
-    border-radius: 50px !important;
+    border-radius: 50%px !important;
 }
 .nav-pills.flex-column.nav-pills-icons .nav-link,
 .nav-pills.flex-column.nav-pills-icons .nav-link.active {
@@ -6765,7 +6765,7 @@ label.error {
     flex-grow: 0;
 }
 .selectgroup-pills .selectgroup-button {
-    border-radius: 50px !important;
+    border-radius: 50%px !important;
 }
 .selectgroup.selectgroup-primary .selectgroup-input:checked + .selectgroup-button {
     border-color: #1572e8;
@@ -9190,7 +9190,7 @@ body[data-background-color='dark'] .jvm-zoom-btn {
     font-size: 30px;
 }
 .page-not-found .wrapper.not-found .btn-back-home {
-    border-radius: 50px;
+    border-radius: 50%px;
     padding: 13px 25px;
     animation-delay: 2.5s;
 }
