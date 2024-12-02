@@ -1,15 +1,15 @@
-import { Card, Form } from 'antd';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Card } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import ConfigForm from '~/Components/ConfigForm/ConfigForm';
 import Loading from '~/Components/Loading/Loading';
 import openNotification from '~/Components/Notification/Notification';
 import serviceForm from '~/Config/Form/service/edit_service';
-import request from '~/Utils/httpRequest';
 import { useParams } from 'react-router-dom';
+import request from '~/Utils/httpRequest';
 
 export default function EditService() {
     const { id } = useParams(); // Lấy `id` từ tham số đường dẫn
-    const [form] = Form.useForm(); // Form instance
+    const form = useRef(); // Form instance
     const [isLoading, setIsLoading] = useState(false);
 
     // Gọi API lấy chi tiết dịch vụ khi component được mount
@@ -17,28 +17,14 @@ export default function EditService() {
         const fetchServiceDetail = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch(`http://localhost:4000/get-service-detail/${id}`);
-                if (!response.ok) throw new Error('Lỗi khi lấy dữ liệu dịch vụ');
-                const data = await response.json();
+                const response = await request.get(`get-service-detail/${id}`);
+                console.log(response)
 
-                if (data.success) {
-                    const formData = {
-                        avatar: data.data.avatar, // Đường dẫn ảnh (nếu cần chỉnh sửa preview, xử lý tại ConfigForm)
-                        name: data.data.name,
-                        price: parseFloat(data.data.price), // Đảm bảo kiểu số
-                        icon: data.data.icon,
-                        description: data.data.description,
-                        content: data.data.content, // Nội dung HTML
-                    };
-
-                    console.log('Dữ liệu trước khi setFieldsValue:', formData);
-
-                    // Gán dữ liệu từ API vào form
-                    form.setFieldsValue(formData);
-
-                    console.log('Form Values sau khi setFieldsValue:', form.getFieldsValue());
+                if (response.data.success) {
+                    // Gán giá trị cho form
+                    form.current.setFormValues(response.data.data);
                 } else {
-                    throw new Error('Không tìm thấy dữ liệu dịch vụ');
+                    openNotification('top', 'Thất bại', 'error');
                 }
             } catch (err) {
                 openNotification('top', 'Thất bại', err.message, 'error');
@@ -48,13 +34,15 @@ export default function EditService() {
         };
 
         fetchServiceDetail();
-    }, [id, form]);
+    }, [id]);
 
     // Hàm xử lý cập nhật dịch vụ
-    const handleEditService = useCallback(async (values) => {
+    const handleEditService = async (values) => {
         try {
             setIsLoading(true);
-            const response = await request.post('insert-service', values);
+            values.id = id;
+            const response = await request.put(`update-service`, values);
+
             if (response.data.success) {
                 openNotification('top', 'Thành công', 'Cập nhật dịch vụ thành công', 'success');
             } else {
@@ -65,19 +53,17 @@ export default function EditService() {
         } finally {
             setIsLoading(false);
         }
-    }, []);
+    };
 
     return (
         <div>
             <Card title="Cập nhật dịch vụ" bordered={true} className="mt-3">
-                {/* Form configuration */}
                 <ConfigForm
-                    config={serviceForm} // Config chứa các trường form
-                    form={form} // Truyền form instance
-                    onFinish={handleEditService} // Hàm xử lý submit
+                    config={serviceForm}
+                    ref={form} // Truyền form instance từ EditService
+                    onFinish={handleEditService}
                 />
             </Card>
-            {/* Loading component */}
             <Loading isLoading={isLoading} />
         </div>
     );

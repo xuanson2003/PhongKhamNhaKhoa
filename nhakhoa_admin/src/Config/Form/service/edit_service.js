@@ -3,21 +3,6 @@ const serviceForm = {
     layout: 'vertical',
     fields: [
         {
-            title: 'Ảnh đại diện',
-            name: 'avatar',
-            type: 'file',  // Chọn tệp hình ảnh
-            rules: [
-                {
-                    required: true,
-                    message: 'Ảnh đại diện là bắt buộc',
-                },
-            ],
-            labelCol: { xs: { span: 8 } },
-            col: 12,
-            size: 'middle',
-            extra: 'Chỉ chấp nhận file ảnh (JPG, PNG)',  // Gợi ý thêm cho người dùng
-        },
-        {
             title: 'Tên dịch vụ',
             name: 'name',
             type: 'text',
