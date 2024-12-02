@@ -28,7 +28,7 @@ const ImageCropper = (
         initialZoom = 1,
         onImageCropped,
         isError,
-        displayStyle,
+        displayStyle, // '', 'square', 'rectangle'
         className,
         style, // circle (default), square, rectangle
     },

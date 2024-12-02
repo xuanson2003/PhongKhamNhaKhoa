@@ -26,6 +26,7 @@ export default function AddService() {
             setIsLoading(false);
         }
     },  [])
+    
     return (
         <div>
             <Card title={`Thêm mới dịch vụ`} bordered={true} className="mt-3">

@@ -171,7 +171,7 @@ function Register() {
                                 <input
                                     className={formik.touched.name && formik.errors.name ? styles.error : ''}
                                     type="text"
-                                    name="name"
+                                name="name"
                                     placeholder="Nhập họ tên"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}

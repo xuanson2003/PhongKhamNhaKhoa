@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
-const {SECRET_KEY} = require('../config/const')
+const { SECRET_KEY } = require('../config/const');
 const { sequelize } = require('../config');
 
 class AuthController {
@@ -186,24 +186,38 @@ class AuthController {
         }
     }
 
-    // [POST] /search-user
+    // [GET] /search-user
     async searchUser(req, res) {
         try {
             const userQuery = `
-            SELECT id, email, name, is_active
-            FROM sm_user
-        `;
+                SELECT 
+                    u.id, 
+                    u.name, 
+                    u.email, 
+                    u.address,
+                    u.phone,
+                    u.is_active,
+                    p.name AS position_name
+                FROM 
+                    sm_user u
+                JOIN 
+                    dc_position p
+                ON 
+                    u.position_id = p.id
+                WHERE 
+                    u.position_id = p.id;
+            `;
 
-        const userLst = await sequelize.query(userQuery, {
-            type: sequelize.QueryTypes.SELECT,
-        });
+            const userLst = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
 
-        return res.json({
-            success: true,
-            data: userLst
-        });
+            return res.json({
+                success: true,
+                data: userLst,
+            });
         } catch (error) {
-            return res.status(500).json({ success: false, error: 'Server error' });
+            return res.status(500).json({ success: false, error });
         }
     }
 }

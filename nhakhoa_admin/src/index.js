@@ -20,7 +20,7 @@ import '~/Assets/css/kaiadmin.min.css';
 // base css
 import '~/Style/_base.css';
 import { BrowserRouter } from 'react-router-dom';
-import ScrollToTop from './hoc/CrollToTop/ScrollToTop';
+import ScrollToTop from './hoc/ScrollToTop/ScrollToTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
