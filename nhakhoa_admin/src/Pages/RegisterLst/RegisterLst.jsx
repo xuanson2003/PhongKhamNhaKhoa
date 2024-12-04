@@ -125,14 +125,6 @@ export default function RegisterLst() {
                    
                     <Button
                         key="confirm"
-                        type="danger"
-                        className='btn-warning '
-                        onClick={() => handleStatusChange('Chờ xác nhận')}
-                    >
-                        Chờ xác nhận
-                    </Button>,
-                    <Button
-                        key="confirm"
                         type="primary"
                         className='btn-info '
 
