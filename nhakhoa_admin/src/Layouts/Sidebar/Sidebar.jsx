@@ -68,22 +68,7 @@ function Sidebar() {
                             </span>
                             <h4 className="text-section">Hỗ trợ viên</h4>
                         </li>
-                        <li className="nav-item">
-                            <a data-bs-toggle="collapse" href="#patient">
-                                <FontAwesomeIcon icon={faAddressBook} />
-                                <p>Bệnh nhân</p>
-                                <span className="caret"></span>
-                            </a>
-                            <div className="collapse" id="patient">
-                                <ul className="nav nav-collapse">
-                                    <li className={getActiveClass(`${config.routes.patient_list}`)}>
-                                        <Link to={config.routes.patient_list}>
-                                            <span className="sub-item">Danh sách</span>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        
                         <li className="nav-item">
                             <a data-bs-toggle="collapse" href="#doctor">
                                 <FontAwesomeIcon icon={faUserDoctor} />
@@ -134,11 +119,7 @@ function Sidebar() {
                             </a>
                             <div className="collapse" id="news">
                                 <ul className="nav nav-collapse">
-                                    <li className={getActiveClass(`${config.routes.add_news}`)}>
-                                        <Link to={config.routes.add_news}>
-                                            <span className="sub-item">Thêm mới</span>
-                                        </Link>
-                                    </li>
+                                     
                                     <li className={getActiveClass(`${config.routes.news_list}`)}>
                                         <Link to={config.routes.news_list}>
                                             <span className="sub-item">Danh sách</span>
@@ -163,22 +144,7 @@ function Sidebar() {
                                 </ul>
                             </div>
                         </li>
-                        <li className="nav-item">
-                            <a data-bs-toggle="collapse" href="#contact">
-                                <FontAwesomeIcon icon={faPhoneVolume} />
-                                <p>Liên hệ</p>
-                                <span className="caret"></span>
-                            </a>
-                            <div className="collapse" id="contact">
-                                <ul className="nav nav-collapse">
-                                    <li className={getActiveClass(`${config.routes.contact_list}`)}>
-                                        <Link to={config.routes.contact_list}>
-                                            <span className="sub-item">Danh sách</span>
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        
                         <li className="nav-section">
                             <span className="sidebar-mini-icon">
                                 <i className="fa fa-ellipsis-h"></i>

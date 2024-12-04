@@ -196,7 +196,7 @@ class DoctorController {
     async getDoctorAdmin(req, res) {
         try {
             const userQuery = `
-                select id,name,is_active,gender from sm_user  where position_id='1'
+                select id,name,is_active,gender from sm_user  where position_id='1' order by created_at desc
             `;
 
             const users = await sequelize.query(userQuery, {

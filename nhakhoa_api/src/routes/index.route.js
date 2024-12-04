@@ -58,6 +58,8 @@ function route(app) {
     app.post('/insert-news', NewsController.insertNews);
     app.put('/update-news', NewsController.updateNews);
     app.delete('/delete-news/:id', NewsController.deleteNews);
+    app.get('/get-dashboard', NewsController.countRecords);
+
 
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
