@@ -10,7 +10,7 @@ class DoctorController {
     async getDoctor(req, res) {
         try {
             const userQuery = `
-                select id,phone,address,image,name,description from sm_user  
+                select * from sm_user where position_id = '1' 
             `;
 
             const users = await sequelize.query(userQuery, {
@@ -30,7 +30,7 @@ class DoctorController {
      async getTop4Doctor(req, res) {
         try {
             const userQuery = `
-                SELECT image,name FROM sm_user ORDER BY created_at DESC LIMIT 4;
+                SELECT * FROM sm_user where position_id = '1' ORDER BY created_at DESC LIMIT 4;
             `;
 
             const news = await sequelize.query(userQuery, {
@@ -50,7 +50,7 @@ class DoctorController {
      async getTop6Doctor(req, res) {
         try {
             const userQuery = `
-                SELECT image,name FROM sm_user ORDER BY created_at DESC LIMIT 6;
+                SELECT id,image,name FROM sm_user where position_id = '1' ORDER BY created_at DESC LIMIT 6;
             `;
 
             const news = await sequelize.query(userQuery, {

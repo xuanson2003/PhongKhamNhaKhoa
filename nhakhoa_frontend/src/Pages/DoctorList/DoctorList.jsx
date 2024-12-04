@@ -126,6 +126,7 @@ function DoctorList() {
                                                 name: doctorItem.name,
                                                 description: doctorItem.description,
                                                 address: doctorItem.address,
+                                                clinic_id:doctorItem.clinic_id,
                                                 phone:doctorItem.phone
                                             }}
                                         />

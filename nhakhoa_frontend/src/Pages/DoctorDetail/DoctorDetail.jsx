@@ -15,6 +15,7 @@ import { faCalendarDays, faHandPointUp } from '@fortawesome/free-regular-svg-ico
 import config from '~/Config';
 import request from '~/Utils/httpRequest';
 import DoctorTime from '~/Components/DoctorItem/DoctorTime';
+import DoctorItem2 from '~/Components/DoctorItem/DoctorItem2';
 import axios from 'axios';
 
 function DoctorDetail() {
@@ -25,6 +26,21 @@ function DoctorDetail() {
     const [doctorData, setDoctorData] = useState([]);
     const [selectedDate, setSelectedDate] = useState(''); // State for the selected date
     const [availabilityLoading, setAvailabilityLoading] = useState(false); // Loading state for availability
+    const [doctorData2, setDoctorData2] = useState([]);
+
+    useEffect(() => {
+        request.get('get-top-4-doctor')
+            .then(response => {
+                if (response.data.success) {
+                    setDoctorData2(response.data.data);
+                }
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching doctors data:', error);
+                setLoading(false);
+            });
+    }, []);
 
     // Fetch doctor detail
     useEffect(() => {
@@ -258,142 +274,24 @@ function DoctorDetail() {
                                 <section className="contact-us" id="blog">
                                     <div className="container">
                                         <div className="row">
-                                        <div className="col-xl-3 col-12 mb-4">
-                  <div className="card">
-                  <img
-                        style={{
-                            width: '100px',  // Ensure width and height are equal for circular shape
-                            height: '100px',
-                            objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
-                            display: 'block',  // Ensures the image behaves as a block element
-                            margin: '0 auto'  // Centers the image horizontally
-                        }}
-                        src={'https://cdn.tuoitre.vn/471584752817336320/2023/8/22/base64-16926865949291871270139.png'}
-                        alt="#"
-                    />
-                        <h2 style={{height:'40px'}} className="mt-3">
-                        Bác sĩ Nguyễn Ngọc Quỳnh Anh
-                            </h2>
-                            <div className="location" style={{textAlign:'start',fontSize:'12px'}}>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faLocationDot} /> 470 - 472 Lê Hồng Phong, Phường 1, Quận 10, TP. Hồ Chí Minh
-                                </p>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faPhone} /> 0384849458
-                                </p>
-                               
-                                
-                            </div>
-                           
-                            </div>
-                        </div>
-                        <div className="col-xl-3 col-12 mb-4">
-                  <div className="card">
-                  <img
-                        style={{
-                            width: '100px',  // Ensure width and height are equal for circular shape
-                            height: '100px',
-                            objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
-                            display: 'block',  // Ensures the image behaves as a block element
-                            margin: '0 auto'  // Centers the image horizontally
-                        }}
-                        src={'https://cdn.tuoitre.vn/471584752817336320/2023/8/22/base64-16926865949291871270139.png'}
-                        alt="#"
-                    />
-                        <h2 style={{height:'40px'}} className="mt-3">
-                        Bác sĩ Nguyễn Ngọc Quỳnh Anh
-                            </h2>
-                            <div className="location" style={{textAlign:'start',fontSize:'12px'}}>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faLocationDot} /> 470 - 472 Lê Hồng Phong, Phường 1, Quận 10, TP. Hồ Chí Minh
-                                </p>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faPhone} /> 0384849458
-                                </p>
-                               
-                                
-                            </div>
-                           
-                            </div>
-                        </div>
-                        <div className="col-xl-3 col-12 mb-4">
-                  <div className="card">
-                  <img
-                        style={{
-                            width: '100px',  // Ensure width and height are equal for circular shape
-                            height: '100px',
-                            objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
-                            display: 'block',  // Ensures the image behaves as a block element
-                            margin: '0 auto'  // Centers the image horizontally
-                        }}
-                        src={'https://cdn.tuoitre.vn/471584752817336320/2023/8/22/base64-16926865949291871270139.png'}
-                        alt="#"
-                    />
-                        <h2 style={{height:'40px'}} className="mt-3">
-                        Bác sĩ Nguyễn Ngọc Quỳnh Anh
-                            </h2>
-                            <div className="location" style={{textAlign:'start',fontSize:'12px'}}>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faLocationDot} /> 470 - 472 Lê Hồng Phong, Phường 1, Quận 10, TP. Hồ Chí Minh
-                                </p>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faPhone} /> 0384849458
-                                </p>
-                               
-                                
-                            </div>
-                           
-                            </div>
-                        </div>
-                        <div className="col-xl-3 col-12 mb-4">
-                  <div className="card">
-                  <img
-                        style={{
-                            width: '100px',  // Ensure width and height are equal for circular shape
-                            height: '100px',
-                            objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
-                            display: 'block',  // Ensures the image behaves as a block element
-                            margin: '0 auto'  // Centers the image horizontally
-                        }}
-                        src={'https://cdn.tuoitre.vn/471584752817336320/2023/8/22/base64-16926865949291871270139.png'}
-                        alt="#"
-                    />
-                        <h2 style={{height:'40px'}} className="mt-3">
-                        Bác sĩ Nguyễn Ngọc Quỳnh Anh
-                            </h2>
-                            <div className="location" style={{textAlign:'start',fontSize:'12px'}}>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faLocationDot} /> 470 - 472 Lê Hồng Phong, Phường 1, Quận 10, TP. Hồ Chí Minh
-                                </p>
-                                <p style={{fontSize:'12px'}}>
-                                <i className="fas fa-map-marker-alt">
-                                </i>
-                                <FontAwesomeIcon icon={faPhone} /> 0384849458
-                                </p>
-                               
-                                
-                            </div>
-                           
-                            </div>
-                        </div>
+                                        {loading ? (
+                <p>Loading...</p>
+            ) : (
+                doctorData2.map(doctorItem2 => (
+                    <React.Fragment key={doctorItem2.id}>
+                        <DoctorItem2
+                            data={{
+                                id: doctorItem2.id,
+                                image: doctorItem2.image,
+                                name: doctorItem2.name,
+                                description: doctorItem2.description,
+                                address: doctorItem2.address,
+                                phone: doctorItem2.phone,
+                            }}
+                        />
+                    </React.Fragment>
+                ))
+            )}
                                         </div>
                                     </div>
                                 </section>

@@ -4,11 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import config from "~/Config";
 
-function NewsItem({data}) {
-    const handleBooking = () => {
-        window.location.href = `/dat-lich-kham?doctorId=${data.id}&clinic=${data.clinic_id}`;
-    };
-
+function DoctorItem2({data}) {
     return (
             <div className="col-xl-3 col-12 mb-4">
                   <div className="card">
@@ -45,10 +41,6 @@ function NewsItem({data}) {
                                 </i>
                                 <FontAwesomeIcon icon={faPhone} /> {data.phone}
                                 </p>
-                               
-                                <a style={{textAlign:'center'}} className="button w-100 mt-3" href="#" onClick={handleBooking}>
-                                Đặt lịch khám 
-                            </a>
                             </div>
                            
                             </div>
@@ -56,4 +48,4 @@ function NewsItem({data}) {
     );
 }
 
-export default NewsItem;
+export default DoctorItem2;
