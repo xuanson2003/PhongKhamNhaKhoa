@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Breadcrumb, Card } from 'antd';
 import React, { useRef, useState } from 'react';
 
 import ConfigForm from '~/Components/ConfigForm/ConfigForm';
@@ -7,6 +7,9 @@ import Loading from '~/Components/Loading/Loading';
 import addAccount from '~/Config/Form/Account/AddAccount/Index';
 import request from '~/Utils/httpRequest';
 import openNotification from '../../Components/Notification/Notification';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import config from '~/Config';
 
 function AddAccount(props) {
     const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +50,24 @@ function AddAccount(props) {
 
     return (
         <div>
-            <Card title={`Thêm mới tài khoản`} bordered={true} className="mt-3">
+            <div className="d-flex">
+                <Breadcrumb
+                    items={[
+                        {
+                            href: '',
+                            title: <FontAwesomeIcon icon={faHouse} />,
+                        },
+                        {
+                            href: config.routes.user_list,
+                            title: 'Danh sách người dùng',
+                        },
+                        {
+                            title: 'Thêm mới người dùng',
+                        },
+                    ]}
+                />
+            </div>
+            <Card title={`Thêm mới người dùng`} bordered={true} className="mt-3">
                 <div className="row">
                     <div className="col-md-10">
                         <ConfigForm config={addAccount} ref={formRefAdd} onFinish={handleAddAccount} />

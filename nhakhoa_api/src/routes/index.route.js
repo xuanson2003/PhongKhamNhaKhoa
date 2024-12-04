@@ -30,6 +30,7 @@ function route(app) {
     app.get('/get-detail-user-by-id/:id', AuthController.getDetailUser);
     app.get('/search-user', AuthController.searchUser);
     app.delete('/delete-user/:id', AuthController.deleteUser);
+    app.patch('/update-user', AuthController.updateUser);
 
     // position
     app.get('/get-list-position', PositionController.getPositionLst);
