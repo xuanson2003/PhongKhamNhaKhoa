@@ -1,8 +1,14 @@
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
+import { useLocation, useParams } from "react-router-dom";
 
 function DoctorDetail() {
+    const query = new URLSearchParams(useLocation().search);
+    const doctorId = query.get("doctorId");
+    const clinic = query.get("clinic");
+    const time = query.get("time");
+    
     const [doctors, setDoctors] = useState([]);
     const [clinics, setClinics] = useState([]);
     const [formData, setFormData] = useState({
@@ -11,9 +17,9 @@ function DoctorDetail() {
         booking_phone: '',
         booking_sex: '',
         booking_date: '',
-        booking_time: '',
-        clinic_id: '',
-        doctor_id: '',
+        booking_time: '' || time,
+        clinic_id: '' || clinic,
+        doctor_id: '' || doctorId,
         notes: '',
     });
 
@@ -65,7 +71,7 @@ function DoctorDetail() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     ...formData,
-                    status: 'pending', // Default status
+                    status: 'Chờ xác nhận', // Default status
                 }),
             });
 
@@ -73,7 +79,7 @@ function DoctorDetail() {
             if (result.success) {
                 alert('Đặt lịch thành công!');
                 setFormData({
-                    status:'cho duyet',
+                    status:'Chờ xác nhận',
                     patient_name: '',
                     booking_email: '',
                     booking_phone: '',
@@ -207,7 +213,7 @@ function DoctorDetail() {
                                                     className="form-control"
                                                     style={{height:'50px'}}
                                                     name="clinic_id"
-                                                    value={formData.clinic_id}
+                                                    value={clinic || formData.clinic_id}
                                                     onChange={handleChange}
                                                     required
                                                 >
@@ -231,46 +237,52 @@ function DoctorDetail() {
                                                     className="form-control"
                                                     style={{height:'50px'}}
                                                     name="booking_time"
-                                                    value={formData.booking_time}
+                                                    value={time||formData.booking_time}
                                                     onChange={handleChange}
                                                     required
                                                 >
                                                     <option value="">
                                                         Chọn thời gian
                                                     </option>
-                                                    <option value="7:00 - 8:00">
+                                                    <option value="07:00:00 - 08:00:00">
                                                         7:00 - 8:00
                                                     </option>
-                                                    <option value="8:00 - 9:00">
+                                                    <option value="08:00:00 - 09:00:00">
                                                         8:00 - 9:00
+                                                    </option>
+                                                    <option value="09:00:00 - 10:00:00">
+                                                        9:00 - 10:00
+                                                    </option>
+                                                    <option value="10:00:00 - 11:00:00">
+                                                        10:00 - 11:00
+                                                    </option>
+                                                    <option value="14:00:00 - 15:00:00">
+                                                        14:00 - 15:00
                                                     </option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div className="col-lg-6">
-                                            <div className="form-group">
-                                                <select
-                                                    className="form-control"
-                                                    style={{height:'50px'}}
-                                                    name="doctor_id"
-                                                    value={formData.doctor_id}
-                                                    onChange={handleChange}
-                                                    required
-                                                >
-                                                    <option value="">
-                                                        Chọn bác sĩ
-                                                    </option>
-                                                    {doctors.map((doctor) => (
-                                                        <option
-                                                            key={doctor.id}
-                                                            value={doctor.id}
-                                                        >
-                                                            {doctor.name}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                        </div>
+    <div className="form-group">
+      <select
+        className="form-control"
+        style={{ height: '50px' }}
+        name="doctor_id"
+        value={doctorId || formData.doctor_id} 
+        onChange={handleChange}
+        required
+      >
+        <option value="">
+          Chọn bác sĩ
+        </option>
+        {doctors.map((doctor) => (
+          <option key={doctor.id} value={doctor.id}>
+            {doctor.name}
+          </option>
+        ))}
+      </select>
+    </div>
+  </div>
                                         <div className="col-lg-12">
                                             <div className="form-group">
                                                 <textarea

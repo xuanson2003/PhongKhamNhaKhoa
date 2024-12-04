@@ -59,6 +59,8 @@ function route(app) {
     app.post('/insert-news', NewsController.insertNews);
     app.put('/update-news', NewsController.updateNews);
     app.delete('/delete-news/:id', NewsController.deleteNews);
+    app.get('/get-dashboard', NewsController.countRecords);
+
 
     //doctor
     app.get('/get-all-doctor', DoctorController.getDoctor);
@@ -66,7 +68,8 @@ function route(app) {
     app.get('/get-top-6-doctor', DoctorController.getTop6Doctor);
     app.get('/get-doctor-by-id/:id', DoctorController.getDoctorById);
     app.post('/get-doctor-by-time/:id', DoctorController.getDoctorByTime);
-
+    app.get('/get-doctor-admin', DoctorController.getDoctorAdmin);
+    
     //conatct
     app.post('/add-contact', ContactController.addContact);
 

@@ -1,9 +1,30 @@
-import React from 'react';
-import deniAvatar from '~/Assets/img/jm_denis.jpg'
-import talhaAvatar from '~/Assets/img/talha.jpg'
-import chadAvatar from '~/Assets/img/chadengle.jpg'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'; // Assuming you have axios installed for HTTP requests
+import deniAvatar from '~/Assets/img/jm_denis.jpg';
+import talhaAvatar from '~/Assets/img/talha.jpg';
+import chadAvatar from '~/Assets/img/chadengle.jpg';
 
 function Dashbroad(props) {
+    const [dashboardData, setDashboardData] = useState(null);
+
+    useEffect(() => {
+        // Fetch the data from the API
+        axios
+            .get('http://localhost:4000/get-dashboard')
+            .then((response) => {
+                if (response.data.success) {
+                    setDashboardData(response.data.data);
+                }
+            })
+            .catch((error) => {
+                console.error('There was an error fetching the dashboard data!', error);
+            });
+    }, []);
+
+    if (!dashboardData) {
+        return <div>Loading...</div>; // Show loading while data is being fetched
+    }
+
     return (
         <div>
             <div className="row mt-2">
@@ -18,8 +39,8 @@ function Dashbroad(props) {
                                 </div>
                                 <div className="col col-stats ms-3 ms-sm-0">
                                     <div className="numbers">
-                                        <p className="card-category">Visitors</p>
-                                        <h4 className="card-title">1,294</h4>
+                                        <p className="card-category">Lượt truy cập</p>
+                                        <h4 className="card-title">1 294</h4>
                                     </div>
                                 </div>
                             </div>
@@ -32,13 +53,13 @@ function Dashbroad(props) {
                             <div className="row align-items-center">
                                 <div className="col-icon">
                                     <div className="icon-big text-center icon-info bubble-shadow-small">
-                                        <i className="fas fa-user-check"></i>
+                                        <i className="fas fa-clipboard-list"></i>
                                     </div>
                                 </div>
                                 <div className="col col-stats ms-3 ms-sm-0">
                                     <div className="numbers">
-                                        <p className="card-category">Subscribers</p>
-                                        <h4 className="card-title">1303</h4>
+                                        <p className="card-category">Lịch khám</p>
+                                        <h4 className="card-title">{dashboardData.dc_booking}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -56,8 +77,8 @@ function Dashbroad(props) {
                                 </div>
                                 <div className="col col-stats ms-3 ms-sm-0">
                                     <div className="numbers">
-                                        <p className="card-category">Sales</p>
-                                        <h4 className="card-title">$ 1,345</h4>
+                                        <p className="card-category">Tin tức</p>
+                                        <h4 className="card-title">{dashboardData.dc_news}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -75,8 +96,8 @@ function Dashbroad(props) {
                                 </div>
                                 <div className="col col-stats ms-3 ms-sm-0">
                                     <div className="numbers">
-                                        <p className="card-category">Order</p>
-                                        <h4 className="card-title">576</h4>
+                                        <p className="card-category">Dịch vụ</p>
+                                        <h4 className="card-title">{dashboardData.dc_service}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -84,370 +105,85 @@ function Dashbroad(props) {
                     </div>
                 </div>
             </div>
-
             <div className="row">
                 <div className="col-md-8">
                     <div className="card card-round">
                         <div className="card-header">
-                            <div className="card-head-row">
-                                <div className="card-title">User Statistics</div>
-                                <div className="card-tools">
-                                    <a href="#" className="btn btn-label-success btn-round btn-sm me-2">
-                                        <span className="btn-label">
-                                            <i className="fa fa-pencil"></i>
-                                        </span>
-                                        Export
-                                    </a>
-                                    <a href="#" className="btn btn-label-info btn-round btn-sm">
-                                        <span className="btn-label">
-                                            <i className="fa fa-print"></i>
-                                        </span>
-                                        Print
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="card-body">
-                            <div className="chart-container" style={{ minHeight: '375px' }}>
-                                <canvas id="statisticsChart"></canvas>
-                            </div>
-                            <div id="myChartLegend"></div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    <div className="card card-primary card-round">
-                        <div className="card-header">
-                            <div className="card-head-row">
-                                <div className="card-title">Daily Sales</div>
+                            <div className="card-head-row card-tools-still-right">
+                                <div className="card-title">Lịch Sử Đặt Lịch Khám</div>
                                 <div className="card-tools">
                                     <div className="dropdown">
                                         <button
-                                            className="btn btn-sm btn-label-light dropdown-toggle"
+                                            className="btn btn-icon btn-clean me-0"
                                             type="button"
                                             id="dropdownMenuButton"
                                             data-bs-toggle="dropdown"
                                             aria-haspopup="true"
                                             aria-expanded="false"
                                         >
-                                            Export
+                                            <i className="fas fa-ellipsis-h"></i>
                                         </button>
                                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a className="dropdown-item" href="#">
-                                                Action
+                                                Thêm Lịch Khám
                                             </a>
                                             <a className="dropdown-item" href="#">
-                                                Another action
-                                            </a>
-                                            <a className="dropdown-item" href="#">
-                                                Something else here
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="card-category">March 25 - April 02</div>
-                        </div>
-                        <div className="card-body pb-0">
-                            <div className="mb-4 mt-2">
-                                <h1>$4,578.58</h1>
-                            </div>
-                            <div className="pull-in">
-                                <canvas id="dailySalesChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="card card-round">
-                        <div className="card-body pb-0">
-                            <div className="h1 fw-bold float-end text-primary">+5%</div>
-                            <h2 className="mb-2">17</h2>
-                            <p className="text-muted">Users online</p>
-                            <div className="pull-in sparkline-fix">
-                                <div id="lineChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card card-round">
-                        <div class="card-body">
-                            <div class="card-head-row card-tools-still-right">
-                                <div class="card-title">New Customers</div>
-                                <div class="card-tools">
-                                    <div class="dropdown">
-                                        <button
-                                            class="btn btn-icon btn-clean me-0"
-                                            type="button"
-                                            id="dropdownMenuButton"
-                                            data-bs-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false"
-                                        >
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">
-                                                Action
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                Another action
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                Something else here
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-list py-4">
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img
-                                            src={deniAvatar}
-                                            alt="..."
-                                            class="avatar-img rounded-circle"
-                                        />
-                                    </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Jimmy Denis</div>
-                                        <div class="status">Graphic Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle border border-white">CF</span>
-                                    </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Chandra Felix</div>
-                                        <div class="status">Sales Promotion</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img src={talhaAvatar} alt="..." class="avatar-img rounded-circle" />
-                                    </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Talha</div>
-                                        <div class="status">Front End Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <img
-                                            src={chadAvatar}
-                                            alt="..."
-                                            class="avatar-img rounded-circle"
-                                        />
-                                    </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Chad</div>
-                                        <div class="status">CEO Zeleaf</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle border border-white bg-primary">
-                                            H
-                                        </span>
-                                    </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Hizrian</div>
-                                        <div class="status">Web Designer</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                                <div class="item-list">
-                                    <div class="avatar">
-                                        <span class="avatar-title rounded-circle border border-white bg-secondary">
-                                            F
-                                        </span>
-                                    </div>
-                                    <div class="info-user ms-3">
-                                        <div class="username">Farrah</div>
-                                        <div class="status">Marketing</div>
-                                    </div>
-                                    <button class="btn btn-icon btn-link op-8 me-1">
-                                        <i class="far fa-envelope"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-link btn-danger op-8">
-                                        <i class="fas fa-ban"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="card card-round">
-                        <div class="card-header">
-                            <div class="card-head-row card-tools-still-right">
-                                <div class="card-title">Transaction History</div>
-                                <div class="card-tools">
-                                    <div class="dropdown">
-                                        <button
-                                            class="btn btn-icon btn-clean me-0"
-                                            type="button"
-                                            id="dropdownMenuButton"
-                                            data-bs-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false"
-                                        >
-                                            <i class="fas fa-ellipsis-h"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">
-                                                Action
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                Another action
-                                            </a>
-                                            <a class="dropdown-item" href="#">
-                                                Something else here
+                                                Xóa Lịch Khám
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table align-items-center mb-0">
-                                    <thead class="thead-light">
+                        <div className="card-body p-0">
+                            <div className="table-responsive">
+                                <table className="table align-items-center mb-0">
+                                    <thead className="thead-light">
                                         <tr>
-                                            <th scope="col">Payment Number</th>
-                                            <th scope="col" class="text-end">
-                                                Date & Time
+                                            <th scope="col">Tên bác sĩ</th>
+                                            <th scope="col" className="text-end">
+                                                Ngày & Giờ
                                             </th>
-                                            <th scope="col" class="text-end">
-                                                Amount
+                                            <th scope="col" className="text-end">
+                                                Số Tiền
                                             </th>
-                                            <th scope="col" class="text-end">
-                                                Status
+                                            <th scope="col" className="text-end">
+                                                Trạng Thái
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
+
+                                                Đỗ Khánh Hưng
                                             </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
+                                            <td className="text-end">4/12/2024</td>
+                                            <td className="text-end">500,000 Đ</td>
+                                            <td className="text-end">
+                                                <span className="badge badge-success">Hoàn Thành</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
+                                                
+                                                Phan Kim Liên
                                             </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
+                                            <td className="text-end">4/12/2024</td>
+                                            <td className="text-end">300,000 Đ</td>
+                                            <td className="text-end">
+                                                <span className="badge badge-warning">Chờ Xác Nhận</span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
+                                                 
+                                                Lê Hùng Đại
                                             </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
-                                            </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
-                                            </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
-                                            </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">
-                                                <button class="btn btn-icon btn-round btn-success btn-sm me-2">
-                                                    <i class="fa fa-check"></i>
-                                                </button>
-                                                Payment from #10231
-                                            </th>
-                                            <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                                            <td class="text-end">$250.00</td>
-                                            <td class="text-end">
-                                                <span class="badge badge-success">Completed</span>
+                                            <td className="text-end">4/12/2024</td>
+                                            <td className="text-end">400,000 Đ</td>
+                                            <td className="text-end">
+                                                <span className="badge badge-danger">Từ chối</span>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -456,7 +192,30 @@ function Dashbroad(props) {
                         </div>
                     </div>
                 </div>
+                <div className="col-md-4">
+                    <div className="card card-primary card-round">
+                        <div className="card-header">
+                            <div className="card-head-row">
+                                <div className="card-title">Doanh Thu Hôm Nay</div>
+                            </div>
+                        </div>
+                        <div className="card-body pb-0">
+                            <div className="mb-4 mt-2">
+                                <h1>1,200,000 Đ</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="card card-round">
+                        <div className="card-body pb-0">
+                            <div className="h1 fw-bold float-end text-primary">+10%</div>
+                            <h2 className="mb-2">15</h2>
+                            <p className="text-muted">Người dùng trực tuyến</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            {/* Rest of the component code remains unchanged */}
         </div>
     );
 }

@@ -185,7 +185,7 @@ class ServicesController {
                 data: { id, name, description, price, icon },
             });
         } catch (error) {
-            return res.status(500).json({ success: false, error: 'Server error' });
+            return res.status(500).json({ success: false, error });
         }
     }
     // [DELETE] /delete-service
