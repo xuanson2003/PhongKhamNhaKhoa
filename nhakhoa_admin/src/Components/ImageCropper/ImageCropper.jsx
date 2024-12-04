@@ -123,6 +123,9 @@ const ImageCropper = (
             getCroppedImage: () => {
                 return croppedImageBlob ? croppedImageBlob : null;
             },
+            setUrlImage: (url) => {
+                setCroppedImage(url);
+            },
         }),
         [croppedImageBlob],
     );

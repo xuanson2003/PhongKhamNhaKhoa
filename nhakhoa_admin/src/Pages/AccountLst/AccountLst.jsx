@@ -116,23 +116,12 @@ function AccountLst(props) {
                             title: <FontAwesomeIcon icon={faHouse} />,
                         },
                         {
-                            title: 'Danh sách tài khoản',
+                            title: 'Danh sách người dùng',
                         },
                     ]}
                 />
-                <div className="ms-auto">
-                    <Button
-                        danger
-                        type="primary"
-                        icon={<FontAwesomeIcon icon={faTrashCan} />}
-                        size="media"
-                        style={{ width: 90 }}
-                    >
-                        Xóa
-                    </Button>
-                </div>
             </div>
-            <Card title="Danh sách tài khoản" bordered={false} className="mt-3">
+            <Card title="Danh sách người dùng" bordered={false} className="mt-3">
                 <Table
                     rowSelection={{
                         type: 'checkbox',

@@ -198,7 +198,7 @@ class AuthController {
             }
 
             const userQuery = `
-            SELECT *
+            SELECT id, name, position_id, gender, phone, address, is_active, image, email
             FROM sm_user
             WHERE id = :id
             LIMIT 1;
@@ -210,7 +210,7 @@ class AuthController {
             });
 
             const fullImageUrl = user[0].image ? `${req.protocol}://${req.get('host')}/${user[0].image}` : null;
-            user.avatar = fullImageUrl;
+            user[0].avatar = fullImageUrl;
 
             return res.json({
                 success: true,
@@ -277,35 +277,61 @@ class AuthController {
         }
     }
 
+    // [PATCH] /update-user
     async updateUser(req, res) {
         try {
-            await sequelize.query(insertQuery, {
-                replacements: {
-                    id,
-                    name,
-                    email,
-                    phone,
-                    position_id,
-                    role_id,
-                    gender,
-                    address,
-                    image,
-                },
-                type: sequelize.QueryTypes.INSERT,
-            });
-            const deleteQuery = 'UPDATE TABLE sm_user set WHERE id = :id RETURNING *';
+            const { id, password, ...fields } = req.body;
 
-            const result = await sequelize.query(deleteQuery, {
-                type: sequelize.QueryTypes.DELETE,
-                replacements: { id: userId },
+            // Kiểm tra xem `id` có được truyền không
+            if (!id) {
+                return res.status(400).json({ success: false, message: 'User ID is required' });
+            }
+
+            // Nếu có mật khẩu, tạo salt và mã hóa
+            let hashedPassword = null;
+            let salt = null;
+            if (password) {
+                const saltRounds = 10;
+                salt = bcrypt.genSaltSync(saltRounds);
+                hashedPassword = bcrypt.hashSync(password, salt);
+
+                // Thêm mật khẩu và salt vào danh sách các trường cần cập nhật
+                fields.password = hashedPassword;
+                fields.salt = salt;
+            }
+
+            // Tạo các phần SQL SET động
+            const setClauses = Object.keys(fields)
+                .map((key) => `${key} = :${key}`)
+                .join(', ');
+
+            // Kiểm tra nếu không có trường nào để cập nhật
+            if (!setClauses) {
+                return res.status(400).json({ success: false, message: 'No fields to update' });
+            }
+
+            // Câu lệnh SQL cập nhật
+            const updateQuery = `
+                UPDATE sm_user
+                SET ${setClauses}
+                WHERE id = :id;
+            `;
+
+            // Thực hiện câu lệnh SQL
+            await sequelize.query(updateQuery, {
+                replacements: { id, ...fields },
+                type: sequelize.QueryTypes.UPDATE,
             });
 
-            return res.json({
+            res.json({
                 success: true,
-                data: result,
+                message: 'User updated successfully',
+                id,
+                updatedFields: fields,
             });
         } catch (error) {
-            return res.status(500).json({ success: false, error });
+            console.error(error);
+            res.status(500).json({ success: false, message: 'Update failed', error: error.message });
         }
     }
 }
