@@ -1,8 +1,8 @@
-import { Tag } from 'antd';
 import TableAction from '~/Components/TableAction/TableAction';
 import TableColumnSearch from '~/Components/TableColumnSearch/TableColumnSearch';
+import { Tag } from 'antd';
 
-const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedColumn, actions, dropdownStyle }) => {
+const ServiceColumn = ({ searchedColumn, searchText, setSearchText, setSearchedColumn, actions,  dropdownStyle }) => {
     const getColumnSearchProps = (dataIndex, dataTitle) =>
         TableColumnSearch({
             dataTitle,
@@ -13,6 +13,7 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             setSearchedColumn,
         });
 
+   
     return [
         {
             title: '',
@@ -21,30 +22,14 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             hidden: true
         },
         {
-            title: 'Họ tên',
+            title: 'Tên bác sĩ',
             dataIndex: 'name',
             key: 'name',
-            width: '20%',
-            ...getColumnSearchProps('name', 'Nhập họ tên'),
+            ...getColumnSearchProps('name', 'Nhập tên bác sĩ'),
             sorter: (a, b) => a.name.localeCompare(b.name),
         },
         {
-            title: 'Email',
-            dataIndex: 'email',
-            key: 'email',
-            width: '25%',
-            ...getColumnSearchProps('email', 'Nhập email'),
-            sorter: (a, b) => a.email.localeCompare(b.email),
-        },
-        {
-            title: 'Số điện thoại',
-            dataIndex: 'phone',
-            key: 'phone',
-            width: '15%',
-            ...getColumnSearchProps('phone', 'Nhập số điện thoại'),
-            sorter: (a, b) => a.phone.localeCompare(b.phone),
-        },
-        {
+            title: 'Giới tính',
             title: 'Giới tính',
             dataIndex: 'gender',
             key: 'gender',
@@ -55,14 +40,7 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             ],
             onFilter: (value, record) => record.gender === value,
         },
-        {
-            title: 'Chức vụ',
-            dataIndex: 'position_name',
-            key: 'position_name',
-            width: '15%',
-            ...getColumnSearchProps('position', 'Nhập chức vụ'),
-            sorter: (a, b) => a.position.localeCompare(b.position),
-        },
+        
         {
             title: 'Trạng thái',
             dataIndex: 'is_active',
@@ -82,9 +60,10 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
         {
             title: '',
             key: 'action',
+            width: '5%',
             render: (_, record) => <TableAction actions={actions(record)} dropdownStyle={dropdownStyle} />,
         },
     ];
 };
 
-export default AccountColumn;
+export default ServiceColumn;

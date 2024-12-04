@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 require('dotenv').config();
-const {SECRET_KEY} = require('../config/const')
+const { SECRET_KEY } = require('../config/const');
 const { sequelize } = require('../config');
 
 class AuthController {
@@ -78,6 +78,7 @@ class AuthController {
                 gender = null,
                 address = '',
                 image_url = null,
+                is_active = false,
             } = req.body;
 
             // Câu lệnh SQL kiểm tra người dùng
@@ -112,8 +113,8 @@ class AuthController {
 
             // Câu lệnh SQL thêm mới người dùng vào bảng sm_user
             const insertQuery = `
-                INSERT INTO sm_user (id, name, email, password, phone, position_id, role_id, gender, address, image, salt)
-                VALUES (:id, :name, :email, :password, :phone, :position_id, :role_id, :gender, :address, :image, :salt)
+                INSERT INTO sm_user (id, name, email, password, phone, position_id, role_id, gender, address, image, salt, is_active)
+                VALUES (:id, :name, :email, :password, :phone, :position_id, :role_id, :gender, :address, :image, :salt, :is_active)
             `;
 
             // Thực thi câu lệnh SQL
@@ -130,6 +131,7 @@ class AuthController {
                     address,
                     image: image_url,
                     salt: salt,
+                    is_active,
                 },
                 type: sequelize.QueryTypes.INSERT,
             });
@@ -186,24 +188,124 @@ class AuthController {
         }
     }
 
-    // [POST] /search-user
+    // [GET] /get-detail-user-by-id
+    async getDetailUser(req, res) {
+        try {
+            const userId = await req.params.id;
+
+            if (!userId) {
+                return res.status(404).json({ success: false, error: 'User not found' });
+            }
+
+            const userQuery = `
+            SELECT *
+            FROM sm_user
+            WHERE id = :id
+            LIMIT 1;
+        `;
+
+            const user = await sequelize.query(userQuery, {
+                replacements: { id: userId },
+                type: sequelize.QueryTypes.SELECT,
+            });
+
+            const fullImageUrl = user[0].image ? `${req.protocol}://${req.get('host')}/${user[0].image}` : null;
+            user.avatar = fullImageUrl;
+
+            return res.json({
+                success: true,
+                data: user[0],
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error });
+        }
+    }
+
+    // [GET] /search-user
     async searchUser(req, res) {
         try {
             const userQuery = `
-            SELECT id, email, name, is_active
-            FROM sm_user
-        `;
+                SELECT 
+                    u.id, 
+                    u.name, 
+                    u.email, 
+                    u.address,
+                    u.phone,
+                    u.is_active,
+                    u.gender,
+                    p.name AS position_name
+                FROM 
+                    sm_user u
+                JOIN 
+                    dc_position p
+                ON 
+                    u.position_id = p.id
+                WHERE 
+                    u.position_id = p.id;
+            `;
 
-        const userLst = await sequelize.query(userQuery, {
-            type: sequelize.QueryTypes.SELECT,
-        });
+            const userLst = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
 
-        return res.json({
-            success: true,
-            data: userLst
-        });
+            return res.json({
+                success: true,
+                data: userLst,
+            });
         } catch (error) {
-            return res.status(500).json({ success: false, error: 'Server error' });
+            return res.status(500).json({ success: false, error });
+        }
+    }
+
+    // [DELETE] /delete-user
+    async deleteUser(req, res) {
+        try {
+            const userId = req.params.id;
+            const deleteQuery = 'DELETE FROM sm_user WHERE id = :id RETURNING *';
+
+            const result = await sequelize.query(deleteQuery, {
+                type: sequelize.QueryTypes.DELETE,
+                replacements: { id: userId },
+            });
+
+            return res.json({
+                success: true,
+                data: result,
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error });
+        }
+    }
+
+    async updateUser(req, res) {
+        try {
+            await sequelize.query(insertQuery, {
+                replacements: {
+                    id,
+                    name,
+                    email,
+                    phone,
+                    position_id,
+                    role_id,
+                    gender,
+                    address,
+                    image,
+                },
+                type: sequelize.QueryTypes.INSERT,
+            });
+            const deleteQuery = 'UPDATE TABLE sm_user set WHERE id = :id RETURNING *';
+
+            const result = await sequelize.query(deleteQuery, {
+                type: sequelize.QueryTypes.DELETE,
+                replacements: { id: userId },
+            });
+
+            return res.json({
+                success: true,
+                data: result,
+            });
+        } catch (error) {
+            return res.status(500).json({ success: false, error });
         }
     }
 }

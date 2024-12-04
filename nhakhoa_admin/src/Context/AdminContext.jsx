@@ -31,7 +31,7 @@ function AdminContextProvider({ children }) {
 
     const GetUserInfo = async () => {
         try {
-            const response = await request.post('get-user',{},
+            const response = await request.get('get-user',{},
                 {
                     headers: {
                         authorization: storage.get(), 

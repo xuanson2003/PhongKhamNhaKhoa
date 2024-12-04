@@ -266,7 +266,7 @@ Preloader Area CSS
   position: absolute;
   width: 80px;
   height: 80px;
-  borderRadius: 50;
+  border-radius: 50%;
   display: inline-block;
   left: 0;
   right: 0;
@@ -285,7 +285,7 @@ Preloader Area CSS
   border-bottom: 0;
   width: 100%;
   height: 100%;
-  borderRadius: 50;
+  border-radius: 50%;
   -webkit-animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
           animation: loader-outter 1s cubic-bezier(0.42, 0.61, 0.58, 0.41) infinite;
 }
@@ -293,7 +293,7 @@ Preloader Area CSS
 .preloader .loader .loader-inner {
   position: absolute;
   border: 4px solid #ffffff;
-  borderRadius: 50;
+  border-radius: 50%;
   width: 60px;
   height: 60px;
   left: calc(40% - 21px);

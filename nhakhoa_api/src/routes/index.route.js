@@ -26,8 +26,10 @@ function route(app) {
     // login - signup - get-user
     app.post('/signup', AuthController.signup);
     app.post('/login', AuthController.login);
-    app.post('/get-user', fetchUser, AuthController.getUser);
+    app.get('/get-user', fetchUser, AuthController.getUser);
+    app.get('/get-detail-user-by-id/:id', AuthController.getDetailUser);
     app.get('/search-user', AuthController.searchUser);
+    app.delete('/delete-user/:id', AuthController.deleteUser);
 
     // position
     app.get('/get-list-position', PositionController.getPositionLst);
@@ -63,7 +65,8 @@ function route(app) {
     app.get('/get-top-6-doctor', DoctorController.getTop6Doctor);
     app.get('/get-doctor-by-id/:id', DoctorController.getDoctorById);
     app.post('/get-doctor-by-time/:id', DoctorController.getDoctorByTime);
-
+    app.get('/get-doctor-admin', DoctorController.getDoctorAdmin);
+    
     //conatct
     app.post('/add-contact', ContactController.addContact);
 

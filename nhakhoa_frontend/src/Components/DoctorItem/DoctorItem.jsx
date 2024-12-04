@@ -17,7 +17,7 @@ function NewsItem({data}) {
                             width: '100px',  // Ensure width and height are equal for circular shape
                             height: '100px',
                             objectFit: 'cover',
-                            borderRadius: 50,  // Make the image circular
+                            borderRadius: "50%",  // Make the image circular
                             display: 'block',  // Ensures the image behaves as a block element
                             margin: '0 auto'  // Centers the image horizontally
                         }}

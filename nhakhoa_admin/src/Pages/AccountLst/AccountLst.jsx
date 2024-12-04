@@ -1,121 +1,15 @@
-import React, { useState } from 'react';
-import { Breadcrumb, Table, Card, Button } from 'antd';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Breadcrumb, Table, Card, Button, Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faPencil } from '@fortawesome/free-solid-svg-icons';
 
 import AccountColumn from '~/Config/Table/AccountColumn';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
-
-const data = [
-    {
-        key: '1',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@phongkham.com',
-        phone: '090-123-4567',
-        gender: 'Nam',
-        position: 'Bác sĩ nha khoa',
-        is_active: true,
-    },
-    {
-        key: '2',
-        name: 'Lê Thị B',
-        email: 'lethib@phongkham.com',
-        phone: '090-987-6543',
-        gender: 'Nữ',
-        position: 'Y tá',
-        is_active: true,
-    },
-    {
-        key: '3',
-        name: 'Trần Quang C',
-        email: 'tranquangc@phongkham.com',
-        phone: '090-555-1234',
-        gender: 'Nam',
-        position: 'Phụ tá nha khoa',
-        is_active: true,
-    },
-    {
-        key: '4',
-        name: 'Phạm Thị D',
-        email: 'phamthid@phongkham.com',
-        phone: '090-444-5678',
-        gender: 'Nữ',
-        position: 'Nhân viên vệ sinh',
-        is_active: false,
-    },
-    {
-        key: '5',
-        name: 'Đỗ Văn E',
-        email: 'dovane@phongkham.com',
-        phone: '090-333-8765',
-        gender: 'Nam',
-        position: 'Lễ tân',
-        is_active: true,
-    },
-    {
-        key: '6',
-        name: 'Hoàng Thị F',
-        email: 'hoangthif@phongkham.com',
-        phone: '090-222-3456',
-        gender: 'Nữ',
-        position: 'Y tá',
-        is_active: true,
-    },
-    {
-        key: '7',
-        name: 'Vũ Văn G',
-        email: 'vuvang@phongkham.com',
-        phone: '090-111-6543',
-        gender: 'Nam',
-        position: 'Nhân viên vệ sinh',
-        is_active: true,
-    },
-    {
-        key: '8',
-        name: 'Nguyễn Thị H',
-        email: 'nguyenthih@phongkham.com',
-        phone: '090-999-1234',
-        gender: 'Nữ',
-        position: 'Bác sĩ nha khoa',
-        is_active: true,
-    },
-    {
-        key: '9',
-        name: 'Lê Văn I',
-        email: 'levani@phongkham.com',
-        phone: '090-888-4321',
-        gender: 'Nam',
-        position: 'Nhân viên vệ sinh',
-        is_active: false,
-    },
-    {
-        key: '10',
-        name: 'Phạm Thị J',
-        email: 'phamthij@phongkham.com',
-        phone: '090-777-8765',
-        gender: 'Nữ',
-        position: 'Phụ tá nha khoa',
-        is_active: true,
-    },
-    {
-        key: '11',
-        name: 'Trần Văn K',
-        email: 'tranvank@phongkham.com',
-        phone: '090-666-3456',
-        gender: 'Nam',
-        position: 'Lễ tân',
-        is_active: true,
-    },
-    {
-        key: '12',
-        name: 'Đỗ Thị L',
-        email: 'dothil@phongkham.com',
-        phone: '080-555-7890',
-        gender: 'Nữ',
-        position: 'Y tá',
-        is_active: true,
-    },
-];
+import Loading from '~/Components/Loading/Loading';
+import request from '~/Utils/httpRequest';
+import openNotification from '~/Components/Notification/Notification';
+import { Link } from 'react-router-dom';
+import config from '~/Config';
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {},
@@ -128,26 +22,63 @@ const rowSelection = {
 function AccountLst(props) {
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
-    const actions = [
-        {
-            onclick: () => {},
-            label: (
-                <p className="d-flex align-items-center mb-0 pe-2 ps-2">
-                    <FontAwesomeIcon className="text-primary me-2" icon={faPencil} />
-                    Sửa
-                </p>
-            ),
-        },
-        {
-            onclick: () => {},
-            label: (
-                <p className="d-flex align-items-center mb-0 pe-2 ps-2">
-                    <FontAwesomeIcon className="text-danger me-2" icon={faTrashCan} />
-                    Xóa
-                </p>
-            ),
-        },
-    ];
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const actions = useCallback(
+        (record) => [
+            {
+                onClick: () => {},
+                label: (
+                    <Link to={config.routes.user_edit.replace(":id", `${record.id}`)} className="d-flex align-items-center mb-0 pe-2 ps-2">
+                        <FontAwesomeIcon className="text-primary me-2" icon={faPencil} />
+                        Sửa
+                    </Link>
+                ),
+            },
+            {
+                onClick: () => {
+                    handleDelete(record);
+                },
+                label: (
+                    <p className="d-flex align-items-center mb-0 pe-2 ps-2">
+                        <FontAwesomeIcon className="text-danger me-2" icon={faTrashCan} />
+                        Xóa
+                    </p>
+                ),
+            },
+        ],
+        [],
+    );
+
+    const handleDelete = useCallback(async (record) => {
+        Modal.confirm({
+            title: <p>Xóa người dùng</p>,
+            icon: <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" className="mt-2 me-2 text-warning fs-5" />,
+            content: 'Hành động này không thẻ hoàn tác',
+            okText: 'Xóa',
+            okType: 'danger',
+            cancelText: 'Hủy',
+            onOk: async () => {
+                try {
+                    setIsLoading(true);
+                    const response = await request.delete(`delete-user/${record.id}`);
+                    if (response?.data?.success) {
+                        openNotification('top', 'Xóa thành công', `Xóa người dùng thành công`, 'success');
+                        fetchData();
+                    } else {
+                        openNotification('top', 'Xóa thất bại', 'Có lỗi xảy ra khi xóa chức vụ.', 'error');
+                    }
+                } catch (err) {
+                    console.error('Error fetching data:', err);
+                } finally {
+                    setIsLoading(false);
+                }
+            },
+            onCancel() {},
+        });
+    }, []);
+
     const columns = AccountColumn({
         searchedColumn,
         searchText,
@@ -156,6 +87,24 @@ function AccountLst(props) {
         actions,
         dropdownStyle: 'bottomRight',
     });
+
+    const fetchData = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            let res = await request.get('search-user');
+            if (res.data.success) {
+                setData(res.data.data);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -196,6 +145,7 @@ function AccountLst(props) {
                     columns={columns}
                 />
             </Card>
+            <Loading isLoading={isLoading} />
         </div>
     );
 }

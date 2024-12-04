@@ -2,7 +2,6 @@ const serviceForm = {
     name: 'serviceForm',
     layout: 'vertical',
     fields: [
-        
         {
             title: 'Tên dịch vụ',
             name: 'name',
@@ -89,7 +88,7 @@ const serviceForm = {
             }
         },
         {
-            title: 'Thêm',
+            title: 'Cập nhật',
             type: 'submit',
             className: '',
             style: '',

@@ -190,6 +190,28 @@ class DoctorController {
             return res.status(500).json({ success: false, error });
         }
     }
+
+
+    //get-doctor-admin
+    async getDoctorAdmin(req, res) {
+        try {
+            const userQuery = `
+                select id,name,is_active,gender from sm_user  where position_id='1'
+            `;
+
+            const users = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data:users
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
+    
 }
 
 module.exports = new DoctorController();

@@ -127,7 +127,7 @@ function DoctorDetail() {
                                                 style={{
                                                     width: '150px',
                                                     height: '150px',
-                                                    borderRadius: 50,
+                                                    borderRadius: "50%",
                                                     objectFit: 'cover',
                                                   
                                                 }}
