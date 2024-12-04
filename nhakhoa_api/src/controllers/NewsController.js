@@ -130,6 +130,7 @@ class NewsController {
             const newsQuery = `
                 select *
                 from dc_news ds 
+                order by created_at desc
             `;
 
             const news = await sequelize.query(newsQuery, {
@@ -217,6 +218,31 @@ class NewsController {
             return res.status(500).json({ success: false, error: 'Server error' });
         }
     }
+    //get-dashboard
+    async countRecords(req, res) {
+        try {
+            const tables = ['dc_booking', 'dc_service', 'dc_news'];
+            const counts = {};
+    
+            // Lặp qua từng bảng để đếm số lượng bản ghi
+            for (const table of tables) {
+                const query = `SELECT COUNT(*) AS count FROM ${table};`;
+                const [result] = await sequelize.query(query, {
+                    type: sequelize.QueryTypes.SELECT,
+                });
+                counts[table] = result.count;
+            }
+    
+            return res.json({
+                success: true,
+                data: counts,
+            });
+        } catch (error) {
+            console.error('Error counting records:', error);
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+    
 }
 
 module.exports = new NewsController();
