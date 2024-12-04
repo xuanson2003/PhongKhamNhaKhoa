@@ -27,7 +27,9 @@ function route(app) {
     app.post('/signup', AuthController.signup);
     app.post('/login', AuthController.login);
     app.get('/get-user', fetchUser, AuthController.getUser);
+    app.get('/get-detail-user-by-id/:id', AuthController.getDetailUser);
     app.get('/search-user', AuthController.searchUser);
+    app.delete('/delete-user/:id', AuthController.deleteUser);
 
     // position
     app.get('/get-list-position', PositionController.getPositionLst);

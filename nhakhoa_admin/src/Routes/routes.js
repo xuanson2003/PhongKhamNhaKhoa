@@ -11,6 +11,7 @@ import Register from '~/Pages/Register/Register';
 import ServiceLst from '~/Pages/ServiceLst/ServiceLst';
 import EditService from '~/Pages/EditService/EditService';
 import AddAccount from '~/Pages/AccountLst/AddAccount';
+import EditAccount from '~/Pages/AccountLst/EditAccount';
 
 const publicRoutes = [
     { path: config.routes.login, component: <Login />, layout: null, title: "đăng nhập" },
@@ -35,6 +36,7 @@ const privateRoutes = [
 
     { path: config.routes.user_list, component: <AccountLst />, title: "danh sách tài khoản" },
     { path: config.routes.user_add, component: <AddAccount />, title: "thêm mới tài khoản" },
+    { path: config.routes.user_edit, component: <EditAccount />, title: "chỉnh sửa tài khoản" },
 
     { path: config.routes.position_list, component: <PositionLst/>, title: "danh sách chức vụ" },
 
