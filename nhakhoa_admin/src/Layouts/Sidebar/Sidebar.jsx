@@ -7,6 +7,8 @@ import {
     faRankingStar,
     faUserDoctor,
     faUsers,
+    faClipboardList,
+    faNewspaper 
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import logo from '~/Assets/img/logo.png';
@@ -126,7 +128,7 @@ function Sidebar() {
                         </li>
                         <li className="nav-item">
                             <a data-bs-toggle="collapse" href="#news">
-                                <FontAwesomeIcon icon={faNotesMedical} />
+                                <FontAwesomeIcon icon={faNewspaper} />
                                 <p>Tin tức</p>
                                 <span className="caret"></span>
                             </a>
@@ -139,6 +141,22 @@ function Sidebar() {
                                     </li>
                                     <li className={getActiveClass(`${config.routes.news_list}`)}>
                                         <Link to={config.routes.news_list}>
+                                            <span className="sub-item">Danh sách</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li className="nav-item">
+                            <a data-bs-toggle="collapse" href="#register">
+                                <FontAwesomeIcon icon={faClipboardList} />
+                                <p>Danh sách đặt lịch</p>
+                                <span className="caret"></span>
+                            </a>
+                            <div className="collapse" id="register">
+                                <ul className="nav nav-collapse">
+                                    <li className={getActiveClass(`${config.routes.register_list}`)}>
+                                        <Link to={config.routes.register_list}>
                                             <span className="sub-item">Danh sách</span>
                                         </Link>
                                     </li>

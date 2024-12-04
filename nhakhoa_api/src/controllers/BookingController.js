@@ -6,7 +6,20 @@ class BookingController {
     // [GET] /get-list-booking
     async getBookingLst(req, res) {
         try {
-            const query = `select id, doctor_id, patient_name, created_at, status from dc_booking`;
+            const query = `SELECT 
+                    b.id, 
+                    b.doctor_id, 
+                    u.name AS doctor_name, 
+                    b.patient_name, 
+                    b.created_at, 
+                    b.status 
+                FROM 
+                    dc_booking b
+                LEFT JOIN 
+                    sm_user u ON b.doctor_id = u.id
+                ORDER BY 
+                    b.created_at DESC;
+            `;
 
             const positionLst = await sequelize.query(query, {
                 type: sequelize.QueryTypes.SELECT,
@@ -17,7 +30,7 @@ class BookingController {
                 data: positionLst,
             });
         } catch (error) {
-            return res.status(500).json({ success: false, error: 'Server error' });
+            return res.status(500).json({ success: false, error  });
         }
     }
 
@@ -45,21 +58,48 @@ class BookingController {
     async getBookingById(req, res) {
         try {
             const id = req.params.id;
-            const query = `select * from dc_booking where id = :id`;
-
-            const position = await sequelize.query(query, {
+            const query = `
+                SELECT 
+                    b.id,
+                    b.status,
+                    b.doctor_id,
+                    u.name AS doctor_name,
+                    b.patient_name,
+                    b.booking_date,
+                    b.booking_time,
+                    b.notes,
+                    b.created_at,
+                    b.updated_at,
+                    b.booking_email,
+                    b.booking_phone,
+                    b.clinic_id,
+                    c.name AS clinic_name,
+                    b.booking_sex
+                FROM 
+                    dc_booking b
+                LEFT JOIN 
+                    sm_user u ON b.doctor_id = u.id
+                LEFT JOIN 
+                    dc_clinic c ON b.clinic_id = c.id
+                WHERE 
+                    b.id = :id
+            `;
+    
+            const booking = await sequelize.query(query, {
                 replacements: { id },
                 type: sequelize.QueryTypes.SELECT,
             });
-
+    
             return res.json({
                 success: true,
-                data: position[0],
+                data: booking[0], // Nếu không tìm thấy, sẽ trả về `undefined`
             });
         } catch (error) {
+            console.error('Error in getBookingById:', error);
             return res.status(500).json({ success: false, error: 'Server error' });
         }
     }
+    
 
     // [POST] /insert-booking
     async insertBooking(req, res) {

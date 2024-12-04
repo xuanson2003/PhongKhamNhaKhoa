@@ -17,6 +17,7 @@ const routes = {
     contact_list: '/danh-sach-lien-he',
     news_list:'/danh-sach-tin-tuc',
     edit_service:'/danh-sach-dich-vu/cap-nhat-dich-vu/:id',
+    register_list:'/danh-sach-dat-lich'
 
 };
 
