@@ -122,15 +122,14 @@ export default function RegisterLst() {
                 onCancel={() => setOpenModal('0')}
                 width={700}
                 footer={[
-                   
                     <Button
                         key="confirm"
                         type="primary"
                         className='btn-info '
 
-                        onClick={() => handleStatusChange('Đã xác nhận')}
+                        onClick={() => handleStatusChange('Xác nhận')}
                     >
-                        Đã xác nhận
+                        Xác nhận
                     </Button>,
                     <Button
                         key="complete"

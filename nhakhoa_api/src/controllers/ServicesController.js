@@ -30,7 +30,7 @@ class ServicesController {
     async getServicesTop4(req, res) {
         try {
             const userQuery = `
-                SELECT name,avatar
+                SELECT name,avatar,id
                 FROM dc_service
                 ORDER BY id DESC
                 LIMIT 4
