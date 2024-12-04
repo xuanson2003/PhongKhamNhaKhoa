@@ -123,22 +123,15 @@ export default function RegisterLst() {
                 width={700}
                 footer={[
                    
-                    <Button
-                        key="confirm"
-                        type="danger"
-                        className='btn-warning '
-                        onClick={() => handleStatusChange('Chờ xác nhận')}
-                    >
-                        Chờ xác nhận
-                    </Button>,
+                    
                     <Button
                         key="confirm"
                         type="primary"
                         className='btn-info '
 
-                        onClick={() => handleStatusChange('Đã xác nhận')}
+                        onClick={() => handleStatusChange('Xác nhận')}
                     >
-                        Đã xác nhận
+                        Xác nhận
                     </Button>,
                     <Button
                         key="complete"
