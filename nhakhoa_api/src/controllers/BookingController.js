@@ -6,7 +6,10 @@ class BookingController {
     // [GET] /get-list-booking
     async getBookingLst(req, res) {
         try {
-            const query = `select id, doctor_id, patient_name, created_at, status from dc_booking`;
+            const query = `SELECT id, booking_time, patient_name, created_at, status 
+            FROM dc_booking 
+            ORDER BY created_at DESC;
+            `;
 
             const positionLst = await sequelize.query(query, {
                 type: sequelize.QueryTypes.SELECT,
