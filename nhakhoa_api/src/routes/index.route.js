@@ -65,7 +65,8 @@ function route(app) {
     app.get('/get-top-6-doctor', DoctorController.getTop6Doctor);
     app.get('/get-doctor-by-id/:id', DoctorController.getDoctorById);
     app.post('/get-doctor-by-time/:id', DoctorController.getDoctorByTime);
-
+    app.get('/get-doctor-admin', DoctorController.getDoctorAdmin);
+    
     //conatct
     app.post('/add-contact', ContactController.addContact);
 
