@@ -3,6 +3,7 @@ import './App.css';
 import { publicRoutes } from '~/Routes/routes';
 import Header from './Layouts/Header/Header';
 import Footer from './Layouts/Footer/Footer';
+import AIChat from '~/Components/AIChat/AIChat';
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                     })}
                 </Routes>
             </BrowserRouter>
+            <AIChat />
         </div>
     );
 }

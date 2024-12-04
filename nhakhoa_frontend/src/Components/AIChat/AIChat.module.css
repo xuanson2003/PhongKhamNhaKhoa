@@ -1,0 +1,99 @@
+/* AIChat.module.css */
+
+/* Định dạng cho chatbox */
+.buttonMess {
+    position: fixed;
+    bottom: 75px;
+    right: 12px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    outline: none !important;
+    border-radius: 50%;
+    background-color: #1a76d1;
+    color: #fff;
+    font-size: 32px;
+    z-index: 99;
+}
+
+.chatBox {
+    position: fixed;
+    bottom: 142px;
+    right: 12px;
+    width: 300px;
+    height: 400px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    z-index: 1000;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.chatBoxContent {
+    height: 320px;
+    overflow-y: auto;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+/* Định dạng tin nhắn của người dùng */
+.userMessage {
+    text-align: right;
+    margin: 5px 0;
+    background-color: #1a76d1;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    margin-left: auto;
+    width: fit-content;
+}
+
+/* Định dạng tin nhắn của AI */
+.assistantMessage {
+    text-align: left;
+    margin: 5px 0;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    width: fit-content;
+    margin-right: auto;
+}
+
+/* Định dạng cho input box và nút gửi */
+.inputBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.inputBox input {
+    width: 75%;
+    padding: 6px 10px !important;
+    outline: none;
+    border: none !important;
+    flex: 1;
+}
+
+.inputBox button {
+    padding: 10px 15px;
+    height: 100%;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.inputBox button:hover {
+    background-color: #0056b3;
+}
