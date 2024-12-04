@@ -7,6 +7,7 @@ function DoctorDetail() {
     const query = new URLSearchParams(useLocation().search);
     const doctorId = query.get("doctorId");
     const clinic = query.get("clinic");
+    const time = query.get("time");
     
     const [doctors, setDoctors] = useState([]);
     const [clinics, setClinics] = useState([]);
@@ -16,7 +17,7 @@ function DoctorDetail() {
         booking_phone: '',
         booking_sex: '',
         booking_date: '',
-        booking_time: '',
+        booking_time: '' || time,
         clinic_id: '' || clinic,
         doctor_id: '' || doctorId,
         notes: '',
@@ -236,18 +237,27 @@ function DoctorDetail() {
                                                     className="form-control"
                                                     style={{height:'50px'}}
                                                     name="booking_time"
-                                                    value={formData.booking_time}
+                                                    value={time||formData.booking_time}
                                                     onChange={handleChange}
                                                     required
                                                 >
                                                     <option value="">
                                                         Chọn thời gian
                                                     </option>
-                                                    <option value="7:00 - 8:00">
+                                                    <option value="07:00:00 - 08:00:00">
                                                         7:00 - 8:00
                                                     </option>
-                                                    <option value="8:00 - 9:00">
+                                                    <option value="08:00:00 - 09:00:00">
                                                         8:00 - 9:00
+                                                    </option>
+                                                    <option value="09:00:00 - 10:00:00">
+                                                        9:00 - 10:00
+                                                    </option>
+                                                    <option value="10:00:00 - 11:00:00">
+                                                        10:00 - 11:00
+                                                    </option>
+                                                    <option value="14:00:00 - 15:00:00">
+                                                        14:00 - 15:00
                                                     </option>
                                                 </select>
                                             </div>

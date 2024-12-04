@@ -5,6 +5,10 @@ import React from "react";
 import config from "~/Config";
 
 function DoctorTime({ data}) {
+    const handleBooking = () => {
+        window.location.href = `/dat-lich-kham?time=${encodeURIComponent(data.start_time)} - ${encodeURIComponent(data.end_time)}`;
+    };
+    
     return (
         
         <a
@@ -16,6 +20,7 @@ function DoctorTime({ data}) {
                 
             }}
             className=" w-100 mt-3 text-center"
+            onClick={handleBooking}
         >
            {data.start_time} - {data.end_time}
         </a>
