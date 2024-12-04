@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, forwardRef, memo, useRef } from 'react';
-import { Button, Form, Input, InputNumber, Select } from 'antd';
+import { Button, Checkbox, Form, Input, InputNumber, Select } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Option } from 'antd/es/mentions';
@@ -74,6 +74,7 @@ const ConfigForm = forwardRef(({ config, onFinish, style, className, formLayout 
                                 size={field.size}
                                 labelCol={field.labelCol}
                                 wrapperCol={field.wrapperCol}
+                                {...(field.type === 'checkbox' ? { valuePropName: 'checked' } : {})}  
                             >
                                 {field.type === 'password' ? (
                                     <Input.Password
@@ -107,8 +108,26 @@ const ConfigForm = forwardRef(({ config, onFinish, style, className, formLayout 
                                             form.setFieldsValue({ [name]: content });
                                         }}
                                     />
+                                ) : field.type === 'checkbox' ? (
+                                    <Checkbox
+                                        className={field.className}
+                                        style={field.style}
+                                        checked={form.getFieldValue(field.name) ? true : false}
+                                        onChange={(e) => {
+                                            form.setFieldsValue({ [field.name]: e.target.checked });
+                                        }}
+                                    >
+                                        {field.label}
+                                    </Checkbox>
                                 ) : (
-                                    <Input type={field.type} className={field.className} style={field.style} />
+                                    <Input
+                                        className={field.className}
+                                        style={field.style}
+                                        height={field.height}
+                                        onChange={(content, name) => {
+                                            form.setFieldsValue({ [name]: content });
+                                        }}
+                                    />
                                 )}
                             </Form.Item>
                         </div>

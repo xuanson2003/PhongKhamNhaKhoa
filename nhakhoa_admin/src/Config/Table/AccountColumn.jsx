@@ -15,6 +15,12 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
 
     return [
         {
+            title: '',
+            dataIndex: 'id',
+            key: '',
+            hidden: true
+        },
+        {
             title: 'Họ tên',
             dataIndex: 'name',
             key: 'name',
@@ -51,8 +57,8 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
         },
         {
             title: 'Chức vụ',
-            dataIndex: 'position',
-            key: 'position',
+            dataIndex: 'position_name',
+            key: 'position_name',
             width: '15%',
             ...getColumnSearchProps('position', 'Nhập chức vụ'),
             sorter: (a, b) => a.position.localeCompare(b.position),
@@ -64,11 +70,11 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
             width: '10%',
             filters: [
                 { text: 'Hoạt động', value: true },
-                { text: 'Chờ duyệt', value: false },
+                { text: 'Bị khóa', value: false },
             ],
             onFilter: (value, record) => record.is_active === value,
             render: (text, record) => {
-                const status = record.is_active ? 'Hoạt động' : 'Chờ duyệt';
+                const status = record.is_active ? 'Hoạt động' : 'Bị khóa';
                 const color = record.is_active ? 'green' : 'volcano';
                 return <Tag color={color}>{status}</Tag>;
             },
@@ -76,7 +82,7 @@ const AccountColumn = ({ searchedColumn, searchText, setSearchText, setSearchedC
         {
             title: '',
             key: 'action',
-            render: (_, record) => <TableAction actions={actions} dropdownStyle={dropdownStyle} />,
+            render: (_, record) => <TableAction actions={actions(record)} dropdownStyle={dropdownStyle} />,
         },
     ];
 };

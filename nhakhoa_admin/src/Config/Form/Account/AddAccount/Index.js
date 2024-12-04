@@ -115,6 +115,14 @@ const addAccount = {
                 },
             ],
             col: 6,
+        },
+        {
+            title: 'Kích hoạt',
+            name: 'is_active',
+            type: 'checkbox',
+            col: 6,
+            isChecked: true,
+            className: "text-start  w-auto fs-5"
         }
 
     ],
