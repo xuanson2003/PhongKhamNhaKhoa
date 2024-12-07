@@ -16,7 +16,7 @@
 .upload-circle {
     width: 150px;
     height: 150px;
-    border-radius: 50%;
+    borderRadius: "50%";
     border: 2px dashed #ddd;
     display: flex;
     align-items: center;

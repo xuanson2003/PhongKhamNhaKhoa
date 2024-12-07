@@ -72,7 +72,7 @@ function Dashbroad(props) {
                             <div className="row align-items-center">
                                 <div className="col-icon">
                                     <div className="icon-big text-center icon-success bubble-shadow-small">
-                                        <i className="fas fa-luggage-cart"></i>
+                                        <i className="fas fa-newspaper"></i>
                                     </div>
                                 </div>
                                 <div className="col col-stats ms-3 ms-sm-0">
@@ -91,7 +91,7 @@ function Dashbroad(props) {
                             <div className="row align-items-center">
                                 <div className="col-icon">
                                     <div className="icon-big text-center icon-secondary bubble-shadow-small">
-                                        <i className="far fa-check-circle"></i>
+                                        <i className="fas fa-notes-medical"></i>
                                     </div>
                                 </div>
                                 <div className="col col-stats ms-3 ms-sm-0">

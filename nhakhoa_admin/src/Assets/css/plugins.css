@@ -211,7 +211,7 @@
   background: -o-linear-gradient(top, #ffffff 0, #f7f7f7 100%);
   background: -ms-linear-gradient(top, #ffffff 0, #f7f7f7 100%);
   background: linear-gradient(to bottom, #ffffff 0, #f7f7f7 100%);
-  border-radius: 50%px;
+  borderRadius: "50%"px;
   box-shadow: 0 1px 4px 0 #9191ab !important; }
   .ui-slider-handle:focus {
     background: #ffffff;
@@ -221,7 +221,7 @@
     background: -o-linear-gradient(top, #ffffff 0, #f7f7f7 100%);
     background: -ms-linear-gradient(top, #ffffff 0, #f7f7f7 100%);
     background: linear-gradient(to bottom, #ffffff 0, #f7f7f7 100%);
-    border-radius: 50%px;
+    borderRadius: "50%"px;
     box-shadow: 0 1px 4px 0 #9191ab !important; }
 
 /*      jQuery Scrollbar     */
@@ -3514,11 +3514,11 @@ temporary rendered events).
     position: absolute;
     height: 10px;
     width: 10px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border-radius: 50%;
+    -webkit-borderRadius: "50%";
+    -moz-borderRadius: "50%";
+    -ms-borderRadius: "50%";
+    -o-borderRadius: "50%";
+    borderRadius: "50%";
     top: 0.7rem;
     left: 0.75rem; }
   .fc-event .fc-bg {
