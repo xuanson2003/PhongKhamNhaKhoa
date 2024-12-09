@@ -1,4 +1,4 @@
-const addAccount = {
+const add = {
     name: 'add-account',
     layout: 'horizontal',
     fields: [
@@ -138,7 +138,7 @@ const addAccount = {
             },
         },
         {
-            title: 'Cập nhật',
+            title: 'Thêm mới',
             type: 'submit',
             className: '',
             style: '',
@@ -150,4 +150,4 @@ const addAccount = {
     ],
 };
 
-export default addAccount;
+export default add;

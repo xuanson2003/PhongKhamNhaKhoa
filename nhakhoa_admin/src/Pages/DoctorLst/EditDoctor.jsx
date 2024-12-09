@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Breadcrumb, Button, Card } from 'antd';
 import React, { useEffect, useRef, useState } from 'react';
 
 import ConfigForm from '~/Components/ConfigForm/ConfigForm';
@@ -7,13 +7,18 @@ import Loading from '~/Components/Loading/Loading';
 import addAccount from '~/Config/Form/Account/AddAccount/Index';
 import request from '~/Utils/httpRequest';
 import openNotification from '../../Components/Notification/Notification';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import config from '~/Config';
 
-function EditDoctor(props) {
+function EditAccount(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [avatar, setAvatar] = useState('');
+    const refAvatar = useRef();
     const formRefEdit = useRef();
     const { id } = useParams();
+    const navigate = useNavigate()
 
     async function handleCropImage(file) {
         const formData = new FormData();
@@ -31,8 +36,8 @@ function EditDoctor(props) {
         try {
             const response = await request.get(`/get-detail-user-by-id/${id}`);
             if (response?.data?.success) {
-                console.log(response.data.data);
                 formRefEdit.current.setFormValues(response.data.data);
+                refAvatar.current.setUrlImage(response.data.data.avatar)
             } else {
                 openNotification('top', 'Lỗi', 'Lấy thông tin bác sĩ thất bại', 'error');
             }
@@ -45,18 +50,18 @@ function EditDoctor(props) {
         try {
             setIsLoading(true);
             const formData = formRefEdit.current.getFormData();
-            formData.image_url = avatar;
-            const responseUser = await request.post('signup', formData);
+            formData.image = avatar;
+            formData.id = id;
+            const responseUser = await request.patch('update-user', formData);
 
             if (!responseUser.data.success && responseUser.data.errorField === 'email') {
                 openNotification('top', 'Thất bại', 'Email này đã được đăng ký', 'error');
                 return;
             }
             if (responseUser.data.success) {
-                openNotification('top', 'Thành công', 'Thêm mới bác sĩ thành công', 'success');
-                formRefEdit.current.resetForm();
+                openNotification('top', 'Thành công', 'Cập nhật bác sĩ thành công', 'success');
             } else {
-                openNotification('top', 'Thất bại', 'Thêm mới bác sĩ thất bại', 'error');
+                openNotification('top', 'Thất bại', 'Cập nhật bác sĩ thất bại', 'error');
             }
         } catch (err) {
             console.log(err);
@@ -67,13 +72,41 @@ function EditDoctor(props) {
 
     return (
         <div>
+             <div className="d-flex">
+                <Breadcrumb
+                    items={[
+                        {
+                            href: '',
+                            title: <FontAwesomeIcon icon={faHouse} />,
+                        },
+                        {
+                            href: config.routes.user_list,
+                            title: 'Danh sách bác sĩ',
+                        },
+                        {
+                            title: 'Chỉnh sửa bác sĩ',
+                        },
+                    ]}
+                />
+                <div className="ms-auto">
+                    <Button
+                        type="primary"
+                        icon={<FontAwesomeIcon icon="fa-solid fa-arrow-left-long" />}
+                        size="media"
+                        style={{ width: 90 }}
+                        onClick= {() => navigate(-1)}
+                    >
+                        Quay lại
+                    </Button>
+                </div>
+            </div>
             <Card title={`Chỉnh sửa bác sĩ`} bordered={true} className="mt-3">
                 <div className="row">
                     <div className="col-md-10">
                         <ConfigForm config={addAccount} ref={formRefEdit} onFinish={handleEditAccount} />
                     </div>
                     <div className="col-md-2">
-                        <ImageCropper displayStyle="square" onImageCropped={handleCropImage} />
+                        <ImageCropper ref={refAvatar} displayStyle="square" onImageCropped={handleCropImage} />
                     </div>
                 </div>
             </Card>
@@ -82,4 +115,4 @@ function EditDoctor(props) {
     );
 }
 
-export default EditDoctor;
+export default EditAccount;

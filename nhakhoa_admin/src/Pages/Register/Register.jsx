@@ -26,15 +26,14 @@ function Register() {
     const formik = useFormik({
         initialValues: {
             email: '',
-            first_name: '',
-            last_name: '',
+            name: '',
             password: '',
             confirm_password: '',
             phone: '',
             address: '',
             position_id: '',
             gender: '',
-            profile_image: '',
+            profile_image: '', // profile_image is optional
         },
         validationSchema: Yup.object({
             email: Yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
@@ -50,13 +49,14 @@ function Register() {
             address: Yup.string().required('Vui lòng nhập địa chỉ'),
             gender: Yup.string().required('Vui lòng chọn giới tính'),
             position_id: Yup.string().required('Vui lòng chọn chức vụ'),
-            profile_image: Yup.string().required('Vui lòng chọn ảnh đại diện'),
+            profile_image: Yup.string(), // Make profile_image optional
         }),
         onSubmit: async (values, { setSubmitting, setErrors }) => {
             try {
-                // tiến hành upload ảnh
                 setIsSubmitting(true);
                 let responseFile;
+
+                // Check if a profile image exists before attempting to upload
                 if (values.profile_image) {
                     const formData = new FormData();
                     formData.append('file', values.profile_image);
@@ -68,11 +68,12 @@ function Register() {
                         return;
                     }
                 }
-                // tạo mới người dùng
+
+                // Create new user without requiring profile_image if it's not available
                 const { profile_image, ...restValues } = values;
                 const responseUser = await request.post('signup', {
                     ...restValues,
-                    image_url: responseFile?.data ? responseFile.data.image_url : '',
+                    image_url: responseFile?.data ? responseFile.data.image_url : '', // Use the image_url only if a file was uploaded
                 });
 
                 if (!responseUser.data.success && responseUser.data.errorField === 'email') {
@@ -82,7 +83,7 @@ function Register() {
                 }
 
                 if (responseFile?.data) {
-                    // cập nhập ref_id ảnh
+                    // Update file reference if image was uploaded
                     const responseUpdalteFile = await request.patch('update-file', {
                         file_id: responseFile.data.file_id,
                         user_id: responseUser.data.userId,
@@ -96,6 +97,15 @@ function Register() {
                             'success',
                         );
                     }
+                } else {
+                    // If no image was uploaded, show success without updating the file reference
+                    setIsSubmitting(false);
+                    openNotification(
+                        'topRight',
+                        'Thành công',
+                        'Đăng ký thành công, vui lòng chờ đến khi tài khoản được duyệt',
+                        'success',
+                    );
                 }
             } catch (error) {
                 setIsSubmitting(false);
@@ -141,7 +151,7 @@ function Register() {
                                         formik.values.profile_image = image;
                                         setProfileImage(image);
                                     }}
-                                    isError={!profileImage && formik.touched.profile_image}
+                                    
                                 />
                                 {!profileImage && formik.touched.profile_image ? (
                                     <p className={cn(styles['login-form-field-error'], 'text-center')}>
@@ -171,7 +181,7 @@ function Register() {
                                 <input
                                     className={formik.touched.name && formik.errors.name ? styles.error : ''}
                                     type="text"
-                                name="name"
+                                    name="name"
                                     placeholder="Nhập họ tên"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -186,9 +196,7 @@ function Register() {
                             <div className={styles['login-form-field']}>
                                 <div className={styles['login-form-field-group']}>
                                     <input
-                                        className={
-                                            formik.touched.password && formik.errors.password ? styles.error : ''
-                                        }
+                                        className={formik.touched.password && formik.errors.password ? styles.error : ''}
                                         name="password"
                                         type={passwordVisible ? 'text' : 'password'}
                                         placeholder="Mật khẩu"
@@ -219,11 +227,7 @@ function Register() {
                             <div className={styles['login-form-field']}>
                                 <div className={styles['login-form-field-group']}>
                                     <input
-                                        className={
-                                            formik.touched.confirm_password && formik.errors.confirm_password
-                                                ? styles.error
-                                                : ''
-                                        }
+                                        className={formik.touched.confirm_password && formik.errors.confirm_password ? styles.error : ''}
                                         name="confirm_password"
                                         type={passwordVisible ? 'text' : 'password'}
                                         placeholder="Nhập lại mật khẩu"
@@ -257,9 +261,7 @@ function Register() {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.position_id}
-                                    className={
-                                        formik.touched.position_id && formik.errors.position_id ? styles.error : ''
-                                    }
+                                    className={formik.touched.position_id && formik.errors.position_id ? styles.error : ''}
                                 >
                                     <option value="">Chọn chức vụ</option>
                                     <option value="1">Bác sĩ</option>
@@ -338,22 +340,27 @@ function Register() {
                     </div>
                     <div className="row w-100">
                         {isSubmitting ? (
-                            <Button type="primary" loading className={styles['login-form-button']}>
-                                Đăng ký
+                            <Button type="primary" loading block>
+                                Đang đăng ký...
                             </Button>
                         ) : (
                             <Button
-                                htmlType="submit"
                                 type="primary"
-                                disabled={formik.isSubmitting}
-                                className={styles['login-form-button']}
+                                htmlType="submit"
+                                className="w-100"
+                                disabled={isSubmitting}
                             >
                                 Đăng ký
                             </Button>
                         )}
                     </div>
-                    <div className={styles['login-form-register-link']}>
-                        Bạn đã có tài khoản? <Link to={config.routes.login}>Đăng nhập</Link>
+                    <div className="row w-100 mt-2">
+                        <span className="text-muted">
+                            Đã có tài khoản?{' '}
+                            <Link to="/login" className="ml-1">
+                                Đăng nhập
+                            </Link>
+                        </span>
                     </div>
                 </form>
             </div>

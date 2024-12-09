@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import ConfigForm from '~/Components/ConfigForm/ConfigForm';
 import ImageCropper from '~/Components/ImageCropper/ImageCropper';
 import Loading from '~/Components/Loading/Loading';
-import addAccount from '~/Config/Form/Account/AddAccount/Index';
+import add from '~/Config/Form/Account/AddAccount/add';
 import request from '~/Utils/httpRequest';
 import openNotification from '../../Components/Notification/Notification';
 
@@ -50,7 +50,7 @@ function AddDoctor(props) {
             <Card title={`Thêm mới bác sĩ`} bordered={true} className="mt-3">
                 <div className="row">
                     <div className="col-md-10">
-                        <ConfigForm config={addAccount} ref={formRefAdd} onFinish={handleAddAccount} />
+                        <ConfigForm config={add} ref={formRefAdd} onFinish={handleAddAccount} />
                     </div>
                     <div className="col-md-2">
                         <ImageCropper displayStyle="square" onImageCropped={handleCropImage} />

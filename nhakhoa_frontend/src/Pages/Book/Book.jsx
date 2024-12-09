@@ -150,7 +150,7 @@ function DoctorDetail() {
                                                     placeholder="Họ Tên"
                                                     value={formData.patient_name}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -162,7 +162,7 @@ function DoctorDetail() {
                                                     placeholder="Email"
                                                     value={formData.booking_email}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -174,7 +174,7 @@ function DoctorDetail() {
                                                     name="booking_sex"
                                                     value={formData.booking_sex}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 >
                                                     <option value="">
                                                         Giới tính
@@ -192,7 +192,7 @@ function DoctorDetail() {
                                                     placeholder="Số Điện Thoại"
                                                     value={formData.booking_phone}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -203,7 +203,7 @@ function DoctorDetail() {
                                                     name="booking_date"
                                                     value={formData.booking_date}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 />
                                             </div>
                                         </div>
@@ -215,7 +215,7 @@ function DoctorDetail() {
                                                     name="clinic_id"
                                                     value={clinic || formData.clinic_id}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 >
                                                     <option value="">
                                                         Địa chỉ khám
@@ -239,7 +239,7 @@ function DoctorDetail() {
                                                     name="booking_time"
                                                     value={time||formData.booking_time}
                                                     onChange={handleChange}
-                                                    required
+                                                    
                                                 >
                                                     <option value="">
                                                         Chọn thời gian
@@ -270,7 +270,7 @@ function DoctorDetail() {
         name="doctor_id"
         value={doctorId || formData.doctor_id} 
         onChange={handleChange}
-        required
+        
       >
         <option value="">
           Chọn bác sĩ
@@ -295,7 +295,7 @@ function DoctorDetail() {
                                         </div>
                                         <div className="col-12 mt-4">
                                             <div className="form-group login-btn">
-                                                <button className="btn" type="submit">
+                                                <button id="btn-dat-lich-kham" className="btn" type="submit">
                                                     Gửi
                                                 </button>
                                             </div>
