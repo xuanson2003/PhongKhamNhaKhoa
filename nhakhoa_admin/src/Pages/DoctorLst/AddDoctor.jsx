@@ -8,7 +8,7 @@ import addAccount from '~/Config/Form/Account/AddAccount/Index';
 import request from '~/Utils/httpRequest';
 import openNotification from '../../Components/Notification/Notification';
 
-function AddAccount(props) {
+function AddDoctor(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [avatar, setAvatar] = useState('');
     const formRefAdd = useRef();
@@ -33,10 +33,10 @@ function AddAccount(props) {
                 return;
             }
             if (responseUser.data.success) {
-                openNotification('top', 'Thành công', 'Thêm mới người dùng thành công', 'success');
+                openNotification('top', 'Thành công', 'Thêm mới bác sĩ thành công', 'success');
                 formRefAdd.current.resetForm();
             } else {
-                openNotification('top', 'Thất bại', 'Thêm mới người dùng thất bại', 'error');
+                openNotification('top', 'Thất bại', 'Thêm mới bác sĩ thất bại', 'error');
             }
         } catch (err) {
             console.log(err);
@@ -47,7 +47,7 @@ function AddAccount(props) {
 
     return (
         <div>
-            <Card title={`Thêm mới tài khoản`} bordered={true} className="mt-3">
+            <Card title={`Thêm mới bác sĩ`} bordered={true} className="mt-3">
                 <div className="row">
                     <div className="col-md-10">
                         <ConfigForm config={addAccount} ref={formRefAdd} onFinish={handleAddAccount} />
@@ -62,4 +62,4 @@ function AddAccount(props) {
     );
 }
 
-export default AddAccount;
+export default AddDoctor;

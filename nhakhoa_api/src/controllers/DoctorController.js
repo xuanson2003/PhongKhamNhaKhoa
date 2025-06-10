@@ -30,7 +30,27 @@ class DoctorController {
      async getTop4Doctor(req, res) {
         try {
             const userQuery = `
-                SELECT image FROM sm_user ORDER BY created_at DESC LIMIT 4;
+                SELECT image,name FROM sm_user ORDER BY created_at DESC LIMIT 4;
+            `;
+
+            const news = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data:news
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
+
+     // [GET] /get-top-6-doctor
+     async getTop6Doctor(req, res) {
+        try {
+            const userQuery = `
+                SELECT image,name FROM sm_user ORDER BY created_at DESC LIMIT 6;
             `;
 
             const news = await sequelize.query(userQuery, {
@@ -170,6 +190,28 @@ class DoctorController {
             return res.status(500).json({ success: false, error });
         }
     }
+
+
+    //get-doctor-admin
+    async getDoctorAdmin(req, res) {
+        try {
+            const userQuery = `
+                select id,name,is_active,gender from sm_user  where position_id='1' order by created_at desc
+            `;
+
+            const users = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data:users
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
+    
 }
 
 module.exports = new DoctorController();

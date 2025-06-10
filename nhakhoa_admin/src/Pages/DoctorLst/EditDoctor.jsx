@@ -1,5 +1,5 @@
 import { Card } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import ConfigForm from '~/Components/ConfigForm/ConfigForm';
 import ImageCropper from '~/Components/ImageCropper/ImageCropper';
@@ -7,11 +7,13 @@ import Loading from '~/Components/Loading/Loading';
 import addAccount from '~/Config/Form/Account/AddAccount/Index';
 import request from '~/Utils/httpRequest';
 import openNotification from '../../Components/Notification/Notification';
+import { useParams } from 'react-router-dom';
 
-function AddAccount(props) {
+function EditDoctor(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [avatar, setAvatar] = useState('');
-    const formRefAdd = useRef();
+    const formRefEdit = useRef();
+    const { id } = useParams();
 
     async function handleCropImage(file) {
         const formData = new FormData();
@@ -21,10 +23,28 @@ function AddAccount(props) {
         setAvatar(resAvatar?.data ? resAvatar.data.image_url : '');
     }
 
-    async function handleAddAccount() {
+    useEffect(() => {
+        getDetailUser();
+    }, []);
+
+    async function getDetailUser() {
+        try {
+            const response = await request.get(`/get-detail-user-by-id/${id}`);
+            if (response?.data?.success) {
+                console.log(response.data.data);
+                formRefEdit.current.setFormValues(response.data.data);
+            } else {
+                openNotification('top', 'Lỗi', 'Lấy thông tin bác sĩ thất bại', 'error');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function handleEditAccount() {
         try {
             setIsLoading(true);
-            const formData = formRefAdd.current.getFormData();
+            const formData = formRefEdit.current.getFormData();
             formData.image_url = avatar;
             const responseUser = await request.post('signup', formData);
 
@@ -33,10 +53,10 @@ function AddAccount(props) {
                 return;
             }
             if (responseUser.data.success) {
-                openNotification('top', 'Thành công', 'Thêm mới người dùng thành công', 'success');
-                formRefAdd.current.resetForm();
+                openNotification('top', 'Thành công', 'Thêm mới bác sĩ thành công', 'success');
+                formRefEdit.current.resetForm();
             } else {
-                openNotification('top', 'Thất bại', 'Thêm mới người dùng thất bại', 'error');
+                openNotification('top', 'Thất bại', 'Thêm mới bác sĩ thất bại', 'error');
             }
         } catch (err) {
             console.log(err);
@@ -47,10 +67,10 @@ function AddAccount(props) {
 
     return (
         <div>
-            <Card title={`Thêm mới tài khoản`} bordered={true} className="mt-3">
+            <Card title={`Chỉnh sửa bác sĩ`} bordered={true} className="mt-3">
                 <div className="row">
                     <div className="col-md-10">
-                        <ConfigForm config={addAccount} ref={formRefAdd} onFinish={handleAddAccount} />
+                        <ConfigForm config={addAccount} ref={formRefEdit} onFinish={handleEditAccount} />
                     </div>
                     <div className="col-md-2">
                         <ImageCropper displayStyle="square" onImageCropped={handleCropImage} />
@@ -62,4 +82,4 @@ function AddAccount(props) {
     );
 }
 
-export default AddAccount;
+export default EditDoctor;

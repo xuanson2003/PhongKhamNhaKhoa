@@ -47,6 +47,26 @@ class NewsController {
         }
     } 
 
+    
+    async getTop6News(req, res) {
+        try {
+            const userQuery = `
+                SELECT * FROM dc_news ORDER BY view DESC LIMIT 6;
+            `;
+
+            const news = await sequelize.query(userQuery, {
+                type: sequelize.QueryTypes.SELECT,
+            });
+    
+            return res.json({
+                success: true,
+                data:news
+            });
+        } catch (error) {
+            return res.status(500).json({success: false, error: 'Server error' });
+        }
+    } 
+
     // [GET] /get-top-3-news
     async getTop3News(req, res) {
         try {
@@ -103,108 +123,6 @@ class NewsController {
         }
     }
     
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //CRUD- Admin
     //[GET] get-all-services-admin
     async getNewsAdmin(req, res) {
@@ -212,6 +130,7 @@ class NewsController {
             const newsQuery = `
                 select *
                 from dc_news ds 
+                order by created_at desc
             `;
 
             const news = await sequelize.query(newsQuery, {
@@ -299,6 +218,31 @@ class NewsController {
             return res.status(500).json({ success: false, error: 'Server error' });
         }
     }
+    //get-dashboard
+    async countRecords(req, res) {
+        try {
+            const tables = ['dc_booking', 'dc_service', 'dc_news'];
+            const counts = {};
+    
+            // Lặp qua từng bảng để đếm số lượng bản ghi
+            for (const table of tables) {
+                const query = `SELECT COUNT(*) AS count FROM ${table};`;
+                const [result] = await sequelize.query(query, {
+                    type: sequelize.QueryTypes.SELECT,
+                });
+                counts[table] = result.count;
+            }
+    
+            return res.json({
+                success: true,
+                data: counts,
+            });
+        } catch (error) {
+            console.error('Error counting records:', error);
+            return res.status(500).json({ success: false, error: 'Server error' });
+        }
+    }
+    
 }
 
 module.exports = new NewsController();

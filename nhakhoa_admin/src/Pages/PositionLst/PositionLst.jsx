@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState, memo } from 'react';
-import { Breadcrumb, Table, Card, Button, Alert, notification, Modal } from 'antd';
+import { Breadcrumb, Table, Card, Button, notification, Modal } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faPencil, faPlus } from '@fortawesome/free-solid-svg-icons';
 
@@ -25,7 +25,7 @@ const PositionLst = () => {
     const fetchData = useCallback(async () => {
         setIsLoading(true);
         try {
-            let res = await request.get('/get-list-position');
+            let res = await request.get('get-list-position');
             if (res.data.success) {
                 setData(res.data.data);
             }
@@ -108,7 +108,7 @@ const PositionLst = () => {
             onOk: async () => {
                 let response;
                 try {
-                    response = await request.delete(`/delete-position/${record.id}`);
+                    response = await request.delete(`delete-position/${record.id}`);
                 } catch (err) {
                     console.error('Error fetching data:', err);
                 } finally {

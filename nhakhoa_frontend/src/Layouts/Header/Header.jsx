@@ -1,11 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '~/Assets/img/logo.png';
 import config from '~/Config';
 
 function Header() {
     let [activeMenu, setActiveMenu] = useState(config.routes.home_1);
+    const [services, setServices] = useState([]); // State to store service data
 
+    useEffect(() => {
+        // Fetching services data from the API
+        const fetchServices = async () => {
+            const response = await fetch('http://localhost:4000/get-all-services-top');
+            const data = await response.json();
+            if (data.success) {
+                setServices(data.data); // Save the data to state
+            }
+        };
+
+        fetchServices();
+    }, []);
+    const [news, setNews] = useState([]); // Dữ liệu tin tức từ API
+
+    useEffect(() => {
+        // Lấy dữ liệu tin tức từ API
+        const fetchNews = async () => {
+            const response = await fetch('http://localhost:4000/get-top-3-news');
+            const data = await response.json();
+            if (data.success) {
+                setNews(data.data); // Lưu dữ liệu vào state
+            }
+        };
+
+        fetchNews();
+    }, []);
     return (
         <header className="header">
             {/* Header Inner */}
@@ -44,49 +71,59 @@ function Header() {
                                                 </Link>
                                             </li>
                                             <li className={activeMenu === config.routes.doctor_list ? 'active' : ''}>
-                                                <Link to={config.routes.doctor_list} onClick={() => {
+                                                <Link
+                                                    to={config.routes.doctor_list}
+                                                    onClick={() => {
                                                         setActiveMenu(config.routes.doctor_list);
-                                                    }}>Bác sĩ</Link>
+                                                    }}
+                                                >
+                                                    Bác sĩ
+                                                </Link>
                                             </li>
                                             <li className={activeMenu === config.routes.services ? 'active' : ''}>
-                                                <Link to={config.routes.services} onClick={() => {
+                                                <Link
+                                                    to={config.routes.services}
+                                                    onClick={() => {
                                                         setActiveMenu(config.routes.services);
-                                                    }}>
+                                                    }}
+                                                >
                                                     Dịch vụ <i className="icofont-rounded-down"></i>
                                                 </Link>
                                                 <ul className="dropdown">
-                                                    <li>
-                                                        <Link to="404.html">Chỉnh nha mắc cài truyền thống</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="404.html">Nha khoa thẩm mĩ</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="404.html">Nhổ răng không</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="404.html">Nha khỏa trẻ em</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link to="404.html">Răng giả tháo lắp</Link>
-                                                    </li>
+                                                    {/* Render service items from API */}
+                                                    {services.map((service, index) => (
+                                                        <li key={index}>
+                                                            <Link to={config.routes.service_detail.replace(':id', service.id)}>{service.name}</Link>
+                                                        </li>
+                                                    ))}
                                                 </ul>
                                             </li>
                                             <li className={activeMenu === config.routes.price ? 'active' : ''}>
-                                                <Link to={config.routes.price} onClick={() => {
+                                                <Link
+                                                    to={config.routes.price}
+                                                    onClick={() => {
                                                         setActiveMenu(config.routes.price);
-                                                    }}>Bảng giá</Link>
+                                                    }}
+                                                >
+                                                    Bảng giá
+                                                </Link>
                                             </li>
                                             <li className={activeMenu === config.routes.price ? 'active' : ''}>
-                                                <Link to={config.routes.news} onClick={() => {
+                                                <Link
+                                                    to={config.routes.news}
+                                                    onClick={() => {
                                                         setActiveMenu(config.routes.news);
-                                                    }} >
+                                                    }}
+                                                >
                                                     Tin tức <i className="icofont-rounded-down"></i>
                                                 </Link>
                                                 <ul className="dropdown">
-                                                    <li>
-                                                        <Link to="blog-single.html">Tin tức 1</Link>
-                                                    </li>
+                                                    {/* Render news items from API */}
+                                                    {news.map((item) => (
+                                                        <li key={item.id}>
+                                                            <Link to={`/chi-tiet-tin-tuc/${item.id}`} >{item.name}</Link>
+                                                        </li>
+                                                    ))}
                                                 </ul>
                                             </li>
                                             <li className={activeMenu === config.routes.contact ? 'active' : ''}>
@@ -105,9 +142,13 @@ function Header() {
                             </div>
                             <div className="col-lg-2 col-12">
                                 <div className="get-quote">
-                                    <Link to={config.routes.book}
-                                                    onClick={() => {
-                                                        setActiveMenu(config.routes.book)}} className="btn">
+                                    <Link
+                                        to={config.routes.book}
+                                        onClick={() => {
+                                            setActiveMenu(config.routes.book);
+                                        }}
+                                        className="btn"
+                                    >
                                         Đặt lịch khám
                                     </Link>
                                 </div>
